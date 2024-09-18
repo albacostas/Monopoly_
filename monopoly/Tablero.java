@@ -138,7 +138,7 @@ public class Tablero {
         StringBuilder sb = new StringBuilder();
         sb.append("Tablero:\n");
         sb.append("Banca: ").append(banca.toString()).append("\n");
-        sb.append("Grupos:\n");
+        sb.append("Grupos:\n")≥;
         for (String key : grupos.keySet()) {
             sb.append("  ").append(key).append(": ").append(grupos.get(key).toString()).append("\n");
         }
@@ -152,6 +152,8 @@ public class Tablero {
         return sb.toString();
         */
     }
+
+    
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){
