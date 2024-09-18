@@ -20,7 +20,6 @@ public class Menu {
 
 
     // Métodos Getter y Setter para cada atributo
-
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
@@ -77,7 +76,6 @@ public class Menu {
     public void setBanca(Jugador banca) {
         this.banca = banca;
     }
-
 
     public boolean isTirado() {
     return tirado;
