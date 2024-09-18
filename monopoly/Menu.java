@@ -139,17 +139,33 @@ public class Menu {
         }
             // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
+        int consecutivos = 0;
 
+        while(consecutivos < 3){
+            int valorDado1 = dado1.hacerTirada();
+            int valorDado2 = dado2.hacerTirada();
+            int sumaDados = valorDado1 + valorDado2;
 
-        int valorDado1 = dado1.hacerTirada();
-        int valorDado2 = dado2.hacerTirada();
-        int sumaDados = valorDado1 + valorDado2;
-
+            System.out.println("El jugador: " + jActual.getNombre());
+            System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
     
+            if(valorDado1 == valorDado2){
+                consecutivos++;
+                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
 
-        System.out.println("El jugador: " + jActual.getNombre());
-        System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
+                if(consecutivos == 3){
+                    System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
 
+                    //la funciones que envia al jugador a la carcel
+                    break;
+                }
+            }else {
+                System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
+                break;
+            }
+        }
+
+        tirado = true;
     }
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
