@@ -86,6 +86,7 @@ public class Jugador {
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+
     }
 
     //Otros métodos:
@@ -95,6 +96,10 @@ public class Jugador {
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
     public void eliminarPropiedad(Casilla casilla) {
+        if (casilla.getPropiedades() != null){
+            casilla.setPropiedades(null);
+            System.out.println("La propiedad da sido eliminada\n");
+        }else System.err.println("La propiedad no tiene dueño.");
     }
 
     //Método para añadir fortuna a un jugador

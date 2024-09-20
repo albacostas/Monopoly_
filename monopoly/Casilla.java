@@ -107,4 +107,14 @@ public class Casilla {
     public String casEnVenta() {
     }
 
+    public Object getPropiedades() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPropiedades'");
+    }
+
+    public void setPropiedades(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
+    }
+
 }

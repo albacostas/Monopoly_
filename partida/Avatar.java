@@ -41,8 +41,13 @@ public class Avatar {
     public void setLugar(Casilla lugar) {
         this.lugar = lugar;
     }
+    
+    
     //Constructor vacío
     public Avatar() {
+        this.id = "";
+        this.tipo = "";
+        this.jugador = 
     }
 
     /*Constructor principal. Requiere éstos parámetros:

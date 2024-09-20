@@ -59,7 +59,6 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> ladoSur = new ArrayList<>();
 
-        
         ladoSur.add(new Casilla("Salida", "Especial", 1, banca));
         ladoSur.add(new Casilla("Solar1", "Solar", 2, 600000, banca));  // Posición 2: Solar
         ladoSur.add(new Casilla("Caja", "Comunidad", 3, banca));             // Posición 3: Comunidad
