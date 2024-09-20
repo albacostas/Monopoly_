@@ -20,9 +20,8 @@ public class Casilla {
     //Constructores:
     public Casilla() {
 
-        /* 
         this.nome = "Sin nombre";
-        this.tipo = "Sin tipo"
+        this.tipo = "Sin tipo";
         this.valor = 0.0f;
         this.posicion = 0;
         this.duenho = null;
@@ -30,7 +29,7 @@ public class Casilla {
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
         this.avatares = new ArrayList<>();
-        */
+        
 
     }//Parámetros vacíos
 
@@ -39,24 +38,23 @@ public class Casilla {
      */
     public Casilla(String nombre, String tipo, int posicion, float valor, Jugador duenho) {
 
-        /* 
         this.nome = nombre;
         this.tipo = tipo;
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        */
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
     * Parámetros: nombre, posición en el tablero, impuesto establecido y dueño.
      */
     public Casilla(String nombre, int posicion, float impuesto, Jugador duenho) {
+
         this.nome = nombre;
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
-
+        //this.tipo = "Impuestos";
     }
 
     /*Constructor utilizado para crear las otras casillas (Suerte, Caja de comunidad y Especiales):
