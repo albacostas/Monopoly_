@@ -30,6 +30,7 @@ class Grupo {
         this.numCasillas = 2;
     }
 
+    
     /*Constructor para cuando el grupo está formado por TRES CASILLAS:
     * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
