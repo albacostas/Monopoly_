@@ -120,7 +120,6 @@ public class Casilla {
         }
 
         return info.toString().trim();
-
     }
 
     /* Método para mostrar información de una casilla en venta.
@@ -128,11 +127,19 @@ public class Casilla {
      */
     public String casEnVenta() {
 
+        // Verificamos que la casilla está en venta.
+        boolean enVenta = (duenho == null || duenho.getNombre().equalsIgnoreCase("Banca"));
+        if(!enVenta){
+            return "Está casilla no está en venta";
+        }
+        // Concatenamos cadenas de texto
         StringBuilder info = new StringBuilder(" La casilla en venta: ");
         
-        info.append(nome != null ? nome : "no tiene dueño");
-        info.append()
-
+        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");
+        info.append(", Tipo: ").append(tipo != null ? tipo : " desconocido");
+        info.append(", Valor: ").append(valor != 0 ? valor : "0");
+        info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
+        return info.toString().trim();
     }
 
     public Object getPropiedades() {
