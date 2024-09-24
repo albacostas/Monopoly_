@@ -94,7 +94,13 @@ public class Jugador {
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
 
-        
+        this.nombre = nombre;
+        for (Avatar av : avCreados){
+            if(av.getTipo().equals(tipoAvatar)){
+                this.avatar = av;
+                break;
+            }
+        }
 
     }
 

@@ -43,6 +43,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
+        this.avatares = new ArrayList();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -65,6 +66,7 @@ public class Casilla {
 
     //Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
+        this.avatares.add(av);
     }
 
     //Método utilizado para eliminar un avatar del array de avatares en casilla.
@@ -97,12 +99,40 @@ public class Casilla {
     /*Método para mostrar información sobre una casilla.
     * Devuelve una cadena con información específica de cada tipo de casilla.*/
     public String infoCasilla() {
+
+        StringBuilder info = new StringBuilder("Casilla: ");
+
+        info.append(nome != null ? nome : "no tiene dueño");
+        info.append(", tipo: ");
+        info.append(tipo != null ? tipo : "se desconoce el tipo");
+        info.append(", valor: ");
+        info.append(valor != 0 ? valor : "0");
+        info.append(" , dueño: ");
+        info.append(duenho != null ? duenho.getNombre() : " la Banca");
+        info.append(" , avatares: ");
+        
+        if(avatares != null && !avatares.isEmpty()){
+            for (Avatar avatar : avatares){
+                if(avatar != null && avatar.getId() != null){
+                    info.append(avatar.getId()).append(" ");
+                }
+            }
+        }
+
+        return info.toString().trim();
+
     }
 
     /* Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.
      */
     public String casEnVenta() {
+
+        StringBuilder info = new StringBuilder(" La casilla en venta: ");
+        
+        info.append(nome != null ? nome : "no tiene dueño");
+        info.append()
+
     }
 
     public Object getPropiedades() {
