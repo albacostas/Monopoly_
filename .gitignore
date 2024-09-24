@@ -26,3 +26,5 @@ replay_pid*
 # others
 ignore/*
 .idea
+.DS_Store
+*.iml
