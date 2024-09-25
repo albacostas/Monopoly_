@@ -1,11 +1,11 @@
 - Casilla:
-  Construsctor casilla.
+  HECHO Construsctor casilla.
   evaluarCasilla
   comprarCasilla
   sumarValor
 - Grupo:
   anhadirCasilla
-  *DuenhoGrupo
+  DuenhoGrupo
 
 - Menu:
   iniciarPartida
