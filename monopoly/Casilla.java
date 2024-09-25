@@ -152,6 +152,13 @@ public class Casilla {
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 
+<<<<<<< HEAD
+=======
+    //Comentario de prueba Ainhoa
+
+
+    // comentario alba
+>>>>>>> a6e8c8d9e8aee870cb6c8865ec86c16f104a23f4
 }
 
  
