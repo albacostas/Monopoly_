@@ -27,7 +27,7 @@
   moverAvatar
 
 - Jugador:
-  anhadirPropiedad
+  anhadirPropiedad (hecho, Alba)
   sumarFortuna
   sumarGastos
   encarcelar
