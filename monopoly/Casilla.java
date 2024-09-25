@@ -117,5 +117,7 @@ public class Casilla {
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 
+    //COmentario prueba
+
 }
-//COMENTARIO
+//COMENTARIOgit 
