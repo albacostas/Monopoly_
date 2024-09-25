@@ -28,8 +28,8 @@
 
 - Jugador:
   anhadirPropiedad (hecho, Alba)
-  sumarFortuna
-  sumarGastos
+  sumarFortuna (hecho, Alba)
+  sumarGastos (hecho, Alba)
   encarcelar
 
 -IMPRIMIR TABLERO
