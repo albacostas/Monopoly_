@@ -107,6 +107,4 @@ public class Casilla {
     public String casEnVenta() {
     }
 
-    //Comentario de prueba Ainhoa
-
 }
