@@ -72,6 +72,7 @@ class Grupo {
     public void anhadirCasilla(Casilla miembro) {
         this.miembros.add(miembro);
     }
+    //prueba ainhoa 2
 
     /*Método que comprueba si el jugador pasado tiene en su haber todas las casillas del grupo:
     * Parámetro: jugador que se quiere evaluar.
