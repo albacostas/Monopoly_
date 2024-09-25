@@ -142,7 +142,6 @@ public class Casilla {
         return info.toString().trim();
     }
 
-<<<<<<< HEAD
     public Object getPropiedades() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getPropiedades'");
@@ -153,7 +152,6 @@ public class Casilla {
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 
-=======
->>>>>>> a5f26ed66af3025d203fa4350be2d07a2237e485
 }
 
+ 
