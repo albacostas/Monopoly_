@@ -1,15 +1,35 @@
-# Monopoly_
-Casillas
-Grupo
-Menu
-MonopolyETSE
-Tablero
-Valor
+- Casilla:
+  Construsctor casilla.
+  evaluarCasilla
+  comprarCasilla
+  sumarValor
+- Grupo:
+  anhadirCasilla
+  DuenhoGrupo
 
-Avatar:
-    -Alba, setter y getter
+- Menu:
+  iniciarPartida
+  analizarCamonado
+  descJugador
+  descCasilla
+  comprar
+  salirCarcel
+  listarVenta
+  listarJugadores
+  listarAvatares
+  acabarTurno
 
-Dado (Alba): está hecho
+- Tablero:
+  toString
+  encontrar_casilla
 
-Jugador:
-    -Alba: eliminarPropiedad
+- Avatar:
+  moverAvatar
+
+- Jugador:
+  anhadirPropiedad
+  sumarFortuna
+  sumarGastos
+  encarcelar
+
+-IMPRIMIR TABLERO
