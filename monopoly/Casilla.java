@@ -152,6 +152,7 @@ public class Casilla {
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -163,6 +164,8 @@ public class Casilla {
 =======
     //HOLAAAAA
 >>>>>>> 46aa2f315dae2a5c3d465a1c308f4d958ce03333
+=======
+>>>>>>> c74f511cfaf20cca29426b6db0473f55c530546d
 }
 
  
