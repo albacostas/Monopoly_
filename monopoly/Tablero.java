@@ -22,8 +22,6 @@ public class Tablero {
         this.generarCasillas(); // Llamamos a un método para configurar el tablero.
     }
 
-
-
     //Generamos los getters y setters para los atributos
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
