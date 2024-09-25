@@ -153,11 +153,14 @@ public class Casilla {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     //COmentario prueba
 =======
 >>>>>>> 27c41acb1df4602b456904d3d9bfa0d516a19f67
 
 
     // comentario alba
+=======
+>>>>>>> main
 }
 //COMENTARIOgi
