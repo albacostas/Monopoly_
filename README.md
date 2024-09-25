@@ -1,13 +1,35 @@
-- 3 funciones en Casilla + constructor tipo casilla
+- Casilla:
+  Construsctor casilla.
+  evaluarCasilla
+  comprarCasilla
+  sumarValor
+- Grupo:
+  anhadirCasilla
+  DuenhoGrupo
 
-- 2 funciones en Grupo (añadirCasilla y siEsdueño).
+- Menu:
+  iniciarPartida
+  analizarCamonado
+  descJugador
+  descCasilla
+  comprar
+  salirCarcel
+  listarVenta
+  listarJugadores
+  listarAvatares
+  acabarTurno
 
-- todo menos lanzar dados.
+- Tablero:
+  toString
+  encontrar_casilla
 
--ToString, encontrarCasilla
+- Avatar:
+  moverAvatar
 
--1 función (moverAvatar). Revisar generarID.
-
-- 4 funciones en Jugador.
+- Jugador:
+  anhadirPropiedad
+  sumarFortuna
+  sumarGastos
+  encarcelar
 
 -IMPRIMIR TABLERO
