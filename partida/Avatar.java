@@ -3,6 +3,7 @@ package partida;
 import monopoly.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 public class Avatar {
@@ -45,9 +46,11 @@ public class Avatar {
     
     //Constructor vacío
     public Avatar() {
+
         this.id = "";
         this.tipo = "";
-        this.jugador = 
+        this.jugador = null;
+        this.lugar = null;
     }
 
     /*Constructor principal. Requiere éstos parámetros:
@@ -55,6 +58,11 @@ public class Avatar {
     * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
+        
+        this.tipo = tipo;
+        this.jugador = jugador;
+        this.lugar = lugar;
+        generarId(avCreados);
     }
 
     //A continuación, tenemos otros métodos útiles para el desarrollo del juego.
@@ -64,6 +72,7 @@ public class Avatar {
     * EN ESTA VERSIÓN SUPONEMOS QUE valorTirada siemrpe es positivo.
      */
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+        
     }
 
     /*Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase (por ello es privado).
@@ -71,5 +80,23 @@ public class Avatar {
     * - Un arraylist de los avatares ya creados, con el objetivo de evitar que se generen dos ID iguales.
      */
     private void generarId(ArrayList<Avatar> avCreados) {
+        Random random = new Random();
+        String newID;
+        boolean idUnico;
+
+        do {
+            newID = String.valueOf((char)(random.nextInt(26) +'A'));
+            idUnico = true;
+
+            for (Avatar avatar : avCreados){
+                if(avatar.getId().equals(newID)){
+                    idUnico = false;
+                    break;
+                }
+            }
+        } while(!idUnico);
+
+        this.id = newID;
+        
     }
 }
