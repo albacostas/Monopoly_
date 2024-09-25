@@ -27,9 +27,9 @@
   moverAvatar
 
 - Jugador:
-  anhadirPropiedad
-  sumarFortuna
-  sumarGastos
+  anhadirPropiedad (hecho, Alba)
+  sumarFortuna (hecho, Alba)
+  sumarGastos (hecho, Alba)
   encarcelar
 
 -IMPRIMIR TABLERO
