@@ -43,7 +43,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        this.avatares = new ArrayList();
+        this.avatares = new ArrayList<>();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -55,7 +55,7 @@ public class Casilla {
         this.posicion = posicion;
         this.impuesto = impuesto;
         this.duenho = duenho;
-        //this.tipo = "Impuestos";
+        this.tipo = "Impuestos";
     }
 
     /*Constructor utilizado para crear las otras casillas (Suerte, Caja de comunidad y Especiales):
