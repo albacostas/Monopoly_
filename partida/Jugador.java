@@ -107,6 +107,7 @@ public class Jugador {
     //Otros métodos:
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
+        this.propiedades.add(casilla);
     }
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
@@ -120,9 +121,8 @@ public class Jugador {
     //Método para añadir fortuna a un jugador
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
+        
         this.fortuna += valor;
-
-    
     }
 
     //Método para sumar gastos a un jugador.

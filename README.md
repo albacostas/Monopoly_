@@ -1,5 +1,5 @@
 - Casilla:
-  Construsctor casilla.
+  HECHO Construsctor casilla.
   evaluarCasilla
   comprarCasilla
   sumarValor
@@ -27,9 +27,9 @@
   moverAvatar
 
 - Jugador:
-  anhadirPropiedad
-  sumarFortuna
-  sumarGastos
+  anhadirPropiedad (hecho, Alba)
+  sumarFortuna (hecho, Alba)
+  sumarGastos (hecho, Alba)
   encarcelar
 
 -IMPRIMIR TABLERO
