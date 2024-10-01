@@ -178,14 +178,15 @@ public class Tablero {
             // sb.append("|").append(formatCasilla(ladoEste.get(i))); // Lado este≥
             // sb.append("|\n");
             String casillaOeste = (i<ladoOeste.size()) ? formatCasilla(ladoOeste.get(i)) : "        ";
-            sb.append("|"). append(casillaOeste);
+            sb.append("|").append(casillaOeste);
             
             for( int j = 0; j < ladoNorte.size() -2; j--){
                 sb.append("        ");
             }
 
             String casillaEste = ( i < ladoEste.size()) ? formatCasilla(ladoEste.get(i)) : "        ";
-        
+            sb.append("|").append(casillaEste);
+            sb.append("|\n");
         }
 
         // // Imprimir la fila inferior (Sur)
