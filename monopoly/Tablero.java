@@ -143,25 +143,26 @@ public class Tablero {
 
         // Imprimir la fila superior (Norte)
         for (Casilla casilla : ladoNorte) {
-            sb.append("|").append(formatCasilla(casilla));
+            sb.append("| ").append(formatCasilla(casilla));
         }
         sb.append("|\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
-            sb.append("|").append(formatCasilla(ladoOeste.get(i))); // Lado oeste
-            for (int j = 0; j < ladoNorte.size()+1; j++) { // Espacios en el medio
+            sb.append("| ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
+            
+            for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
                 sb.append("        ");
             }
-            sb.append("|").append(formatCasilla(ladoEste.get(i))); // Lado este
-            sb.append("|\n");
+            sb.append("| ").append(formatCasilla(ladoEste.get(i))); // Lado este
+            sb.append(" |\n");
         }
 
         // Imprimir la fila inferior (Sur)
         for (Casilla casilla : ladoSur) {
-            sb.append("|").append(formatCasilla(casilla));
+            sb.append("| ").append(formatCasilla(casilla));
         }
-        sb.append("|\n");
+        sb.append(" |\n");
 
 
         return sb.toString();
