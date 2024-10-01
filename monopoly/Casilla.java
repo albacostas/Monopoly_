@@ -17,8 +17,25 @@ public class Casilla {
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
 
+    //Getters
+    public String getNombre(){
+        return this.nome;
+    }
+
+    public void setDuenho(Jugador duenho){
+        this.duenho = duenho;
+    }
     public Jugador getDuenho() {
         return duenho;
+    }
+    public String getTipo(){
+        return this.tipo;
+    }
+    public float getValor(){
+        return this.valor;
+    }
+    public float getImpuesto(){
+        return this.impuesto;
     }
 
     //Constructores:
@@ -32,7 +49,7 @@ public class Casilla {
         this.grupo = null;
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
-        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
         
 
     }//Parámetros vacíos
@@ -47,7 +64,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -90,13 +107,114 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        // if (this.tipo=="Solar"){
+        //     if (this.duenho.equals(banca)){
+        //         if (actual.getFortuna()>=this.valor){
+        //             return true;
+        //         }
+        //         return true;
+        //     }
+        //     else{
+        //         if (actual.getFortuna()>=this.impuesto){
+        //             return true;
+        //         }
+        //     }
+        // }  No sé si está bien, pero hay que eva(luar todos los tipos de casilla. 
+        Casilla casillaActual = actual.getAvatar().getLugar();
+        String tipoCasilla = casillaActual.getTipo();
+
+        switch (tipoCasilla) {
+            case "Solar":
+                return manejarSolar(actual,casillaActual);
+                break;
+            case "Impuesto":
+                return manejarImpuesto(actual, casillaActual, tirada);
+                break;
+            case "Transporte":
+                return manejarTransporte(actual, casillaActual);
+                break;
+            case "Servicio":
+                return manejarServicio (actual, casillaActual,tirada);
+                break;
+            case "Caja":
+                return manejarComunidad(actual);
+                break;
+            case "Suerte":
+                return manejarSuerte(actual);
+                break;
+            case "Especial":
+                return manejarEspecial(actual, banca);
+                break;
+        
+            default:
+                System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
+
+                break;
+        }
+
     }
+
+    private boolean manejarSolar(Jugador actual, Casilla casilla){
+        if(casilla.getDuenho() == null){
+            if(actual.getFortuna() >= casilla.getValor()){
+                actual.sumarGastos(casilla.getValor());
+                actual.anhadirPropiedad(casilla);
+                casilla.setDuenho(actual);
+                System.out.println(actual.getNombre() + "ha adquirido la propiedad: " + casilla.getNombre());
+                return true;
+            } else return false;
+        } else{
+            float alquier = casilla.getImpuesto();
+            if(actual.getFortuna() >= alquier){
+                actual.sumarGastos(alquier);
+                casilla.getDuenho().sumarFortuna(alquier);
+                System.out.println(actual.getNombre() + "ha pagado " + alquiler + "del alquiler a " + casilla.getDuenho().getNombre());
+                return true;
+            } else return false;
+        }
+    }
+
+    private boolean manejarImpuesto (Jugador actual, Casilla casilla, int tirada){
+        
+        float impuesto = casilla.getValor();
+        if(actual.getFortuna() >= impuesto){
+            actual.sumarGastos(impuesto);
+            System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
+            return true;
+        }else return false;
+    }
+
+    private boolean manejarTransporte(Jugador actual, Casilla casilla){
+        float alquiler = casilla.getValor();
+        Jugador duenho = casilla.getDuenho();
+        if(duenho == null){
+            System.out.println("La casilla en la que se encuentra " + actual.getNombre() + " No tiene dueñho");
+            // Si queire comprarla
+            return true;
+        }else if (actual.equals(duenho)){
+            System.out.println("El dueño de la casilla de transprote es " + actual.getNombre());
+            return true;
+        }else if(actual.getFortuna() >= alquiler){
+            actual.sumarGastos(alquiler);
+            System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
+            return true;
+        }else return false;
+    }
+
+
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
+        //cambiar el dueño de la casilla (deja de ser de la banca y pasa a ser del solicitante)
+        this.duenho=solicitante;
+        solicitante.anhadirPropiedad(this);
+        banca.eliminarPropiedad(this);
+        solicitante.sumarGastos(this.valor);
+        //le damos el dinero que pagamos a la banca?
         
+
     }
 
     /*Método para añadir valor a una casilla. Utilidad:
@@ -104,6 +222,8 @@ public class Casilla {
     * - Sumar valor a las casillas de solar al no comprarlas tras cuatro vueltas de todos los jugadores.
     * Este método toma como argumento la cantidad a añadir del valor de la casilla.*/
     public void sumarValor(float suma) {
+        this.valor+=suma;
+
     }
 
     /*Método para mostrar información sobre una casilla.

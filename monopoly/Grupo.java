@@ -80,11 +80,15 @@ class Grupo {
                 bool = false;
             }
         }
-
+        
         return bool;
     }
+<<<<<<< HEAD
+}
+=======
 
         
     }
+>>>>>>> 17917265ac394b5ffcf58f76d660cd9bb723ed12
 
 

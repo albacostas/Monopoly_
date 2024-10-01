@@ -93,14 +93,21 @@ public class Jugador {
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
-
-        this.nombre = nombre;
-        for (Avatar av : avCreados){
-            if(av.getTipo().equals(tipoAvatar)){
-                this.avatar = av;
-                break;
+        for (Avatar i: avCreados){
+            if (i.getJugador().getNombre().equals(nombre)){
+                System.out.println("No es válido repetir nombres.");
+            }
+            else{
+                this.nombre=nombre;
             }
         }
+        this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
+        this.fortuna=Valor.FORTUNA_INICIAL;
+        this.gastos=0.0f;
+        this.enCarcel=false;
+        this.tiradasCarcel=0;
+        this.vueltas=0;
+        this.propiedades= new ArrayList<>();
 
     }
 
@@ -112,10 +119,7 @@ public class Jugador {
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
     public void eliminarPropiedad(Casilla casilla) {
-        if (casilla.getPropiedades() != null){
-            casilla.setPropiedades(null);
-            System.out.println("La propiedad da sido eliminada\n");
-        }else System.err.println("La propiedad no tiene dueño.");
+        this.propiedades.remove(casilla);
     }
 
     //Método para añadir fortuna a un jugador
@@ -138,6 +142,7 @@ public class Jugador {
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
+        this.enCarcel = true;
     }
 
 }
