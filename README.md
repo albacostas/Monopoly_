@@ -1,7 +1,10 @@
 - Casilla:
   HECHO Construsctor casilla.
 
+<<<<<<< HEAD
   DUDA evaluarCasilla (Alba rehaciendo)
+=======
+>>>>>>> f0f8abab591a6b2b9ae3d982b057b5afc66b4129
   HECHO comprarCasilla 
   HECHO sumarValor
 
