@@ -94,19 +94,24 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        if (this.tipo=="Solar"){
-            if (this.duenho.equals(banca)){
-                if (actual.getFortuna()>=this.valor){
-                    return true;
-                }
-                return true;
-            }
-            else{
-                if (actual.getFortuna()>=this.impuesto){
-                    return true;
-                }
-            }
-        }        
+        // if (this.tipo=="Solar"){
+        //     if (this.duenho.equals(banca)){
+        //         if (actual.getFortuna()>=this.valor){
+        //             return true;
+        //         }
+        //         return true;
+        //     }
+        //     else{
+        //         if (actual.getFortuna()>=this.impuesto){
+        //             return true;
+        //         }
+        //     }
+
+
+        // }  No sé si está bien, pero hay que evaluar todos los tipos de casilla. 
+        if(actual.getFortuna()>= this.valor){
+            return true; // El jugador es solvente.
+        } else return false; // Es insolvente
     }
 
     /*Método usado para comprar una casilla determinada. Parámetros:
