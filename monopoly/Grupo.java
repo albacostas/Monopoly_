@@ -78,10 +78,14 @@ class Grupo {
     * Valor devuelto: true si es dueño de todas las casillas del grupo, false en otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
+<<<<<<< HEAD
     
             
         }
 
+=======
+        
+>>>>>>> main
     }
 
 

@@ -62,6 +62,11 @@ public class Casilla {
     * Parámetros: nombre, tipo de la casilla (será uno de los que queda), posición en el tablero y dueño.
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
+        
+        this.nome = nombre;
+        this.tipo = tipo;
+        this.posicion = posicion;
+        this.duenho = duenho;
     }
 
     //Método utilizado para añadir un avatar al array de avatares en casilla.
@@ -151,7 +156,9 @@ public class Casilla {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
+<<<<<<< HEAD
 
+=======
+    // prueba ALba
+>>>>>>> main
 }
-
- 
