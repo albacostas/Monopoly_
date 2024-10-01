@@ -88,4 +88,9 @@ class Grupo {
         return bool;
     }
 
-}
+=======
+        
+>>>>>>> main
+    }
+
+

@@ -156,5 +156,4 @@ public class Casilla {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
-    // prueba ALba
 }
