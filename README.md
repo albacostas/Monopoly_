@@ -5,6 +5,8 @@
   HECHO comprarCasilla 
   HECHO sumarValor
 
+  ManejarTransporte (revisar)
+
 - Grupo: Hecho y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
