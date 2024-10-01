@@ -4,7 +4,7 @@
   comprarCasilla 
   sumarValor
   
-- Grupo:
+- Grupo: Hecho y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
 
