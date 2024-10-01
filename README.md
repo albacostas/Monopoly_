@@ -1,7 +1,7 @@
 - Casilla:
   HECHO Construsctor casilla.
   evaluarCasilla
-  comprarCasilla
+  comprarCasilla  333
   sumarValor
 - Grupo:
   anhadirCasilla
