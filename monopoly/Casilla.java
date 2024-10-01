@@ -37,6 +37,12 @@ public class Casilla {
     public float getImpuesto(){
         return this.impuesto;
     }
+    public Grupo getGrupo() {
+        return grupo;
+    }
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
 
     //Constructores:
     public Casilla() {
