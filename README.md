@@ -1,7 +1,7 @@
 - Casilla:
   HECHO Construsctor casilla.
 
-  DUDA evaluarCasilla
+  DUDA evaluarCasilla (Alba rehaciendo)
   HECHO comprarCasilla 
   HECHO sumarValor
 
