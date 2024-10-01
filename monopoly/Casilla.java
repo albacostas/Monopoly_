@@ -120,10 +120,9 @@ public class Casilla {
         //         }
         //     }
         // }  No sé si está bien, pero hay que eva(luar todos los tipos de casilla. 
-        Casilla casillaActual = actual.getAvatar().getLugar();
-        String tipoCasilla = casillaActual.getTipo();
 
-        switch (tipoCasilla) {
+
+        switch (this.getTipo()) {
             case "Solar":
                 return manejarSolar(actual,casillaActual);
                 break;
@@ -154,53 +153,56 @@ public class Casilla {
 
     }
 
-    private boolean manejarSolar(Jugador actual, Casilla casilla){
-        if(casilla.getDuenho() == null){
-            if(actual.getFortuna() >= casilla.getValor()){
-                actual.sumarGastos(casilla.getValor());
-                actual.anhadirPropiedad(casilla);
-                casilla.setDuenho(actual);
-                System.out.println(actual.getNombre() + "ha adquirido la propiedad: " + casilla.getNombre());
-                return true;
-            } else return false;
-        } else{
-            float alquier = casilla.getImpuesto();
-            if(actual.getFortuna() >= alquier){
-                actual.sumarGastos(alquier);
-                casilla.getDuenho().sumarFortuna(alquier);
-                System.out.println(actual.getNombre() + "ha pagado " + alquiler + "del alquiler a " + casilla.getDuenho().getNombre());
-                return true;
-            } else return false;
-        }
-    }
+    // private boolean manejarSolar(Jugador actual, Casilla casilla){
+    //     if(casilla.getDuenho() == null){
+    //         if(actual.getFortuna() >= casilla.getValor()){
+    //             actual.sumarGastos(casilla.getValor());
+    //             actual.anhadirPropiedad(casilla);
+    //             casilla.setDuenho(actual);
+    //             System.out.println(actual.getNombre() + "ha adquirido la propiedad: " + casilla.getNombre());
+    //             return true;
+    //         } else return false;
+    //     } else{
+    //         float alquier = casilla.getImpuesto();
+    //         if(actual.getFortuna() >= alquier){
+    //             actual.sumarGastos(alquier);
+    //             casilla.getDuenho().sumarFortuna(alquier);
+    //             System.out.println(actual.getNombre() + "ha pagado " + alquier + "del alquiler a " + casilla.getDuenho().getNombre());
+    //             return true;
+    //         } else return false;
+    //     }
+    // }
 
-    private boolean manejarImpuesto (Jugador actual, Casilla casilla, int tirada){
+    // private boolean manejarImpuesto (Jugador actual, Casilla casilla, int tirada){
         
-        float impuesto = casilla.getValor();
-        if(actual.getFortuna() >= impuesto){
-            actual.sumarGastos(impuesto);
-            System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
-            return true;
-        }else return false;
-    }
+    //     float impuesto = casilla.getValor();
+    //     if(actual.getFortuna() >= impuesto){
+    //         actual.sumarGastos(impuesto);
+    //         System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
+    //         return true;
+    //     }else return false;
+    // }
 
-    private boolean manejarTransporte(Jugador actual, Casilla casilla){
-        float alquiler = casilla.getValor();
-        Jugador duenho = casilla.getDuenho();
-        if(duenho == null){
-            System.out.println("La casilla en la que se encuentra " + actual.getNombre() + " No tiene dueñho");
-            // Si queire comprarla
-            return true;
-        }else if (actual.equals(duenho)){
-            System.out.println("El dueño de la casilla de transprote es " + actual.getNombre());
-            return true;
-        }else if(actual.getFortuna() >= alquiler){
-            actual.sumarGastos(alquiler);
-            System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
-            return true;
-        }else return false;
-    }
+    // private boolean manejarTransporte(Jugador actual, Casilla casilla){
+    //     float alquiler = casilla.getValor();
+    //     Jugador duenho = casilla.getDuenho();
+    //     if(duenho == null){
+    //         System.out.println("La casilla en la que se encuentra " + actual.getNombre() + " No tiene dueñho");
+    //         // Si queire comprarla
+    //         return true;
+    //     }else if (actual.equals(duenho)){
+    //         System.out.println("El dueño de la casilla de transprote es " + actual.getNombre());
+    //         return true;
+    //     }else if(actual.getFortuna() >= alquiler){
+    //         actual.sumarGastos(alquiler);
+    //         System.out.println(actual.getNombre() + " ha pagado " + impuesto + " de impuesto en " + casilla.getNombre());
+    //         return true;
+    //     }else return false;
+    // }
 
+    // private boolean manejarServicio(Jugador actual, Casilla casilla, int tirada){
+        
+    // }
 
 
     /*Método usado para comprar una casilla determinada. Parámetros:
