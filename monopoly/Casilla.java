@@ -17,6 +17,11 @@ public class Casilla {
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
 
+    //Getters
+    public String getNombre(){
+        return this.nome;
+    }
+
     //Constructores:
     public Casilla() {
 
@@ -86,13 +91,33 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        if (this.tipo=="Solar"){
+            if (this.duenho.equals(banca)){
+                if (actual.getFortuna()>=this.valor){
+                    return true;
+                }
+                return true;
+            }
+            else{
+                if (actual.getFortuna()>=this.impuesto){
+                    return true;
+                }
+            }
+        }        
     }
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
     public void comprarCasilla(Jugador solicitante, Jugador banca) {
+        //cambiar el dueño de la casilla (deja de ser de la banca y pasa a ser del solicitante)
+        this.duenho=solicitante;
+        solicitante.anhadirPropiedad(this);
+        banca.eliminarPropiedad(this);
+        solicitante.sumarGastos(this.valor);
+        //le damos el dinero que pagamos a la banca?
         
+
     }
 
     /*Método para añadir valor a una casilla. Utilidad:
@@ -100,6 +125,8 @@ public class Casilla {
     * - Sumar valor a las casillas de solar al no comprarlas tras cuatro vueltas de todos los jugadores.
     * Este método toma como argumento la cantidad a añadir del valor de la casilla.*/
     public void sumarValor(float suma) {
+        this.valor+=suma;
+
     }
 
     /*Método para mostrar información sobre una casilla.

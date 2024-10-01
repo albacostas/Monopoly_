@@ -1,9 +1,9 @@
 - Casilla:
   HECHO Construsctor casilla.
-  evaluarCasilla
-  comprarCasilla 
-  sumarValor
-  
+  DUDA evaluarCasilla
+  HECHO comprarCasilla 
+  HECHO sumarValor
+
 - Grupo:
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
@@ -31,7 +31,7 @@
   anhadirPropiedad (hecho, Alba)
   sumarFortuna (hecho, Alba)
   sumarGastos (hecho, Alba)
-  encarcelar
+  DUDA encarcelar
 
 -IMPRIMIR TABLERO
 
