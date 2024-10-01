@@ -128,7 +128,6 @@ public class Tablero {
     }
 
     //Para imprimir el tablero, modificamos el método toString().
-    //@Override
 
 
     // public String toString() {
@@ -163,7 +162,7 @@ public class Tablero {
         ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
 
-        // Imprimir la fila superior (Norte)
+        //Imprimir la fila superior (Norte)
         for (Casilla casilla : ladoNorte) {
             sb.append("|").append(formatCasilla(casilla));
         }
@@ -179,7 +178,7 @@ public class Tablero {
             sb.append("|\n");
         }
 
-        // Imprimir la fila inferior (Sur)
+        // // Imprimir la fila inferior (Sur)
         for (Casilla casilla : ladoSur) {
             sb.append("|").append(formatCasilla(casilla));
         }
@@ -189,7 +188,7 @@ public class Tablero {
     }
 
     private String formatCasilla(Casilla casilla) {
-        // Ajustar el formato para que cada casilla tenga el mismo ancho
+    // Ajustar el formato para que cada casilla tenga el mismo ancho
         String nombre = casilla.getNombre();
         return String.format("%-8s", nombre);  // Espacio fijo para cada casilla
     }*/
