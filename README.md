@@ -6,7 +6,7 @@
 
 - Grupo:
   HECHO anhadirCasilla
-  DuenhoGrupo
+  HECHO DuenhoGrupo
 
 - Menu:
   iniciarPartida
