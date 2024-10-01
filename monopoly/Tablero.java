@@ -152,7 +152,7 @@ public class Tablero {
     //     ArrayList<Casilla> ladoNorte = posiciones.get(20);
     
     // }
-    /* CODIGO ANTERIOR
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -191,7 +191,7 @@ public class Tablero {
     // Ajustar el formato para que cada casilla tenga el mismo ancho
         String nombre = casilla.getNombre();
         return String.format("%-8s", nombre);  // Espacio fijo para cada casilla
-    }*/
+    }
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){
@@ -204,4 +204,4 @@ public class Tablero {
         }
         System.out.println("No se ha encontrado la casilla");
         return new Casilla();
-    }
+    }}
