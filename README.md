@@ -3,8 +3,9 @@
   evaluarCasilla
   comprarCasilla  333
   sumarValor
+
 - Grupo:
-  anhadirCasilla
+  HECHO anhadirCasilla
   DuenhoGrupo
 
 - Menu:
