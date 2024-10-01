@@ -131,7 +131,7 @@ public class Casilla {
     /* Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.
      */
-    public String casEnVenta() {
+    public String casaEnVenta() {
 
         // Verificamos que la casilla está en venta.
         boolean enVenta = (duenho == null || duenho.getNombre().equalsIgnoreCase("Banca"));

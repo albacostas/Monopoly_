@@ -5,8 +5,8 @@
   sumarValor
   
 - Grupo:
-  anhadirCasilla
-  DuenhoGrupo
+  HECHO anhadirCasilla
+  HECHO DuenhoGrupo
 
 - Menu:
   iniciarPartida
