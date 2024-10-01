@@ -67,7 +67,7 @@ class Grupo {
     }
 
     /* Método que añade una casilla al array de casillas miembro de un grupo.
-    * Parámetro: casilla que se quiere añadir.
+     * Parámetro: casilla que se quiere añadir.
      */
     public void anhadirCasilla(Casilla miembro) {
         this.miembros.add(miembro);
@@ -78,7 +78,14 @@ class Grupo {
     * Valor devuelto: true si es dueño de todas las casillas del grupo, false en otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
+<<<<<<< HEAD
+    
+            
+        }
+
+=======
         
+>>>>>>> main
     }
 
-}
+
