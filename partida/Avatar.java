@@ -46,11 +46,8 @@ public class Avatar {
     
     //Constructor vacío
     public Avatar() {
-
-        this.id = "";
-        this.tipo = "";
-        this.jugador = null;
-        this.lugar = null;
+        this.jugador = new Jugador();
+        this.lugar = new Casilla();
     }
 
     /*Constructor principal. Requiere éstos parámetros:
@@ -58,11 +55,10 @@ public class Avatar {
     * avatares creados (usado para crear un ID distinto del de los demás avatares).
      */
     public Avatar(String tipo, Jugador jugador, Casilla lugar, ArrayList<Avatar> avCreados) {
-        
         this.tipo = tipo;
         this.jugador = jugador;
         this.lugar = lugar;
-        generarId(avCreados);
+        this.generarId(avCreados);
     }
 
     //A continuación, tenemos otros métodos útiles para el desarrollo del juego.
@@ -97,6 +93,5 @@ public class Avatar {
         } while(!idUnico);
 
         this.id = newID;
-        
     }
 }

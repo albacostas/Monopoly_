@@ -14,15 +14,12 @@ class Grupo {
     //Constructor vacío.
     public Grupo() {
         this.miembros = new ArrayList<>();
-        this.colorGrupo = "";
-        this.numCasillas = 0;
     }
 
     /*Constructor para cuando el grupo está formado por DOS CASILLAS:
     * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
     public Grupo(Casilla cas1, Casilla cas2, String colorGrupo) {
-
         this.miembros = new ArrayList<>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
@@ -35,7 +32,6 @@ class Grupo {
     * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
     public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo) {
-
         this.miembros = new ArrayList<>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
@@ -80,7 +76,7 @@ class Grupo {
     public boolean esDuenhoGrupo(Jugador jugador) {
         boolean bool = true;
         for (Casilla casilla : this.miembros) {
-            if (!jugador.getPropiedades().contains(casilla)) {
+            if (!casilla.getDuenho().equals(jugador)) {
                 bool = false;
             }
         }

@@ -1,10 +1,11 @@
 - Casilla:
   HECHO Construsctor casilla.
+
   DUDA evaluarCasilla
   HECHO comprarCasilla 
   HECHO sumarValor
 
-- Grupo:
+- Grupo: Hecho y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
 

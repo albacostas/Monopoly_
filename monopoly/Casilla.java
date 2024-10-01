@@ -20,6 +20,9 @@ public class Casilla {
     //Getters
     public String getNombre(){
         return this.nome;
+  
+    public Jugador getDuenho() {
+        return duenho;
     }
 
     //Constructores:
