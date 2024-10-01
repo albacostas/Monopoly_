@@ -84,13 +84,9 @@ class Grupo {
                 bool = false;
             }
         }
-
+        
         return bool;
     }
-
-=======
-        
->>>>>>> main
-    }
+}
 
 
