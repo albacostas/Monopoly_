@@ -28,7 +28,7 @@ public class Casilla {
         this.grupo = null;
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
-        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
         
 
     }//Parámetros vacíos
@@ -43,7 +43,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -157,9 +157,4 @@ public class Casilla {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
-<<<<<<< HEAD
-
-=======
-    // prueba ALba
->>>>>>> main
 }
