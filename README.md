@@ -1,9 +1,10 @@
 - Casilla:
   HECHO Construsctor casilla.
-
-  DUDA evaluarCasilla (rehaciendo, Alba)
+  DUDA evaluarCasilla (Alba rehaciendo)
   HECHO comprarCasilla 
   HECHO sumarValor
+
+  ManejarTransporte (revisar)
 
 - Grupo: Hecho y revisado
   HECHO anhadirCasilla
