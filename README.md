@@ -3,8 +3,9 @@
   evaluarCasilla
   comprarCasilla
   sumarValor
+
 - Grupo:
-  anhadirCasilla
+  HECHO anhadirCasilla
   DuenhoGrupo
 
 - Menu:
