@@ -58,16 +58,16 @@ public class Tablero {
     private void insertarLadoSur() {
         ArrayList<Casilla> ladoSur = new ArrayList<>();
 
-        ladoSur.add(new Casilla("Salida", "Especial", 10, banca));
-        ladoSur.add(new Casilla("Solar1", "Solar", 9, 600000, banca));  // Posición 2: Solar
-        ladoSur.add(new Casilla("Caja", "Comunidad", 8, banca));             // Posición 3: Comunidad
-        ladoSur.add(new Casilla("Solar2", "Solar", 7, 600000, banca));     // Posición 4: Solar
-        ladoSur.add(new Casilla("Impuesto1","Impuesto", 6, Valor.SUMA_VUELTA/2, banca)); // Posición 5: Impuestos
-        ladoSur.add(new Casilla("Trans1", "Transporte", 5, Valor.SUMA_VUELTA , banca)); // Posición 6: Transporte
-        ladoSur.add(new Casilla("Solar3","Solar",4, 1560000, banca));
-        ladoSur.add(new Casilla("Suerte","Suerte",3, banca));
-        ladoSur.add(new Casilla("Solar4","Solar",2,1560000, banca));
-        ladoSur.add(new Casilla("Solar5","Solar",1,1560000, banca));
+        ladoSur.add(new Casilla("Salida", "Especial", 1, banca));
+        ladoSur.add(new Casilla("Solar1", "Solar", 2, 600000, banca));  // Posición 2: Solar
+        ladoSur.add(new Casilla("Caja", "Comunidad", 3, banca));             // Posición 3: Comunidad
+        ladoSur.add(new Casilla("Solar2", "Solar", 4, 600000, banca));     // Posición 4: Solar
+        ladoSur.add(new Casilla("Impuesto1","Impuesto", 5, Valor.SUMA_VUELTA/2, banca)); // Posición 5: Impuestos
+        ladoSur.add(new Casilla("Trans1", "Transporte", 6, Valor.SUMA_VUELTA , banca)); // Posición 6: Transporte
+        ladoSur.add(new Casilla("Solar3","Solar",7, 1560000, banca));
+        ladoSur.add(new Casilla("Suerte","Suerte",8, banca));
+        ladoSur.add(new Casilla("Solar4","Solar",9,1560000, banca));
+        ladoSur.add(new Casilla("Solar5","Solar",10,1560000, banca));
 
         posiciones.add(ladoSur);
     }      
