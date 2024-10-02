@@ -23,8 +23,13 @@
   acabarTurno
 
 - Tablero:
+<<<<<<< HEAD
   toString
   HECHO encontrar_casilla
+=======
+  toString MEDIO-HECHO
+  encontrar_casilla HECHO
+>>>>>>> 6e8789d1dcfbe821999c6dc42f0348454e0560fa
 
 - Avatar:
   moverAvatar
