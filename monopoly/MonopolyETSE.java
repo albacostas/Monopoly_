@@ -15,7 +15,7 @@ public class MonopolyETSE {
         Jugador banca = new Jugador();
         Tablero tablero = new Tablero(banca);
 
-      System.out.println(tablero);
+        System.out.println(tablero);
     }
     
 }

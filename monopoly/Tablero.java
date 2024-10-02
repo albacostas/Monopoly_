@@ -128,7 +128,6 @@ public class Tablero {
     }
 
     //Para imprimir el tablero, modificamos el método toString().
-    @Override
 
 
     // public String toString() {
@@ -158,7 +157,7 @@ public class Tablero {
     public String toString() {
         StringBuilder sb = new StringBuilder();
     
-        ArrayList<Casilla> ladoSur = posiciones.get(0);  // El primer lado es el sur
+        ArrayList<Casilla> ladoSur = posiciones.get(10);  // El primer lado es el sur
         ArrayList<Casilla> ladoOeste = posiciones.get(1);  // El segundo lado es el oeste
         ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
