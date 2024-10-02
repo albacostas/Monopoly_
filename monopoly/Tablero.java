@@ -107,7 +107,7 @@ public class Tablero {
         ladoNorte.add(new Casilla("Solar16", "Solar", 28, 1485172, banca));
         ladoNorte.add(new Casilla("Serv2", "Servicio", 29, banca));
         ladoNorte.add(new Casilla("Solar17", "Solar", 30, 1485172, banca));
-        ladoNorte.add(new Casilla("Ir a Carcel","Especial",31, banca));
+        ladoNorte.add(new Casilla("Ir Carcel","Especial",31, banca));
 
         posiciones.add(ladoNorte);
 
@@ -154,7 +154,7 @@ public class Tablero {
             sb.append("| ").append(formatCasilla(casilla));
         }*/
 
-        sb.append("|\n");
+        sb.append(" |\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {

@@ -64,7 +64,11 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
+<<<<<<< HEAD
+        this.avatares = new ArrayList<>();
+=======
         this.avatares = new ArrayList<Avatar>();
+>>>>>>> b4670fff26350d11691be89ceebc80901af68e53
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -83,12 +87,20 @@ public class Casilla {
     * Parámetros: nombre, tipo de la casilla (será uno de los que queda), posición en el tablero y dueño.
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
+<<<<<<< HEAD
+        this.nome=nombre;
+        this.tipo=tipo;
+        this.posicion=posicion;
+        this.duenho=duenho;
+=======
         
         this.nome = nombre;
         this.tipo = tipo;
         this.posicion = posicion;
         this.duenho = duenho;
+>>>>>>> b4670fff26350d11691be89ceebc80901af68e53
     }
+
 
     //Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
