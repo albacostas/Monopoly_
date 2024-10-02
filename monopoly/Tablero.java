@@ -154,7 +154,7 @@ public class Tablero {
             for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
                 sb.append("        ");
             }
-            sb.append("| ").append(formatCasilla(ladoEste.get(i))); // Lado este
+            sb.append("   | ").append(formatCasilla(ladoEste.get(i))); // Lado este
             sb.append(" |\n");
         }
 
