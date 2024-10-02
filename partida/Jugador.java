@@ -93,43 +93,56 @@ public class Jugador {
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
-
-        this.nombre = nombre;
-        for (Avatar av : avCreados){
-            if(av.getTipo().equals(tipoAvatar)){
-                this.avatar = av;
-                break;
+        for (Avatar i: avCreados){
+            if (i.getJugador().getNombre().equals(nombre)){
+                System.out.println("No es válido repetir nombres.");
+            }
+            else{
+                this.nombre=nombre;
             }
         }
+        this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
+        this.fortuna=Valor.FORTUNA_INICIAL;
+        this.gastos=0.0f;
+        this.enCarcel=false;
+        this.tiradasCarcel=0;
+        this.vueltas=0;
+        this.propiedades= new ArrayList<>();
 
     }
 
     //Otros métodos:
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
+        this.propiedades.add(casilla);
     }
 
     //Método para eliminar una propiedad del arraylist de propiedades de jugador.
     public void eliminarPropiedad(Casilla casilla) {
-        if (casilla.getPropiedades() != null){
-            casilla.setPropiedades(null);
-            System.out.println("La propiedad da sido eliminada\n");
-        }else System.err.println("La propiedad no tiene dueño.");
+        this.propiedades.remove(casilla);
     }
 
     //Método para añadir fortuna a un jugador
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
+        
+        this.fortuna += valor;
     }
 
     //Método para sumar gastos a un jugador.
     //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
     public void sumarGastos(float valor) {
+
+        if(valor < 0 ){
+            System.out.println("El valor del gasto no puede ser negativo");
+        }
+        this.gastos += valor;
     }
 
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
+        this.enCarcel = true;
     }
 
 }

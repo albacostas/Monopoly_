@@ -1,15 +1,48 @@
-# Monopoly_
-Casillas
-Grupo
-Menu
-MonopolyETSE
-Tablero
-Valor
+- Casilla:
+  HECHO Construsctor casilla.
+  DUDA evaluarCasilla (Alba rehaciendo)
+  HECHO comprarCasilla 
+  HECHO sumarValor
 
-Avatar:
-    -Alba, setter y getter
+  ManejarTransporte (revisar)
 
-Dado (Alba): está hecho
+- Grupo: Hecho y revisado
+  HECHO anhadirCasilla
+  HECHO DuenhoGrupo
 
-Jugador:
-    -Alba: eliminarPropiedad
+- Menu:
+  iniciarPartida
+  analizarCamonado
+  descJugador
+  descCasilla
+  comprar
+  salirCarcel
+  listarVenta
+  listarJugadores
+  listarAvatares
+  acabarTurno
+
+- Tablero:
+  toString MEDIO-HECHO {
+    Colores
+    Tabulacion
+    Cajas
+  }
+  encontrar_casilla HECHO
+
+- Avatar:
+  moverAvatar
+
+- Jugador:
+  anhadirPropiedad (hecho, Alba)
+  sumarFortuna (hecho, Alba)
+  sumarGastos (hecho, Alba)
+  DUDA encarcelar
+
+-IMPRIMIR TABLERO
+
+
+1- Desde tu rama: add commit push
+2- Cambiar a rama main: checkout main
+3- Juntar en main el contenido de tu rama: git merge (nombre_rama)
+4- Desde main: add commit push

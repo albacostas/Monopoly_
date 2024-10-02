@@ -14,15 +14,12 @@ class Grupo {
     //Constructor vacío.
     public Grupo() {
         this.miembros = new ArrayList<>();
-        this.colorGrupo = "";
-        this.numCasillas = 0;
     }
 
     /*Constructor para cuando el grupo está formado por DOS CASILLAS:
     * Requiere como parámetros las dos casillas miembro y el color del grupo.
      */
     public Grupo(Casilla cas1, Casilla cas2, String colorGrupo) {
-
         this.miembros = new ArrayList<>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
@@ -35,7 +32,6 @@ class Grupo {
     * Requiere como parámetros las tres casillas miembro y el color del grupo.
      */
     public Grupo(Casilla cas1, Casilla cas2, Casilla cas3, String colorGrupo) {
-
         this.miembros = new ArrayList<>();
         this.miembros.add(cas1);
         this.miembros.add(cas2);
@@ -67,7 +63,7 @@ class Grupo {
     }
 
     /* Método que añade una casilla al array de casillas miembro de un grupo.
-    * Parámetro: casilla que se quiere añadir.
+     * Parámetro: casilla que se quiere añadir.
      */
     public void anhadirCasilla(Casilla miembro) {
         this.miembros.add(miembro);
@@ -78,6 +74,7 @@ class Grupo {
     * Valor devuelto: true si es dueño de todas las casillas del grupo, false en otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
+<<<<<<< HEAD
         //recorremos todas las casillas del grupo
         for (Casilla casilla: this.miembros){
             //si alguna de las casillas del grupo no tiene al jugar como dueño, devolvemos false.
@@ -87,6 +84,23 @@ class Grupo {
         }
         return true;
 
+=======
+        boolean bool = true;
+        for (Casilla casilla : this.miembros) {
+            if (!casilla.getDuenho().equals(jugador)) {
+                bool = false;
+            }
+        }
+        
+        return bool;
+>>>>>>> b4670fff26350d11691be89ceebc80901af68e53
     }
-
+<<<<<<< HEAD
 }
+=======
+
+        
+    }
+>>>>>>> 17917265ac394b5ffcf58f76d660cd9bb723ed12
+
+
