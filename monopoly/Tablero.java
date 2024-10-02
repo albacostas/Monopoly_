@@ -155,22 +155,22 @@ public class Tablero {
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
+            sb.append("\n");
             sb.append("| ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
-
+    
             for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
-                sb.append("        ");
+                sb.append("        "); // no se toca
             }
             sb.append("   | ").append(formatCasilla(ladoEste.get(i))); // Lado este
             sb.append(" |\n");
         }
-
+       
         // Imprimir la fila inferior (Sur)
+        sb.append("\n");
         for (Casilla casilla : ladoSur) {
             sb.append("| ").append(formatCasilla(casilla));
         }
         sb.append(" |\n"); // no se toca
-
-
         return sb.toString();
     }
 
@@ -192,4 +192,5 @@ public class Tablero {
         }
         System.out.println("No se ha encontrado la casilla");
         return new Casilla();
-    }}
+    }
+}
