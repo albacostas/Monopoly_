@@ -145,7 +145,7 @@ public class Tablero {
 
 
         // Imprimir la fila superior (Norte)
-        sb.append("+").append("_".repeat(10)).append("+\n");
+        sb.append("+").append("-".repeat(11)).append("+\n");
         for(int n=ladoNorte.size()-1; n>=0; n--){
             sb.append("| ").append(formatCasilla(ladoNorte.get(n)));
         }
@@ -157,21 +157,24 @@ public class Tablero {
         sb.append(" |\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
+        sb.append("+").append("-".repeat(11)).append("+");
         for (int i = 0; i < ladoOeste.size(); i++) {
             sb.append("| ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
 
-            for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
-                sb.append("        ");
+            for (int j = 0; j < ladoNorte.size(); j++) { // Espacios en el medio
+                sb.append("         ");
             }
             sb.append("   | ").append(formatCasilla(ladoEste.get(i))); // Lado este
             sb.append(" |\n");
         }
-
+        sb.append("+").append("-".repeat(10)).append("+\n");
         // Imprimir la fila inferior (Sur)
         for (Casilla casilla : ladoSur) {
             sb.append("| ").append(formatCasilla(casilla));
         }
         sb.append(" |\n"); // no se toca
+
+        sb.append("+").append("-".repeat(10)).append("+\n");
 
 
         return sb.toString();
