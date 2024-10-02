@@ -70,6 +70,7 @@ class Grupo {
     * Parámetro: casilla que se quiere añadir.
      */
     public void anhadirCasilla(Casilla miembro) {
+        this.miembros.add(miembro);
     }
 
     /*Método que comprueba si el jugador pasado tiene en su haber todas las casillas del grupo:
@@ -77,6 +78,15 @@ class Grupo {
     * Valor devuelto: true si es dueño de todas las casillas del grupo, false en otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
+        //recorremos todas las casillas del grupo
+        for (Casilla casilla: this.miembros){
+            //si alguna de las casillas del grupo no tiene al jugar como dueño, devolvemos false.
+            if (!casilla.getDuenho().equals(jugador)){  //este getter está hecho??
+                return false;
+            }
+        }
+        return true;
+
     }
 
 }
