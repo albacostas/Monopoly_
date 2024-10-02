@@ -10,9 +10,15 @@ public class MonopolyETSE {
 
     private static ArrayList<Jugador> jugadores = new ArrayList<>();
     private static ArrayList<Avatar> avatares = new ArrayList<>();
-    private static ArrayList<ArrayList<Casilla>> tablero = new ArrayList<>();
     public static void main(String[] args) {
-        new Menu();
+
+
+        Jugador banca = new Jugador();
+
+        // Crear el tablero con el jugador banca
+        Tablero tablero = new Tablero(banca);
+
+        // Imprimir el tablero
+        System.out.println(tablero);
     }
-    
 }
