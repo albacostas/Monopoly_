@@ -70,7 +70,7 @@ public class Tablero {
         ladoSur.add(new Casilla("Suerte","Suerte",8, banca));
         ladoSur.add(new Casilla("Solar4","Solar",9,1560000, banca));
         ladoSur.add(new Casilla("Solar5","Solar",10,1560000, banca));
-        ladoSur.add(new Casilla("Carcel","Especial",11, 325332.14f, banca));
+        ladoSur.add(new Casilla("Cárcel","Especial",11, 325332.14f, banca));
 
         posiciones.add(ladoSur);
     }      
@@ -107,7 +107,7 @@ public class Tablero {
         ladoNorte.add(new Casilla("Solar16", "Solar", 28, 1485172, banca));
         ladoNorte.add(new Casilla("Serv2", "Servicio", 29, banca));
         ladoNorte.add(new Casilla("Solar17", "Solar", 30, 1485172, banca));
-        ladoNorte.add(new Casilla("Ir a Carcel","Especial",31, banca));
+        ladoNorte.add(new Casilla("Ir Cárcel","Especial",31, banca));
 
         posiciones.add(ladoNorte);
 
@@ -143,35 +143,42 @@ public class Tablero {
         ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
 
+        Collections.reverse(ladoSur);
+        Collections.reverse(ladoOeste);
+
         // Imprimir la fila superior (Norte)
-        for(int n=ladoNorte.size()-1; n>=0; n--){
-            sb.append("| ").append(formatCasilla(ladoNorte.get(n)));
+        sb.append("|");
+        for(Casilla casill : ladoNorte){
+            sb.append(" ----------- ");
         }
-
-        /*for (Casilla casilla : ladoNorte) {
-            sb.append("| ").append(formatCasilla(casilla));
-        }*/
-
         sb.append("|\n");
+        for (Casilla casilla : ladoNorte) {
+            sb.append("|  ").append(formatCasilla(casilla)); 
+        }
+        sb.append(" |\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
-            sb.append("| ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
-
-            for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
-                sb.append("        ");
+            sb.append("|\n");
+            sb.append("|  ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
+    
+            for (int j = 0; j < ladoNorte.size()+3; j++) { // Espacios en el medio
+                sb.append("        "); // no se toca
             }
-            sb.append("   | ").append(formatCasilla(ladoEste.get(i))); // Lado este
-            sb.append(" |\n");
+            sb.append("    | ").append(formatCasilla(ladoEste.get(i))); // Lado este
+            sb.append("  |\n");
         }
-
+       
         // Imprimir la fila inferior (Sur)
+        sb.append("|");
+        for(Casilla casill : ladoSur){
+            sb.append(" ----------- git ");
+        }
+        sb.append("| \n");
         for (Casilla casilla : ladoSur) {
-            sb.append("| ").append(formatCasilla(casilla));
+            sb.append("|  ").append(formatCasilla(casilla));
         }
         sb.append(" |\n"); // no se toca
-
-
         return sb.toString();
     }
 
@@ -193,4 +200,5 @@ public class Tablero {
         }
         System.out.println("No se ha encontrado la casilla");
         return new Casilla();
-    }}
+    }
+}
