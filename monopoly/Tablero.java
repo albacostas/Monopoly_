@@ -3,6 +3,8 @@ package monopoly;
 
 import partida.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -142,9 +144,14 @@ public class Tablero {
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
 
         // Imprimir la fila superior (Norte)
-        for (Casilla casilla : ladoNorte) {
-            sb.append("| ").append(formatCasilla(casilla));
+        for(int n=ladoNorte.size()-1; n>=0; n--){
+            sb.append("| ").append(formatCasilla(ladoNorte.get(n)));
         }
+
+        /*for (Casilla casilla : ladoNorte) {
+            sb.append("| ").append(formatCasilla(casilla));
+        }*/
+
         sb.append("|\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
