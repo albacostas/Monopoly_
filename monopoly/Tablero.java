@@ -68,6 +68,7 @@ public class Tablero {
         ladoSur.add(new Casilla("Suerte","Suerte",8, banca));
         ladoSur.add(new Casilla("Solar4","Solar",9,1560000, banca));
         ladoSur.add(new Casilla("Solar5","Solar",10,1560000, banca));
+        ladoSur.add(new Casilla("Carcel","Especial",11, 325332.14f, banca));
 
         posiciones.add(ladoSur);
     }      
@@ -76,15 +77,15 @@ public class Tablero {
     private void insertarLadoOeste() {
         ArrayList<Casilla> ladoEste = new ArrayList<>();
 
-        ladoEste.add(new Casilla("Carcel","Especial",11, 325332.14f, banca));
         ladoEste.add(new Casilla("Solar6", "Solar",12,2028000,banca));
+        ladoEste.add(new Casilla("Serv1", "Servicio", 13, banca));
         ladoEste.add(new Casilla("Solar7", "Solar",14,2028000,banca));
         ladoEste.add(new Casilla("Solar8", "Solar",15,2028000,banca));
         ladoEste.add(new Casilla("Trans2", "Transporte", 16, Valor.SUMA_VUELTA, banca));
         ladoEste.add(new Casilla("Solar9", "Solar", 17, 1485172, banca));
         ladoEste.add(new Casilla("Caja", "Comunidad", 18, banca));
-        ladoEste.add(new Casilla("Solar9", "Solar", 19, 1485172, banca));
-        ladoEste.add(new Casilla("Solar10", "Solar", 20, 1485172, banca));
+        ladoEste.add(new Casilla("Solar10", "Solar", 19, 1485172, banca));
+        ladoEste.add(new Casilla("Solar11", "Solar", 20, 1485172, banca));
 
         posiciones.add(ladoEste);
 
@@ -104,6 +105,7 @@ public class Tablero {
         ladoNorte.add(new Casilla("Solar16", "Solar", 28, 1485172, banca));
         ladoNorte.add(new Casilla("Serv2", "Servicio", 29, banca));
         ladoNorte.add(new Casilla("Solar17", "Solar", 30, 1485172, banca));
+        ladoNorte.add(new Casilla("Ir a Carcel","Especial",31, banca));
 
         posiciones.add(ladoNorte);
 
@@ -113,10 +115,9 @@ public class Tablero {
     private void insertarLadoEste() {
         ArrayList<Casilla> ladoEste = new ArrayList<>();
 
-        ladoEste.add(new Casilla("Ir a Carcel","Especial",31, banca));
         ladoEste.add(new Casilla("Solar18", "Solar",32,1142440,banca));
         ladoEste.add(new Casilla("Solar19", "Solar",33,banca));
-        ladoEste.add(new Casilla("Caja", "Comunidad",34,1142440,banca));
+        ladoEste.add(new Casilla("Caja", "Comunidad",33,1142440,banca));
         ladoEste.add(new Casilla("Solar20", "Solar",35,1142440,banca));
         ladoEste.add(new Casilla("Trans4", "Transporte", 36, Valor.SUMA_VUELTA, banca));
         ladoEste.add(new Casilla("Suerte", "Suerte", 37, 1485172, banca));
@@ -169,11 +170,10 @@ public class Tablero {
 
 
     private String formatCasilla(Casilla casilla) {
-    // Ajustar el formato para que cada casilla tenga el mismo ancho
+        // Ajustar el formato para que cada casilla tenga el mismo ancho
         String nombre = casilla.getNombre();
         return String.format("%-10s", nombre);  // Espacio fijo para cada casilla
     }
-
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){
@@ -186,5 +186,4 @@ public class Tablero {
         }
         System.out.println("No se ha encontrado la casilla");
         return new Casilla();
-    }
-}
+    }}
