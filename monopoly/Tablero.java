@@ -3,6 +3,8 @@ package monopoly;
 
 import partida.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 
@@ -142,19 +144,24 @@ public class Tablero {
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
 
         // Imprimir la fila superior (Norte)
-        for (Casilla casilla : ladoNorte) {
-            sb.append("| ").append(formatCasilla(casilla));
+        for(int n=ladoNorte.size()-1; n>=0; n--){
+            sb.append("| ").append(formatCasilla(ladoNorte.get(n)));
         }
+
+        /*for (Casilla casilla : ladoNorte) {
+            sb.append("| ").append(formatCasilla(casilla));
+        }*/
+
         sb.append("|\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
             sb.append("| ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
-            
+
             for (int j = 0; j < ladoNorte.size()+2; j++) { // Espacios en el medio
                 sb.append("        ");
             }
-            sb.append("| ").append(formatCasilla(ladoEste.get(i))); // Lado este
+            sb.append("   | ").append(formatCasilla(ladoEste.get(i))); // Lado este
             sb.append(" |\n");
         }
 
@@ -162,7 +169,7 @@ public class Tablero {
         for (Casilla casilla : ladoSur) {
             sb.append("| ").append(formatCasilla(casilla));
         }
-        sb.append(" |\n");
+        sb.append(" |\n"); // no se toca
 
 
         return sb.toString();
