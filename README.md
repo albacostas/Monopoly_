@@ -23,7 +23,11 @@
   acabarTurno
 
 - Tablero:
-  toString MEDIO-HECHO
+  toString MEDIO-HECHO {
+    Colores
+    Tabulacion
+    Cajas
+  }
   encontrar_casilla HECHO
 
 - Avatar:
