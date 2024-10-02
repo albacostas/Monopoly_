@@ -24,7 +24,7 @@
 
 - Tablero:
   toString
-  encontrar_casilla
+  HECHO encontrar_casilla
 
 - Avatar:
   moverAvatar
