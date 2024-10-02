@@ -131,27 +131,69 @@ public class Tablero {
     @Override
 
 
+    // public String toString() {
+        
+    //     StringBuilder sb = new StringBuilder();
+    //     // sb.append("Tablero:\n");
+    //     // sb.append("Banca: ").append(banca.toString()).append("\n");
+    //     // sb.append("Grupos:\n");
+    //     // for (String key : grupos.keySet()) {
+    //     //     sb.append("Grupo  ").append(key).append(": ").append(grupos.get(key).toString()).append("\n");
+    //     // }
+    //     // sb.append("Posiciones:\n");
+    //     // for (int i = 0; i < posiciones.size(); i++) {
+    //     //     sb.append("  Lado ").append(i + 1).append(":\n");
+    //     //     for (Casilla casilla : posiciones.get(i)) {
+    //     //         sb.append("    ").append(casilla.toString()).append("\n");
+    //     //     }
+    //     // }
+    //     // return sb.toString();
+    //     ArrayList<Casilla> ladoSur = posiciones.get(0);
+    //     ArrayList<Casilla> ladoOeste = posiciones.get(10);
+    //     ArrayList<Casilla> ladoNorte = posiciones.get(20);
+    
+    // }
+
+    @Override
     public String toString() {
-        /*
         StringBuilder sb = new StringBuilder();
-        sb.append("Tablero:\n");
-        sb.append("Banca: ").append(banca.toString()).append("\n");
-        sb.append("Grupos:\n")≥;
-        for (String key : grupos.keySet()) {
-            sb.append("  ").append(key).append(": ").append(grupos.get(key).toString()).append("\n");
+    
+        ArrayList<Casilla> ladoSur = posiciones.get(0);  // El primer lado es el sur
+        ArrayList<Casilla> ladoOeste = posiciones.get(1);  // El segundo lado es el oeste
+        ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
+        ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
+
+        // Imprimir la fila superior (Norte)
+        for (Casilla casilla : ladoNorte) {
+            sb.append("|").append(formatCasilla(casilla));
         }
-        sb.append("Posiciones:\n");
-        for (int i = 0; i < posiciones.size(); i++) {
-            sb.append("  Lado ").append(i + 1).append(":\n");
-            for (Casilla casilla : posiciones.get(i)) {
-                sb.append("    ").append(casilla.toString()).append("\n");
+        sb.append("|\n");
+
+        // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
+        for (int i = 0; i < ladoOeste.size(); i++) {
+            sb.append("|").append(formatCasilla(ladoOeste.get(i))); // Lado oeste
+            for (int j = 0; j < ladoNorte.size() - 2; j++) { // Espacios en el medio
+                sb.append("        ");
             }
+            sb.append("|").append(formatCasilla(ladoEste.get(i))); // Lado este≥
+            sb.append("|\n");
         }
+
+        // Imprimir la fila inferior (Sur)
+        for (Casilla casilla : ladoSur) {
+            sb.append("|").append(formatCasilla(casilla));
+        }
+        sb.append("|\n");
+
         return sb.toString();
-        */
     }
 
-    
+    private String formatCasilla(Casilla casilla) {
+        // Ajustar el formato para que cada casilla tenga el mismo ancho
+        String nombre = casilla.getNombre();
+        return String.format("%-8s", nombre);  // Espacio fijo para cada casilla
+    }
+
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){
