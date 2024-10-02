@@ -23,8 +23,8 @@
   acabarTurno
 
 - Tablero:
-  toString
-  encontrar_casilla
+  toString MEDIO-HECHO
+  encontrar_casilla HECHO
 
 - Avatar:
   moverAvatar

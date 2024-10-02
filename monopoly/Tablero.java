@@ -149,7 +149,7 @@ public class Tablero {
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
             sb.append("|").append(formatCasilla(ladoOeste.get(i))); // Lado oeste
-            for (int j = 0; j < ladoNorte.size() - 2; j++) { // Espacios en el medio
+            for (int j = 0; j < ladoNorte.size()+1; j++) { // Espacios en el medio
                 sb.append("        ");
             }
             sb.append("|").append(formatCasilla(ladoEste.get(i))); // Lado este
