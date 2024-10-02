@@ -143,7 +143,9 @@ public class Tablero {
         ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
 
+
         // Imprimir la fila superior (Norte)
+        sb.append("+").append("_".repeat(10)).append("+\n");
         for(int n=ladoNorte.size()-1; n>=0; n--){
             sb.append("| ").append(formatCasilla(ladoNorte.get(n)));
         }
