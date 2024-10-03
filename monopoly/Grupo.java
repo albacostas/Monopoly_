@@ -74,17 +74,6 @@ class Grupo {
     * Valor devuelto: true si es dueño de todas las casillas del grupo, false en otro caso.
      */
     public boolean esDuenhoGrupo(Jugador jugador) {
-<<<<<<< HEAD
-        //recorremos todas las casillas del grupo
-        for (Casilla casilla: this.miembros){
-            //si alguna de las casillas del grupo no tiene al jugar como dueño, devolvemos false.
-            if (!casilla.getDuenho().equals(jugador)){  //este getter está hecho??
-                return false;
-            }
-        }
-        return true;
-
-=======
         boolean bool = true;
         for (Casilla casilla : this.miembros) {
             if (!casilla.getDuenho().equals(jugador)) {
@@ -93,14 +82,7 @@ class Grupo {
         }
         
         return bool;
->>>>>>> b4670fff26350d11691be89ceebc80901af68e53
     }
-<<<<<<< HEAD
 }
-=======
-
-        
-    }
->>>>>>> 17917265ac394b5ffcf58f76d660cd9bb723ed12
 
 
