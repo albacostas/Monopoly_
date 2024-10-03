@@ -172,7 +172,7 @@ public class Tablero {
         // Imprimir la fila inferior (Sur)
         sb.append("|");
         for(Casilla casill : ladoSur){
-            sb.append(" ----------- git ");
+            sb.append(" ----------- ");
         }
         sb.append("| \n");
         for (Casilla casilla : ladoSur) {

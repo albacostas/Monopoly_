@@ -95,6 +95,8 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
+        
+
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
