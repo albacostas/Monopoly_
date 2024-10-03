@@ -162,11 +162,11 @@ public class Tablero {
         Solar13.setGrupo(red);
         Solar14.setGrupo(red);
 
-        Grupo white = new Grupo(Solar15, Solar16, Solar17, "White");
-        this.grupos.put("White", white);
-        Solar15.setGrupo(white);
-        Solar16.setGrupo(white);
-        Solar17.setGrupo(white);
+        Grupo brown = new Grupo(Solar15, Solar16, Solar17, "Brown");
+        this.grupos.put("Brown", brown);
+        Solar15.setGrupo(brown);
+        Solar16.setGrupo(brown);
+        Solar17.setGrupo(brown);
 
         ladoNorte.add(Parking);
         ladoNorte.add(Solar12);
@@ -240,61 +240,68 @@ public class Tablero {
 
         // Imprimir la fila superior (Norte)
         sb.append("|");
-        for(Casilla casill : ladoNorte){
+        for(Casilla casilla : ladoNorte){
             sb.append(" ----------- ");
         }
         sb.append("|\n");
         for (Casilla casilla : ladoNorte) {
-            sb.append("|  ").append(formatCasilla(casilla)); 
+            sb.append("|  ").append(colorCasillas(casilla)); 
         }
         sb.append(" |\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
             sb.append("|\n"); // Lado Oeste
-            sb.append("|  ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
+            sb.append("|  ").append(colorCasillas(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
     
             for (int j = 0; j < ladoNorte.size()+3; j++) { // Espacios en el medio
                 sb.append("        "); // no se toca
             }
-            sb.append("    | ").append(formatCasilla(ladoEste.get(i))); // Lado este
+            sb.append("    | ").append(colorCasillas(ladoEste.get(i))); // Lado este
             sb.append("  |\n");
         }
 
        
         // Imprimir la fila inferior (Sur)
         sb.append("|");
-        for(Casilla casill : ladoSur){
+        for(Casilla casilla : ladoSur){
             sb.append(" ----------- ");
         }
         sb.append("| \n");
         for (Casilla casilla : ladoSur) {
-            sb.append("|  ").append(formatCasilla(casilla));
+            sb.append("|  ").append(colorCasillas(casilla));
         }
         sb.append(" |\n"); // no se toca
         return sb.toString();
     }
 
-    /*private String colorCasillas(Casilla casilla){
-        String color_casilla = casilla.getGrupo().getColorGrupo();
-        
-        switch (color_casilla) {
-            case "2Amarilli":
-                
-                break;
-        
-            default:
-                break;
+    private String colorCasillas(Casilla casilla){
+        if (casilla.getGrupo() == null) {
+            return String.format("%-10s", casilla.getNombre());
         }
 
+        String color_casilla = casilla.getGrupo().getColorGrupo();
 
-
-    }*/
-
-    private String formatCasilla(Casilla casilla) {
-        // Ajustar el formato para que cada casilla tenga el mismo ancho
-        String nombre = casilla.getNombre();
-        return String.format("%-10s", nombre);  // Espacio fijo para cada casilla
+        switch (color_casilla) {
+            case "Black":
+                return (Valor.BLACK + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Red":
+                return (Valor.RED + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Green":
+                return (Valor.GREEN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Yellow":
+                return (Valor.YELLOW + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Blue":
+                return (Valor.BLUE + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Purple":
+                return (Valor.PURPLE + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Cyan":
+                return (Valor.CYAN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            case "Brown":
+                return (Valor.BROWN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
+            default:
+                return (String.format("%-10s", casilla.getNombre()));
+        }
     }
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
