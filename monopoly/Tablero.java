@@ -14,6 +14,7 @@ public class Tablero {
     private HashMap<String, Grupo> grupos; //Grupos del tablero, almacenados como un HashMap con clave String (será el color del grupo).
     private Jugador banca; //Un jugador que será la banca.
 
+    private ArrayList<Casilla> casillas;
 
     //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).
     public Tablero(Jugador banca) { // Inicializa los campos de instancia de la clase Tablero.
@@ -159,7 +160,7 @@ public class Tablero {
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
         for (int i = 0; i < ladoOeste.size(); i++) {
-            sb.append("|\n");
+            sb.append("|\n"); // Lado Oeste
             sb.append("|  ").append(formatCasilla(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
     
             for (int j = 0; j < ladoNorte.size()+3; j++) { // Espacios en el medio
@@ -168,11 +169,12 @@ public class Tablero {
             sb.append("    | ").append(formatCasilla(ladoEste.get(i))); // Lado este
             sb.append("  |\n");
         }
+
        
         // Imprimir la fila inferior (Sur)
         sb.append("|");
         for(Casilla casill : ladoSur){
-            sb.append(" ----------- git ");
+            sb.append(" ----------- ");
         }
         sb.append("| \n");
         for (Casilla casilla : ladoSur) {
