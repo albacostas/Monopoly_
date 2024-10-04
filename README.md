@@ -6,7 +6,7 @@
 
   ManejarTransporte (revisar)
 
-- Grupo: Hecho y revisado
+- Grupo: HECHO y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
 
@@ -22,7 +22,7 @@
   listarAvatares
   acabarTurno
 
-- Tablero:
+- Tablero: HECHO
   toString HECHO {
     Colores HECHO
     Tabulacion HECHO
