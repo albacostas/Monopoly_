@@ -23,10 +23,10 @@
   acabarTurno
 
 - Tablero:
-  toString MEDIO-HECHO {
+  toString HECHO {
     Colores HECHO
     Tabulacion HECHO
-    Cajas
+    Cajas HECHO
   }
   encontrar_casilla HECHO
 
