@@ -222,9 +222,43 @@ public class Tablero {
         posiciones.add(ladoEste);
     }
 
+
+    private String formatCasilla(Casilla casilla) {
+        // Ajustar el formato para que cada casilla tenga el mismo ancho
+        String nombre = casilla.getNombre();
+        return String.format("%-15s", nombre);  // Espacio fijo para cada casilla
+    }
+
+    private String colorCasillas(Casilla casilla){
+        if (casilla.getGrupo() == null) {
+            return formatCasilla(casilla);
+        }
+
+        String color_casilla = casilla.getGrupo().getColorGrupo();
+
+        switch (color_casilla) {
+            case "Black":
+                return (Valor.BLACK + formatCasilla(casilla) + Valor.RESET);
+            case "Red":
+                return (Valor.RED + formatCasilla(casilla) + Valor.RESET);
+            case "Green":
+                return (Valor.GREEN + formatCasilla(casilla) + Valor.RESET);
+            case "Yellow":
+                return (Valor.YELLOW + formatCasilla(casilla) + Valor.RESET);
+            case "Blue":
+                return (Valor.BLUE + formatCasilla(casilla) + Valor.RESET);
+            case "Purple":
+                return (Valor.PURPLE + formatCasilla(casilla) + Valor.RESET);
+            case "Cyan":
+                return (Valor.CYAN + formatCasilla(casilla) + Valor.RESET);
+            case "Brown":
+                return (Valor.BROWN + formatCasilla(casilla) + Valor.RESET);
+            default:
+                return (formatCasilla(casilla));
+        }
+    }
+
     //Para imprimir el tablero, modificamos el método toString().
-
-
     @Override
 
     public String toString() {
@@ -238,71 +272,103 @@ public class Tablero {
         Collections.reverse(ladoSur);
         Collections.reverse(ladoOeste);
 
+
         // Imprimir la fila superior (Norte)
-        sb.append("|");
-        for(Casilla casilla : ladoNorte){
-            sb.append(" ----------- ");
+        for (Casilla casilla : ladoNorte){
+            sb.append(" ");
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
+        }
+        sb.append("\n");
+        for (Casilla casilla : ladoNorte) {
+            sb.append("|").append(colorCasillas(casilla));
         }
         sb.append("|\n");
-        for (Casilla casilla : ladoNorte) {
-            sb.append("|  ").append(colorCasillas(casilla)); 
+        for (Casilla casilla : ladoNorte){
+            sb.append("|");
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
         }
-        sb.append(" |\n");
+        sb.append("|\n");
 
         // Imprimir los lados izquierdo (Oeste) y derecho (Este) con espacios en el medio
-        for (int i = 0; i < ladoOeste.size(); i++) {
-            sb.append("|\n"); // Lado Oeste
-            sb.append("|  ").append(colorCasillas(ladoOeste.get(i))).append("|"); // Lado oeste  este bien
-    
-            for (int j = 0; j < ladoNorte.size()+3; j++) { // Espacios en el medio
-                sb.append("        "); // no se toca
+        Casilla casilla = new Casilla();
+
+        for (int i = 0; i < ladoOeste.size()-1; i++) {
+            sb.append("|").append(colorCasillas(ladoOeste.get(i))).append("|");
+            for(int l = 0; l < ladoNorte.size()-2; l++){
+                for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+                    sb.append(" ");
+                }
             }
-            sb.append("    | ").append(colorCasillas(ladoEste.get(i))); // Lado este
-            sb.append("  |\n");
+            sb.deleteCharAt(sb.length()-1);
+            sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n|");
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
+            sb.append("|");
+            for(int l = 0; l < ladoNorte.size()-2; l++){
+                for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+                    sb.append(" ");
+                }
+            }
+            sb.deleteCharAt(sb.length()-1).append("|");
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
+            sb.append("|\n");
         }
 
-       
-        // Imprimir la fila inferior (Sur)
+        sb.append("|").append(colorCasillas(ladoOeste.get(ladoOeste.size()-1))).append("|"); //Imprime la última casilla del lado oeste conectándola con el lado sur
+        for(int i = 0; i < ladoNorte.size()-2; i++){
+            for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+                sb.append(" ");
+            }
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("|").append(colorCasillas(ladoEste.get(ladoOeste.size()-1))).append("|\n|"); //Imprime la última casilla del lado este conectándola con el lado sur
+        
+        //Imprime la fila superior del lado sur
+        for (int i = 0; i < formatCasilla(casilla).length(); i++) {         //Imprime la parte inferior de la última casilla del lado este
+            sb.append("_");
+        }
         sb.append("|");
-        for(Casilla casilla : ladoSur){
-            sb.append(" ----------- ");
+        for(int i = 0; i < ladoSur.size()-2; i++){
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
+            if (i<ladoSur.size()-3) {
+                    sb.append(" ");
+    
+            }
         }
-        sb.append("| \n");
-        for (Casilla casilla : ladoSur) {
-            sb.append("|  ").append(colorCasillas(casilla));
+        sb.append("|");                                                     //Imprime la parte inferior de la última casilla del lado este
+        for (int i = 0; i < formatCasilla(casilla).length(); i++) {
+            sb.append("_");
         }
-        sb.append(" |\n"); // no se toca
+        sb.append("|");
+        
+        sb.append("\n");
+
+        // Imprimir la fila inferior (Sur)
+        for (Casilla casilla1 : ladoSur) {
+            sb.append("|").append(colorCasillas(casilla1));
+        }
+        sb.append("|\n");
+        for(int i = 0; i < ladoSur.size(); i++){
+            sb.append("|");
+            for (int j = 0; j < formatCasilla(casilla).length(); j++) {
+                sb.append("_");
+            }
+        }
+        sb.append("|\n");
+
         return sb.toString();
     }
 
-    private String colorCasillas(Casilla casilla){
-        if (casilla.getGrupo() == null) {
-            return String.format("%-10s", casilla.getNombre());
-        }
-
-        String color_casilla = casilla.getGrupo().getColorGrupo();
-
-        switch (color_casilla) {
-            case "Black":
-                return (Valor.BLACK + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Red":
-                return (Valor.RED + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Green":
-                return (Valor.GREEN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Yellow":
-                return (Valor.YELLOW + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Blue":
-                return (Valor.BLUE + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Purple":
-                return (Valor.PURPLE + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Cyan":
-                return (Valor.CYAN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            case "Brown":
-                return (Valor.BROWN + String.format("%-10s", casilla.getNombre()) + Valor.RESET);
-            default:
-                return (String.format("%-10s", casilla.getNombre()));
-        }
-    }
+    
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){

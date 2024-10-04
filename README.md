@@ -24,8 +24,8 @@
 
 - Tablero:
   toString MEDIO-HECHO {
-    Colores
-    Tabulacion
+    Colores HECHO
+    Tabulacion HECHO
     Cajas
   }
   encontrar_casilla HECHO
