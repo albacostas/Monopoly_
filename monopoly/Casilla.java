@@ -43,6 +43,12 @@ public class Casilla {
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
+    public int getPosicion(){
+        return this.posicion;
+    }
+    public int setPosicion(){
+        return this.posicion;
+    }
 
     //Constructores:
     public Casilla() {
