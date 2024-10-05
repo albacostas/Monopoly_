@@ -37,6 +37,12 @@ public class Casilla {
     public float getImpuesto(){
         return this.impuesto;
     }
+    public Grupo getGrupo() {
+        return grupo;
+    }
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
 
     //Constructores:
     public Casilla() {
@@ -64,7 +70,13 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
+<<<<<<< HEAD
         this.avatares = new ArrayList<Avatar>();
+=======
+        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
+
+>>>>>>> 7351ce072b63059b008e2159f6a11654799962a7
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -87,6 +99,8 @@ public class Casilla {
         this.tipo=tipo;
         this.posicion=posicion;
         this.duenho=duenho;
+        
+
     }
 
 
@@ -153,25 +167,25 @@ public class Casilla {
 
     }
 
-    private boolean manejarSolar(Jugador actual, Casilla casilla){
-        if(casilla.getDuenho() == null){
-            if(actual.getFortuna() >= casilla.getValor()){
-                actual.sumarGastos(casilla.getValor());
-                actual.anhadirPropiedad(casilla);
-                casilla.setDuenho(actual);
-                System.out.println(actual.getNombre() + "ha adquirido la propiedad: " + casilla.getNombre());
-                return true;
-            } else return false;
-        } else{
-            float alquier = casilla.getImpuesto();
-            if(actual.getFortuna() >= alquier){
-                actual.sumarGastos(alquier);
-                casilla.getDuenho().sumarFortuna(alquier);
-                System.out.println(actual.getNombre() + "ha pagado " + alquiler + "del alquiler a " + casilla.getDuenho().getNombre());
-                return true;
-            } else return false;
-        }
-    }
+    // private boolean manejarSolar(Jugador actual, Casilla casilla){
+    //     if(casilla.getDuenho() == null){
+    //         if(actual.getFortuna() >= casilla.getValor()){
+    //             actual.sumarGastos(casilla.getValor());
+    //             actual.anhadirPropiedad(casilla);
+    //             casilla.setDuenho(actual);
+    //             System.out.println(actual.getNombre() + "ha adquirido la propiedad: " + casilla.getNombre());
+    //             return true;
+    //         } else return false;
+    //     } else{
+    //         float alquier = casilla.getImpuesto();
+    //         if(actual.getFortuna() >= alquier){
+    //             actual.sumarGastos(alquier);
+    //             casilla.getDuenho().sumarFortuna(alquier);
+    //             System.out.println(actual.getNombre() + "ha pagado " + alquiler + "del alquiler a " + casilla.getDuenho().getNombre());
+    //             return true;
+    //         } else return false;
+    //     }
+    // }
 
     // private boolean manejarImpuesto (Jugador actual, Casilla casilla, int tirada){
         

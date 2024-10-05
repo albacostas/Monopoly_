@@ -6,7 +6,7 @@
 
   ManejarTransporte (revisar)
 
-- Grupo: Hecho y revisado
+- Grupo: HECHO y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
 
@@ -22,11 +22,11 @@
   listarAvatares
   acabarTurno
 
-- Tablero:
-  toString MEDIO-HECHO {
-    Colores
-    Tabulacion
-    Cajas
+- Tablero: HECHO
+  toString HECHO {
+    Colores HECHO
+    Tabulacion HECHO
+    Cajas HECHO
   }
   encontrar_casilla HECHO
 
