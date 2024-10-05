@@ -65,13 +65,13 @@ public class Tablero {
         Casilla Solar1 = new Casilla("Solar1", "Solar", 2, 600000, banca);
         Casilla Caja = new Casilla("Caja", "Comunidad", 3, banca);
         Casilla Solar2 = new Casilla("Solar2", "Solar", 4, 600000, banca);
-        Casilla Impuesto1 = new Casilla("Impuesto1","Impuesto", 5, Valor.SUMA_VUELTA/2, banca);
+        Casilla Impuesto1 = new Casilla("Impuesto1", 5, Valor.SUMA_VUELTA/2, banca);
         Casilla Trans1 = new Casilla("Trans1", "Transporte", 6, Valor.SUMA_VUELTA , banca);
-        Casilla Solar3 = new Casilla("Solar3","Solar",7, 1560000, banca);
+        Casilla Solar3 = new Casilla("Solar3","Solar",7, 520000, banca);
         Casilla Suerte = new Casilla("Suerte","Suerte",8, banca);
-        Casilla Solar4 =new Casilla("Solar4","Solar",9,1560000, banca);
-        Casilla Solar5 = new Casilla("Solar5","Solar",10,1560000, banca);
-        Casilla Carcel = new Casilla("Cárcel","Especial",11, 325332.14f, banca);
+        Casilla Solar4 =new Casilla("Solar4","Solar",9,520000, banca);
+        Casilla Solar5 = new Casilla("Solar5","Solar",10,520000, banca);
+        Casilla Carcel = new Casilla("Cárcel","Especial",11, 1/4*Valor.SUMA_VUELTA, banca);
 
         Grupo cyan = new Grupo(Solar5, Solar4, Solar3, "Cyan");
         this.grupos.put("Cyan", cyan);
@@ -104,15 +104,15 @@ public class Tablero {
     private void insertarLadoOeste() {
         ArrayList<Casilla> ladoEste = new ArrayList<>();
 
-        Casilla Solar6 = new Casilla("Solar6", "Solar",12,2028000,banca);
-        Casilla Serv1 = new Casilla("Serv1", "Servicio", 13, banca);
-        Casilla Solar7 = new Casilla("Solar7", "Solar",14,2028000,banca);
-        Casilla Solar8 = new Casilla("Solar8", "Solar",15,2028000,banca);
+        Casilla Solar6 = new Casilla("Solar6", "Solar",12,676000,banca);
+        Casilla Serv1 = new Casilla("Serv1", "Servicio", 13, 3/4*Valor.SUMA_VUELTA, banca);
+        Casilla Solar7 = new Casilla("Solar7", "Solar",14,676000,banca);
+        Casilla Solar8 = new Casilla("Solar8", "Solar",15,676000,banca);
         Casilla Trans2 = new Casilla("Trans2", "Transporte", 16, Valor.SUMA_VUELTA, banca);
-        Casilla Solar9 = new Casilla("Solar9", "Solar", 17, 1485172, banca);
+        Casilla Solar9 = new Casilla("Solar9", "Solar", 17, 878800, banca);
         Casilla Caja = new Casilla("Caja", "Comunidad", 18, banca);
-        Casilla Solar10 = new Casilla("Solar10", "Solar", 19, 1485172, banca);
-        Casilla Solar11 = new Casilla("Solar11", "Solar", 20, 1485172, banca);
+        Casilla Solar10 = new Casilla("Solar10", "Solar", 19, 878800, banca);
+        Casilla Solar11 = new Casilla("Solar11", "Solar", 20, 878800, banca);
         
         Grupo yellow = new Grupo(Solar9, Solar10, Solar11, "Yellow");
         this.grupos.put("Yellow", yellow);
@@ -152,7 +152,7 @@ public class Tablero {
         Casilla Trans3 = new Casilla("Trans3", "Transporte", 26, Valor.SUMA_VUELTA, banca);
         Casilla Solar15 = new Casilla("Solar15", "Solar", 27, 1485172, banca);
         Casilla Solar16 = new Casilla("Solar16", "Solar", 28, 1485172, banca);
-        Casilla Serv2 = new Casilla("Serv2", "Servicio", 29, banca);
+        Casilla Serv2 = new Casilla("Serv2", "Servicio", 29, 3/4*Valor.SUMA_VUELTA, banca);
         Casilla Solar17 = new Casilla("Solar17", "Solar", 30, 1485172, banca);
         Casilla IrCarcel = new Casilla("Ir Cárcel","Especial",31, banca);
         
@@ -188,15 +188,15 @@ public class Tablero {
     private void insertarLadoEste() {
         ArrayList<Casilla> ladoEste = new ArrayList<>();
 
-        Casilla Solar18 = new Casilla("Solar18", "Solar",32,1142440,banca);
-        Casilla Solar19 = new Casilla("Solar19", "Solar",33,banca);
-        Casilla Caja = new Casilla("Caja", "Comunidad",33,1142440,banca);
-        Casilla Solar20 = new Casilla("Solar20", "Solar",35,1142440,banca);
+        Casilla Solar18 = new Casilla("Solar18", "Solar",32,1930723.6f,banca);
+        Casilla Solar19 = new Casilla("Solar19", "Solar",33, 1930723.6f,banca);
+        Casilla Caja = new Casilla("Caja", "Comunidad",33,banca);
+        Casilla Solar20 = new Casilla("Solar20", "Solar",35,1930723.6f,banca);
         Casilla Trans4 = new Casilla("Trans4", "Transporte", 36, Valor.SUMA_VUELTA, banca);
-        Casilla Suerte = new Casilla("Suerte", "Suerte", 37, 1485172, banca);
-        Casilla Solar21 = new Casilla("Solar21", "Solar", 38, 1485172, banca);
-        Casilla Imp2 = new Casilla("Imp2", "Impuesto", 39,Valor.SUMA_VUELTA, banca);
-        Casilla Solar22 = new Casilla("Solar22", "Solar", 40, 1485172, banca);
+        Casilla Suerte = new Casilla("Suerte", "Suerte", 37, banca);
+        Casilla Solar21 = new Casilla("Solar21", "Solar", 38, 3764911.02f, banca);
+        Casilla Imp2 = new Casilla("Imp2", 39,Valor.SUMA_VUELTA, banca);
+        Casilla Solar22 = new Casilla("Solar22", "Solar", 40, 3764911.02f, banca);
 
         Grupo green = new Grupo(Solar18, Solar19, Solar20, "Green");
         this.grupos.put("Green", green);
