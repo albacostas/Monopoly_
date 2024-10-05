@@ -80,10 +80,10 @@ public class Menu {
     }
 
     public boolean isTirado() {
-    return tirado;
+        return tirado;
     }
     public void setTirado(boolean tirado) {
-    this.tirado = tirado;
+        this.tirado = tirado;
     }
 
     public boolean isSolvente() {
@@ -93,9 +93,7 @@ public class Menu {
         this.solvente = solvente;
         avatares = new ArrayList<>();
         tablero = new tablero();
-
     }
-
 
 
     // Método para inciar una partida: crea los jugadores y avatares.
