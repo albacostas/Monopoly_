@@ -158,8 +158,7 @@ public class Menu {
 
                 if(consecutivos == 3){
                     System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
-
-                    //la funciones que envia al jugador a la carcel
+                    jActual.encarcelar(); //revisar si es esta función porque no puedo llamar a lo parámetros
                     break;
                 }
             }else {
@@ -175,6 +174,8 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        
+
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 

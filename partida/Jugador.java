@@ -139,10 +139,30 @@ public class Jugador {
         this.gastos += valor;
     }
 
+    private Casilla ObtenerCasillaporPosicion(ArrayList<ArrayList<Casilla>> pos, int posicion){
+        for (ArrayList<Casilla> lado: pos){
+            for (Casilla casilla: lado){
+                if(casilla.getPosicion()==posicion){
+                    return casilla;
+                }
+            }
+        }
+        return null;
+
+    }
+
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
         this.enCarcel = true;
+        //posición de la casilla Cárcel
+        int posicionCarcel=11;
+
+        //movemos al jugador a la casilla Cárcel
+        Casilla carcel=ObtenerCasillaporPosicion(pos,posicionCarcel);
+        avatar.setLugar(carcel);
+        System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
+        
     }
 
 }
