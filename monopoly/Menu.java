@@ -105,6 +105,7 @@ public class Menu {
         System.out.println("Introduce los datos de otro jugador (nombre y tipo de avatar):");
         String[] j2 = scanner.nextLine().split(" ");
         crearJugador(j2[0], j2[1]);
+        scanner.close();
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
