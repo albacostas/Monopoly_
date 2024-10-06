@@ -17,12 +17,12 @@
   descJugador HECHO
   descCasilla
   comprar HECHO
-  salirCarcel
+  salirCarcel HECHO
   lanzarDados HECHO
   listarVenta HECHO
   listarJugadores HECHO
   listarAvatares HECHO
-  acabarTurno
+  acabarTurno HECHO
 
 - Tablero: HECHO
   toString HECHO {

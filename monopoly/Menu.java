@@ -325,6 +325,20 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
+
+        Jugador jActual = jugadores.get(turno);
+        if (jActual.isEnCarcel()){
+            if(jActual.getFortuna() >= 500000){
+                jActual.sumarGastos((500000));
+                jActual.setEnCarcel(false);
+                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel. Puede lanzar los daos.");
+            }else {
+                System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
+            }
+        }else {
+            System.out.println(jActual.getNombre() + " no está en la carcel.");
+        }
+
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
