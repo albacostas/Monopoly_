@@ -99,8 +99,6 @@ public class Casilla {
         this.tipo=tipo;
         this.posicion=posicion;
         this.duenho=duenho;
-        
-
     }
 
 

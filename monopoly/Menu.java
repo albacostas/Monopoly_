@@ -22,8 +22,6 @@ public class Menu {
 
 
     // Métodos Getter y Setter para cada atributo
-
-    
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
@@ -233,7 +231,8 @@ public class Menu {
     */
     private void descCasilla(String nombre) {
         //hay que tener en cuenta qué tipo de casilla es. Caja de Comunidad, Suerte e IrACárcel no tiene sentido describirlas.
-        
+        //Buscamos la Casilla
+        System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
