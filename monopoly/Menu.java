@@ -106,14 +106,17 @@ public class Menu {
     * Parámetro: cadena de caracteres (el comando).
     */
     private void analizarComando(String comando) {
-
+        
     }
 
     /*Método que da de alta a un jugador
      * Parámetros: nombre del jugador y tipo del avatar
     */
-    private void crearJugador(String jugador, String avatar) {
-
+    private void crearJugador(String nombrejugador, String avatar_j) {
+        Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
+        jugadores.add(jugador);
+        avatares.add(jugador.getAvatar());
+        System.out.println(jugador.toString()); //El avatar debe ser una letra generada automaticamente
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
