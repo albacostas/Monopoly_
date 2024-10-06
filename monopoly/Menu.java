@@ -158,7 +158,7 @@ public class Menu {
 
                 if(consecutivos == 3){
                     System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
-                    jActual.encarcelar(); //revisar si es esta función porque no puedo llamar a lo parámetros
+                    jActual.encarcelar(tablero.getPosiciones()); 
                     break;
                 }
             }else {
