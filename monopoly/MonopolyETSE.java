@@ -22,7 +22,7 @@ public class MonopolyETSE {
         do {
             System.out.println("Introduce un comando: ");
             comando = scanner.nextLine();
-            analizarComando(comando);
+            //analizarComando(comando);
         }
     }
     
