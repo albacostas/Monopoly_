@@ -116,7 +116,7 @@ public class Menu {
 
             case "jugador":
                 System.out.println("{\n\tnombre: " + this.jugadores.get(this.turno).getNombre() + ",\n\tavatar: " + this.jugadores.get(this.turno).getAvatar().getId() + "\n}");
-            break;
+                break;
 
             case "listar":
                 switch (partes[1]) {
@@ -135,19 +135,19 @@ public class Menu {
                     default:
                         break;
                 }
-            break;
+                break;
 
             case "lanzar":
                 this.lanzarDados();
-            break;
+                break;
 
             case "acabar":
                 this.acabarTurno();
-            break;
+                break;
 
             case "salir":
                 this.salirCarcel();
-            break;
+                break;
 
             case "describir":
             switch (partes[1]) {
