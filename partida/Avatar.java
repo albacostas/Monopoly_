@@ -91,7 +91,6 @@ public class Avatar {
                 if (casilla.getPosicion()==nuevaPosicion){
                     return casilla;
                 }
-
             }
         }
 
