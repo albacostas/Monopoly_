@@ -22,7 +22,6 @@ public class Menu {
 
 
     // Métodos Getter y Setter para cada atributo
-
     // por ahora no se utilizan
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
