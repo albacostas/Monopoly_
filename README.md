@@ -4,8 +4,6 @@
   HECHO comprarCasilla 
   HECHO sumarValor
 
-  ManejarTransporte (revisar)
-
 - Grupo: HECHO y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
@@ -34,7 +32,7 @@
 
 
 - Avatar:
-  moverAvatar
+  moverAvatar HECHO
 
 - Jugador:
   anhadirPropiedad (hecho, Alba)
