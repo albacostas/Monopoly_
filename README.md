@@ -15,7 +15,7 @@
   analizarCamonado
   descJugador
   descCasilla
-  comprar
+  comprar HECHO
   salirCarcel
   listarVenta
   listarJugadores

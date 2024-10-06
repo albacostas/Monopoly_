@@ -233,7 +233,7 @@ public class Menu {
         Jugador jActual = jugadores.get(turno);
         Casilla casilla = tablero.encontrar_casilla(nombre);
 
-        if (casilla = null){
+        if (casilla == null){
             System.out.println("La casilla " + nombre + " no existe en el tablero.");
             return;
         }
@@ -242,7 +242,7 @@ public class Menu {
             return;
         }
 
-        int precio = casilla.getValor();
+        float precio = casilla.getValor();
 
         System.out.println("La casilla " + nombre + " cuesta " + precio);
         System.out.println(("Desea comprar la casilla (si o no): "));
@@ -252,6 +252,7 @@ public class Menu {
         if(respuesta.equalsIgnoreCase("si")){
             if(jActual.getFortuna() < precio){
                 System.out.println("No dispone de suficiente dinero para comprar la casilla.");
+                scanner.close();
                 return;
             }
 
@@ -264,6 +265,7 @@ public class Menu {
             System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
         }
         
+        scanner.close();
         
     }
 
