@@ -123,4 +123,9 @@ public class Avatar {
 
         this.id = newID;
     }
+
+    @Override
+    public String toString() {
+        return "{\n\tid: " + this.getId() + ",\n\ttipo: " + this.getTipo() + ",\n\tcasilla: " + this.getLugar() +",\n\tjugador: " + this.getJugador() + "\n}";
+    }
 }

@@ -94,7 +94,7 @@ public class Menu {
     public void setSolvente(boolean solvente) {
         this.solvente = solvente;
         avatares = new ArrayList<>();
-        tablero = new Tablero(); //hay que definir este constructor!!!
+        tablero = new Tablero(banca); //hay que definir este constructor!!!
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -108,7 +108,74 @@ public class Menu {
     * Parámetro: cadena de caracteres (el comando).
     */
     private void analizarComando(String comando) {
-        
+        String[] partes = comando.split(" ");
+        switch (partes[0]) {
+            case "crear":
+                this.crearJugador(partes[2], partes[3]);
+                break;
+
+            case "jugador":
+                System.out.println("{\n\tnombre: " + this.jugadores.get(this.turno).getNombre() + ",\n\tavatar: " + this.jugadores.get(this.turno).getAvatar().getId() + "\n}");
+            break;
+
+            case "listar":
+                switch (partes[1]) {
+                    case "jugador":
+                        this.listarJugadores();
+                        break;
+
+                    case "avatares":
+                        this.listarAvatares();
+                        break;
+
+                    case "enventa":
+                        this.listarVenta();
+                        break;
+
+                    default:
+                        break;
+                }
+            break;
+
+            case "lanzar":
+                this.lanzarDados();
+            break;
+
+            case "acabar":
+                this.acabarTurno();
+            break;
+
+            case "salir":
+                this.salirCarcel();
+            break;
+
+            case "describir":
+            switch (partes[1]) {
+                case "jugador":
+                    this.descJugador(partes);
+                    break;
+
+                case "avatar":
+                    this.descAvatar(partes[2]);
+                    break;
+
+                default:
+                    this.descCasilla(partes[1]);
+                    break;
+            }
+            break;
+
+            case "comprar":
+                this.comprar(partes[0]);
+            break;
+
+            case "ver":
+                System.out.println(this.tablero.toString());
+            break;
+
+            default:
+                break;
+        }
     }
 
     /*Método que da de alta a un jugador
@@ -118,7 +185,7 @@ public class Menu {
         Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
         jugadores.add(jugador);
         avatares.add(jugador.getAvatar());
-        System.out.println(jugador.toString()); //El avatar debe ser una letra generada automaticamente
+        System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -138,14 +205,7 @@ public class Menu {
         }
         //si encontramos al jugador, imprimimos su información
         if (jugadorBuscado!=null){
-            System.out.println("{ ");
-            System.out.println("nombre: "+jugadorBuscado.getNombre());
-            System.out.println("avatar: "+jugadorBuscado.getAvatar().getId());
-            System.out.println("fortuna: "+jugadorBuscado.getFortuna());
-            System.out.println("propiedades: "+jugadorBuscado.getPropiedades());
-            System.out.println("hipotecas: -"); 
-            System.out.println("edificios: -"); 
-            System.out.println("} ");
+            System.out.println(jugadorBuscado.toString()); 
         }
         else{
             System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
@@ -159,14 +219,8 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar av: avatares){
             if(av.getId().equals(ID)){
-                System.out.println("{ ");
-                System.out.println("id: "+av.getId());
-                System.out.println("tipo: "+av.getTipo());
-                System.out.println("casilla: "+av.getLugar());
-                System.out.println("jugador: "+av.getJugador());
-                System.out.println("} ");
-                return;
-                
+                System.out.println(av.toString());
+                return; 
             }
         }
         System.out.println("No se ha encontrado ningún avatar con ese ID.");
@@ -277,30 +331,18 @@ public class Menu {
         for (ArrayList<Casilla> lado : casilla){
             for (Casilla i:lado){
                 if(i.getDuenho()!=banca){
-                    System.out.println("{ ");
-                    System.out.println("tipo: "+ i.getTipo());
-                    System.out.println("grupo: "+ i.getGrupo());
-                    System.out.println("tipo: "+ i.getValor());
-                    System.out.println("} ");
+                    System.out.println(i.casaEnVenta());
                 }
             }
         }
         
     } 
-    
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         ArrayList<Jugador> jugadores=getJugadores();
         for (Jugador i: jugadores){
-            System.out.println("{ ");
-            System.out.println("nombre: "+ i.getNombre());
-            System.out.println("avatar: "+ i.getAvatar().getId());
-            System.out.println("fortuna: "+ i.getFortuna());
-            System.out.println("propiedades: "+ i.getPropiedades());
-            System.out.println("hipotecas: -");
-            System.out.println("edificios: -");
-            System.out.println("} ");
+            i.toString();
         }
     }
 
@@ -308,12 +350,7 @@ public class Menu {
     private void listarAvatares() {
         ArrayList<Avatar> avatares=getAvatares();
         for (Avatar i: avatares){
-            System.out.println("{ ");
-            System.out.println("id: "+ i.getId());
-            System.out.println("tipo: "+ i.getTipo());
-            System.out.println("casilla: "+ i.getLugar());
-            System.out.println("jugador: "+ i.getJugador());
-            System.out.println("} ");
+            System.out.println(i.toString());
         }
 
     }
