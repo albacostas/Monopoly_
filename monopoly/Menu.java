@@ -106,6 +106,14 @@ public class Menu {
     * Parámetro: cadena de caracteres (el comando).
     */
     private void analizarComando(String comando) {
+
+    }
+
+    /*Método que da de alta a un jugador
+     * Parámetros: nombre del jugador y tipo del avatar
+    */
+    private void crearJugador(String nombre, String avatar) {
+        public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados)
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
