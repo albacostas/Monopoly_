@@ -1,6 +1,8 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import partida.*;
 
 public class Menu {
@@ -92,14 +94,29 @@ public class Menu {
     public void setSolvente(boolean solvente) {
         this.solvente = solvente;
         avatares = new ArrayList<>();
-        tablero = new tablero();
+        tablero = new Tablero(); //hay que definir este constructor!!!
+    }
+
+    private void crearJugador(String nombre, String tipoAv){
+        Jugador jugadorNuevo;
+        Casilla inicio=this.tablero.encontrar_casilla("Salida");
+        //creamos el jugador con las características
+        jugadorNuevo= new Jugador(nombre, tipoAv, inicio, avatares); 
+        jugadores.add(jugadorNuevo);
+        System.out.println("{ ");
+        System.out.println("nombre: " + jugadorNuevo.getNombre());
+        System.out.println("avatar: " +jugadorNuevo.getAvatar().getId());
+        System.out.println("} ");
+        //HAY QUE AÑADIRLO AL TABLERO!!!
+
     }
 
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-        jugadores = new ArrayList<>();
 
+
+        
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
@@ -120,18 +137,61 @@ public class Menu {
     * Parámetro: comando introducido
      */
     private void descJugador(String[] partes) {
+        //Nombre del jugador a describir
+        String nombreJugador = partes[2]; 
+
+         //Buscamos al jugador
+        Jugador jugadorBuscado=null;
+        for (Jugador jugador :jugadores){
+            if (jugador.getNombre().equalsIgnoreCase(nombreJugador)){
+                jugadorBuscado=jugador;
+                break;
+            }
+        }
+        //si encontramos al jugador, imprimimos su información
+        if (jugadorBuscado!=null){
+            System.out.println("{ ");
+            System.out.println("nombre: "+jugadorBuscado.getNombre());
+            System.out.println("avatar: "+jugadorBuscado.getAvatar().getId());
+            System.out.println("fortuna: "+jugadorBuscado.getFortuna());
+            System.out.println("propiedades: "+jugadorBuscado.getPropiedades());
+            System.out.println("hipotecas: -"); 
+            System.out.println("edificios: -"); 
+            System.out.println("} ");
+        }
+        else{
+            System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
+        }
+
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
     */
     private void descAvatar(String ID) {
+        for (Avatar av: avatares){
+            if(av.getId().equals(ID)){
+                System.out.println("{ ");
+                System.out.println("id: "+av.getId());
+                System.out.println("tipo: "+av.getTipo());
+                System.out.println("casilla: "+av.getLugar());
+                System.out.println("jugador: "+av.getJugador());
+                System.out.println("} ");
+                return;
+                
+            }
+        }
+        System.out.println("No se ha encontrado ningún avatar con ese ID.");
+
     }
+
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
     private void descCasilla(String nombre) {
+        //hay que tener en cuenta qué tipo de casilla es. Caja de Comunidad, Suerte e IrACárcel no tiene sentido describirlas.
+        
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
@@ -192,23 +252,54 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-        // boolean propiedadVenta = false;
-        // System.out.println("Propiedades en venta: ");
-        // for (Casilla casilla : tablero.getCasillas()){
-
-        // }
-    }
+        ArrayList<ArrayList<Casilla>> casilla=tablero.getPosiciones();
+        for (ArrayList<Casilla> lado : casilla){
+            for (Casilla i:lado){
+                if(i.getDuenho()!=banca){
+                    System.out.println("{ ");
+                    System.out.println("tipo: "+ i.getTipo());
+                    System.out.println("grupo: "+ i.getGrupo());
+                    System.out.println("tipo: "+ i.getValor());
+                    System.out.println("} ");
+                }
+            }
+        }
+        
+    } 
+    
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
+        ArrayList<Jugador> jugadores=getJugadores();
+        for (Jugador i: jugadores){
+            System.out.println("{ ");
+            System.out.println("nombre: "+ i.getNombre());
+            System.out.println("avatar: "+ i.getAvatar().getId());
+            System.out.println("fortuna: "+ i.getFortuna());
+            System.out.println("propiedades: "+ i.getPropiedades());
+            System.out.println("hipotecas: -");
+            System.out.println("edificios: -");
+            System.out.println("} ");
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
+        ArrayList<Avatar> avatares=getAvatares();
+        for (Avatar i: avatares){
+            System.out.println("{ ");
+            System.out.println("id: "+ i.getId());
+            System.out.println("tipo: "+ i.getTipo());
+            System.out.println("casilla: "+ i.getLugar());
+            System.out.println("jugador: "+ i.getJugador());
+            System.out.println("} ");
+        }
+
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        
     }
 
 }
