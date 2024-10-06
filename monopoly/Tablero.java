@@ -335,8 +335,7 @@ public class Tablero {
             sb.append("_");
         }
         sb.append("|");
-        for(Casilla casill : ladoSur){
-            sb.append(" ----------- ");
+        
         for(int i = 0; i < ladoSur.size()-2; i++){
             for (int j = 0; j < formatCasilla(casilla).length(); j++) {
                 sb.append("_");
