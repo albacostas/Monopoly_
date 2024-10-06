@@ -99,9 +99,13 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-
-
-        
+        System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
+        Scanner scanner = new Scanner(System.in);
+        String[] j1 = scanner.nextLine().split(" ");
+        crearJugador(j1[0], j1[1]);
+        System.out.println("Introduce los datos de otro jugador (nombre y tipo de avatar):");
+        String[] j2 = scanner.nextLine().split(" ");
+        crearJugador(j2[0], j2[1]);
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
