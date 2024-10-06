@@ -23,20 +23,20 @@ public class Menu {
 
     // Métodos Getter y Setter para cada atributo
 
-    
+    // por ahora no se utilizan
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }   
+    // public void setJugadores(ArrayList<Jugador> jugadores) {
+    //     this.jugadores = jugadores;
+    // }   
 
     public ArrayList<Avatar> getAvatares() {
         return avatares;
     }
-    public void setAvatares(ArrayList<Avatar> avatares) {
-        this.avatares = avatares;
-    }
+    // public void setAvatares(ArrayList<Avatar> avatares) {
+    //     this.avatares = avatares;
+    // }
 
     public int getTurno() {
         return turno;
