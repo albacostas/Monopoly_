@@ -12,14 +12,16 @@
 
 - Menu:
   iniciarPartida
-  analizarCamonado
-  descJugador
+  analizarCamonado HECHO
+  crearJugador HECHO
+  descJugador HECHO
   descCasilla
   comprar
   salirCarcel
-  listarVenta
-  listarJugadores
-  listarAvatares
+  lanzarDados HECHO
+  listarVenta HECHO
+  listarJugadores HECHO
+  listarAvatares HECHO
   acabarTurno
 
 - Tablero: HECHO
