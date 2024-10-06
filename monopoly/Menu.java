@@ -243,11 +243,28 @@ public class Menu {
         }
 
         int precio = casilla.getValor();
-        if(jActual.getFortuna() < precio){
-            System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-            return;
-        }
+
+        System.out.println("La casilla " + nombre + " cuesta " + precio);
         System.out.println(("Desea comprar la casilla (si o no): "));
+        Scanner scanner = new Scanner(System.in);
+        String respuesta = scanner.nextLine();
+        
+        if(respuesta.equalsIgnoreCase("si")){
+            if(jActual.getFortuna() < precio){
+                System.out.println("No dispone de suficiente dinero para comprar la casilla.");
+                return;
+            }
+
+            jActual.sumarGastos(precio);
+            casilla.setDuenho(jActual);
+
+            jActual.anhadirPropiedad(casilla);
+            System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
+        }else {
+            System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
+        }
+        
+        
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
