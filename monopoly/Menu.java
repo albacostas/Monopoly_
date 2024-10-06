@@ -112,8 +112,8 @@ public class Menu {
     /*Método que da de alta a un jugador
      * Parámetros: nombre del jugador y tipo del avatar
     */
-    private void crearJugador(String nombre, String avatar) {
-        public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados)
+    private void crearJugador(String jugador, String avatar) {
+
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
