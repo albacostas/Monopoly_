@@ -97,21 +97,6 @@ public class Menu {
         tablero = new Tablero(); //hay que definir este constructor!!!
     }
 
-    private void crearJugador(String nombre, String tipoAv){
-        Jugador jugadorNuevo;
-        Casilla inicio=this.tablero.encontrar_casilla("Salida");
-        //creamos el jugador con las características
-        jugadorNuevo= new Jugador(nombre, tipoAv, inicio, avatares); 
-        jugadores.add(jugadorNuevo);
-        System.out.println("{ ");
-        System.out.println("nombre: " + jugadorNuevo.getNombre());
-        System.out.println("avatar: " +jugadorNuevo.getAvatar().getId());
-        System.out.println("} ");
-        //HAY QUE AÑADIRLO AL TABLERO!!!
-
-    }
-
-
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
 
