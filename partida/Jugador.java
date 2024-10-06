@@ -165,4 +165,8 @@ public class Jugador {
         
     }
 
+    @Override
+    public String toString() {
+        return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + "\n}";
+    }
 }
