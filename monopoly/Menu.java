@@ -230,8 +230,24 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
-        
+        Jugador jActual = jugadores.get(turno);
+        Casilla casilla = tablero.encontrar_casilla(nombre);
 
+        if (casilla = null){
+            System.out.println("La casilla " + nombre + " no existe en el tablero.");
+            return;
+        }
+        if (casilla.getDuenho() != null){
+            System.out.println("La casilla "+ nombre + " ya tiene propietario.");
+            return;
+        }
+
+        int precio = casilla.getValor();
+        if(jActual.getFortuna() < precio){
+            System.out.println("No dispone de suficiente dinero para comprar la casilla.");
+            return;
+        }
+        System.out.println(("Desea comprar la casilla (si o no): "));
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
