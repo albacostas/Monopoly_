@@ -133,35 +133,35 @@ public class Casilla {
         //     }
         // }  No sé si está bien, pero hay que eva(luar todos los tipos de casilla. 
 
-
-        switch (this.getTipo()) {
-            case "Solar":
-                return manejarSolar(actual,casillaActual);
-                break;
-            case "Impuesto":
-                return manejarImpuesto(actual, casillaActual, tirada);
-                break;
-            case "Transporte":
-                return manejarTransporte(actual, casillaActual);
-                break;
-            case "Servicio":
-                return manejarServicio (actual, casillaActual,tirada);
-                break;
-            case "Caja":
-                return manejarComunidad(actual);
-                break;
-            case "Suerte":
-                return manejarSuerte(actual);
-                break;
-            case "Especial":
-                return manejarEspecial(actual, banca);
-                break;
+        // Codigo que no sirve, Alba
+        // switch (this.getTipo()) {
+        //     case "Solar":
+        //         return manejarSolar(actual,casillaActual);
+        //         break;
+        //     case "Impuesto":
+        //         return manejarImpuesto(actual, casillaActual, tirada);
+        //         break;
+        //     case "Transporte":
+        //         return manejarTransporte(actual, casillaActual);
+        //         break;
+        //     case "Servicio":
+        //         return manejarServicio (actual, casillaActual,tirada);
+        //         break;
+        //     case "Caja":
+        //         return manejarComunidad(actual);
+        //         break;
+        //     case "Suerte":
+        //         return manejarSuerte(actual);
+        //         break;
+        //     case "Especial":
+        //         return manejarEspecial(actual, banca);
+        //         break;
         
-            default:
-                System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
+        //     default:
+        //         System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
 
-                break;
-        }
+        //         break;
+        // }
 
     }
 

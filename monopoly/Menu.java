@@ -22,19 +22,21 @@ public class Menu {
 
 
     // Métodos Getter y Setter para cada atributo
+
+    // por ahora no se utilizan
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
-    public void setJugadores(ArrayList<Jugador> jugadores) {
-        this.jugadores = jugadores;
-    }   
+    // public void setJugadores(ArrayList<Jugador> jugadores) {
+    //     this.jugadores = jugadores;
+    // }   
 
     public ArrayList<Avatar> getAvatares() {
         return avatares;
     }
-    public void setAvatares(ArrayList<Avatar> avatares) {
-        this.avatares = avatares;
-    }
+    // public void setAvatares(ArrayList<Avatar> avatares) {
+    //     this.avatares = avatares;
+    // }
 
     public int getTurno() {
         return turno;
@@ -324,6 +326,20 @@ public class Menu {
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
     private void salirCarcel() {
+
+        Jugador jActual = jugadores.get(turno);
+        if (jActual.isEnCarcel()){
+            if(jActual.getFortuna() >= 500000){
+                jActual.sumarGastos((500000));
+                jActual.setEnCarcel(false);
+                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel. Puede lanzar los daos.");
+            }else {
+                System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
+            }
+        }else {
+            System.out.println(jActual.getNombre() + " no está en la carcel.");
+        }
+
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
@@ -358,6 +374,17 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+
+        lanzamientos = 0; 
+        turno++;
+
+        if ( turno >= jugadores.size()){
+            turno = 0; // Regresamos la 1º jugador.
+        }
+
+        Jugador jActual = jugadores.get(turno);
+
+        System.out.println("El jugador actual es " + jActual.getNombre()+".");
         
     }
 
