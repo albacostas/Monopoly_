@@ -359,6 +359,17 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+
+        lanzamientos = 0; 
+        turno++;
+
+        if ( turno >= jugadores.size()){
+            turno = 0; // Regresamos la 1º jugador.
+        }
+
+        Jugador jActual = jugadores.get(turno);
+
+        System.out.println("El jugador actual es " + jActual.getNombre()+".");
         
     }
 
