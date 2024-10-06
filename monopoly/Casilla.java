@@ -77,7 +77,6 @@ public class Casilla {
         this.valor = valor;
         this.duenho= duenho;
         this.avatares = new ArrayList<>();
-        
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
