@@ -171,7 +171,7 @@ public class Menu {
                         this.listarJugadores();
                         break;
 
-                    case "avatares":                //Corregir tostring
+                    case "avatares":                
                         this.listarAvatares();
                         break;
 
@@ -472,7 +472,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         for (Jugador i: jugadores){
-            i.toString();
+            System.out.println(i.toString());
         }
     }
 
