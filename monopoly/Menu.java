@@ -186,6 +186,7 @@ public class Menu {
                         break;
                     }
                     this.lanzarDados();
+                    System.out.println(this.tablero.toString());
                     break;
 
                 case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
@@ -268,6 +269,10 @@ public class Menu {
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
                     System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
                     break;
+
+                /*case "finalizar":                     Falta finzalizar, si lo cambiamos a salir podemos aplicar la sobrecarga de metodos
+                 * break;
+                 */
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
                 break;
@@ -281,6 +286,7 @@ public class Menu {
             Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
             jugadores.add(jugador);
             avatares.add(jugador.getAvatar());
+            this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
             System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
         }
 
