@@ -19,7 +19,34 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
+    //Constructor del menú: Desarrollo de la partida (Necesario porque los métodos son privados, por lo que todas las instrucciones deben seguirse aquí)
+    public Menu(){
+        //Constuctor
+        this.dado1 = new Dado();
+        this.dado2 = new Dado();
+        this.banca = new Jugador();
+        this.jugadores = new ArrayList<Jugador>();
+        this.avatares = new ArrayList<Avatar>();
+        this.tablero = new Tablero(this.banca);
+        turno = 0;
 
+        //Partida
+        this.tablero.toString();
+        this.iniciarPartida();
+        System.out.println(this.tablero.toString());
+        Scanner scanner = new Scanner(System.in);
+        String comando = new String();
+        System.out.println("Instrucciones:\n");
+        analizarComando("ayuda");
+
+        do {
+            System.out.println("Introduce un comando: ");
+            comando = scanner.nextLine();
+            analizarComando(comando);
+        } while(comando != "finalizar");    //Revisar la condición finaliza y cambiar analizarcomando para incluirlo
+
+        scanner.close();
+    }
 
     // Métodos Getter y Setter para cada atributo
     // por ahora no se utilizan
@@ -124,7 +151,7 @@ public class Menu {
 
             case "listar":
                 switch (partes[1]) {
-                    case "jugador":
+                    case "jugadores":
                         this.listarJugadores();
                         break;
 
@@ -177,6 +204,14 @@ public class Menu {
                 System.out.println(this.tablero.toString());
             break;
 
+            case "ayuda":
+                System.out.println("Lista de comandos:\ncrear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.\n");
+                System.out.println("jugador: Indica el jugador que tiene el turno\nlistar jugadores: Lista los jugadores de la partida y sus carácteristicas\nlistar avatares: Lista los avatares de la partida y sus características\n");
+                System.out.println("listar enventa: Lista las propiedades en venta\n lanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones\n");
+                System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel\n");
+                System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido\n");
+                System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n");
+            break;
             default:
                 break;
         }
