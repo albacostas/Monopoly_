@@ -382,8 +382,11 @@ public class Menu {
                 }
             }else {
                 System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
+                jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
                 break;
             }
+
+            
         }
 
         tirado = true;

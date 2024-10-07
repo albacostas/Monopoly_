@@ -5,6 +5,8 @@ import monopoly.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.management.AttributeChangeNotificationFilter;
+
 
 public class Avatar {
 
@@ -67,15 +69,72 @@ public class Avatar {
     * - Un entero que indica el numero de casillas a moverse (será el valor sacado en la tirada de los dados).
     * EN ESTA VERSIÓN SUPONEMOS QUE valorTirada siemrpe es positivo.
      */
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
-        Casilla casillaActual=this.lugar;
-        for (int i=0; i<valorTirada; i++){
-            casillaActual=ObtenerSiguienteCasilla(casillas, casillaActual);
+    // public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
+    //     Casilla casillaActual=this.lugar;
+    //     for (int i=0; i<valorTirada; i++){
+    //         casillaActual=ObtenerSiguienteCasilla(casillas, casillaActual);
+    //     }
+    //     //Actualizamos 
+    //     this.lugar=casillaActual;
+    //     System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
+    // }
+    // public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
+    //     int posActual = this.lugar.getPosicion();
+
+    //     int newPosicion = posActual + valorTirada;
+    //     if(newPosicion > 40){
+    //         newPosicion = newPosicion % 40;
+    //     }
+
+    //     Casilla newCasilla = ObtenerCasillaporPosicion(casillas, newPosicion);
+    //     this.lugar = newCasilla;
+
+    //     System.out.println("El avatar " + this.getId() + " avanza " + valorTirada + " posiciones, desde " + this.lugar.getNombre() + " hasta " + newCasilla.getNombre() + ".");
+
+    // }
+
+
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
+        int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
+
+        // Si la nueva posición excede 40, hacemos un bucle al inicio
+        if (nuevaPosicion > 40) {
+            nuevaPosicion = nuevaPosicion % 40; // Asegúrate de que la posición es válida.
         }
-        //Actualizamos 
-        this.lugar=casillaActual;
-        System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
+
+    // Buscar la nueva casilla basándonos en la nueva posición
+        Casilla nuevaCasilla = null;
+        for (ArrayList<Casilla> lado : casillas) {
+            for (Casilla casilla : lado) {
+                if (casilla.getPosicion() == nuevaPosicion) {
+                    nuevaCasilla = casilla; // Asignamos la nueva casilla
+                    break;
+                }
+            }
+            if (nuevaCasilla != null) {
+                break; // Salimos si encontramos la nueva casilla
+            }
+        }
+
+        if (nuevaCasilla != null) { // Actualizamos el lugar del avatar
+            System.out.println("El avatar ha sido movido a la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
+            this.lugar = nuevaCasilla;
+        }else {
+            System.out.println("Error: la nueva casilla no se encontró.");
+        }
     }
+
+    private Casilla ObtenerCasillaporPosicion(ArrayList<ArrayList<Casilla>> casillas, int posicion) {
+        for (ArrayList<Casilla> lado : casillas) {
+            for (Casilla casilla : lado) {
+                if (casilla.getPosicion() == posicion) {
+                    return casilla;
+                }
+            }
+        }
+        throw new IllegalArgumentException("La casilla no se encuentra en la posición: " + posicion);
+    }
+    
 
     private Casilla ObtenerSiguienteCasilla(ArrayList<ArrayList<Casilla>> casillas, Casilla casillaActual){
         int posActual=casillaActual.getPosicion();
