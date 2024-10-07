@@ -93,14 +93,16 @@ public class Jugador {
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+        boolean n_rep = false;
         for (Avatar i: avCreados){
-            if (i.getJugador().getNombre().equals(nombre)){
+            if (i.getJugador()!=null && i.getJugador().getNombre()!= null && i.getJugador().getNombre().equals(nombre)){
                 System.out.println("No es válido repetir nombres.");
-            }
-            else{
-                this.nombre=nombre;
+                n_rep = true;
+                throw new IllegalArgumentException("No se puede crear un jugador con nombre repetido");
             }
         }
+
+        this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
         this.fortuna=Valor.FORTUNA_INICIAL;
         this.gastos=0.0f;
