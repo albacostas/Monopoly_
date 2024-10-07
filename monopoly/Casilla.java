@@ -76,7 +76,6 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        this.avatares = new ArrayList<>();
         this.avatares = new ArrayList<Avatar>();
 
     }
@@ -91,21 +90,18 @@ public class Casilla {
         this.impuesto = impuesto;
         this.duenho = duenho;
         this.tipo = "Impuestos";
+        this.avatares = new ArrayList<Avatar>();
     }
 
     /*Constructor utilizado para crear las otras casillas (Suerte, Caja de comunidad y Especiales):
     * Parámetros: nombre, tipo de la casilla (será uno de los que queda), posición en el tablero y dueño.
      */
     public Casilla(String nombre, String tipo, int posicion, Jugador duenho) {
-
         this.nome=nombre;
         this.tipo=tipo;
         this.posicion=posicion;
         this.duenho=duenho;
-        this.nome = nombre;
-        this.tipo = tipo;
-        this.posicion = posicion;
-        this.duenho = duenho;
+        this.avatares = new ArrayList<Avatar>();
 
     }
 
@@ -144,16 +140,16 @@ public class Casilla {
 
         switch (this.getTipo()) {
             case "Solar":
-                return manejarSolar(actual,casillaActual);
+                return manejarSolar(actual,this);
                 break;
             case "Impuesto":
-                return manejarImpuesto(actual, casillaActual, tirada);
+                return manejarImpuesto(actual, this, tirada);
                 break;
             case "Transporte":
-                return manejarTransporte(actual, casillaActual);
+                return manejarTransporte(actual, this);
                 break;
             case "Servicio":
-                return manejarServicio (actual, casillaActual,tirada);
+                return manejarServicio (actual, this,tirada);
                 break;
             case "Caja":
                 return manejarComunidad(actual);
@@ -234,7 +230,7 @@ public class Casilla {
         solicitante.anhadirPropiedad(this);
         banca.eliminarPropiedad(this);
         solicitante.sumarGastos(this.valor);
-        //le damos el dinero que pagamos a la banca?
+        solicitante.sumarFortuna(-this.valor);
         
 
     }
@@ -292,15 +288,5 @@ public class Casilla {
         info.append(", Valor: ").append(valor != 0 ? valor : "0");
         info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
-    }
-
-    public Object getPropiedades() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPropiedades'");
-    }
-
-    public void setPropiedades(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 }

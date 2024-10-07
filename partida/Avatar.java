@@ -82,7 +82,7 @@ public class Avatar {
         //Incrementamos la posción una unidad.
         int nuevaPosicion=posActual+1;
         //si la posición excede el número 40 (vuelta completada), regresamos a la casilla 1.
-        if(nuevaPosicion>=40){
+        if(nuevaPosicion>40){
             nuevaPosicion=1;
         } 
         //buscamos la nueva casilla actual basada en la posición
