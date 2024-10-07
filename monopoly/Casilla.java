@@ -188,6 +188,7 @@ public class Casilla {
         //         break;
         // }
 
+        }
     }
 
     // private boolean manejarSolar(Jugador actual, Casilla casilla){
