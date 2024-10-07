@@ -399,7 +399,7 @@ public class Menu {
                 System.out.println("La casilla " + nombre + " no existe en el tablero.");
                 return;
             }
-            if (casilla.getDuenho() != null){
+            if (casilla.getDuenho() != null && !casilla.getDuenho().equals(this.banca)){
                 System.out.println("La casilla "+ nombre + " ya tiene propietario.");
                 return;
             }
