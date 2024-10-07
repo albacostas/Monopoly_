@@ -485,19 +485,27 @@ public class Menu {
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
-    private void acabarTurno() {
+    private void acabarTurno() {s
 
-        lanzamientos = 0; 
-        turno++;
-
-        if ( turno >= jugadores.size()){
-            turno = 0; // Regresamos la 1º jugador.
+        if (jugadores.isEmpty()){
+            System.out.println("No hay jugadores en el juego.");
+            return;
         }
-
         Jugador jActual = jugadores.get(turno);
-
-        System.out.println("El jugador actual es " + jActual.getNombre()+".");
+        tirado = false; // reiniciamos la variable para el promximo turno
+         // solvente = true;
+        turno = (turno + 1) % jugadores.size(); // Obtenemos el siguiente jugador.
+        if(turno >= jugadores.size()){
+            turno = 0;
+        }
         
+        Jugador jSiguiente = jugadores.get(turno);
+
+        System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+        
+        if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
+            System.out.println("Ha terminado.");
+        }
     }
 
 }
