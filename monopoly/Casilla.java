@@ -285,14 +285,4 @@ public class Casilla {
         //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
     }
-
-    public Object getPropiedades() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPropiedades'");
-    }
-
-    public void setPropiedades(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
-    }
 }
