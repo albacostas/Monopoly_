@@ -78,7 +78,7 @@ public class Jugador {
     
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
-
+        this.avatar = new Avatar();
         this.propiedades = new ArrayList<>();
         this.fortuna = 0;
         this.gastos = 0;
@@ -94,13 +94,13 @@ public class Jugador {
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
         for (Avatar i: avCreados){
-            if (i.getJugador().getNombre().equals(nombre)){
+            if (i.getJugador()!=null && i.getJugador().getNombre()!= null && i.getJugador().getNombre().equals(nombre)){
                 System.out.println("No es válido repetir nombres.");
-            }
-            else{
-                this.nombre=nombre;
+                throw new IllegalArgumentException("No se puede crear un jugador con nombre repetido");
             }
         }
+
+        this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
         this.fortuna=Valor.FORTUNA_INICIAL;
         this.gastos=0.0f;
@@ -125,24 +125,48 @@ public class Jugador {
     //Método para añadir fortuna a un jugador
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
-        
         this.fortuna += valor;
     }
 
     //Método para sumar gastos a un jugador.
     //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
     public void sumarGastos(float valor) {
-
         if(valor < 0 ){
             System.out.println("El valor del gasto no puede ser negativo");
         }
-        this.gastos += valor;
+        else{
+            this.gastos += valor;
+        }
+    }
+
+    private Casilla ObtenerCasillaporPosicion(ArrayList<ArrayList<Casilla>> pos, int posicion){
+        for (ArrayList<Casilla> lado: pos){
+            for (Casilla casilla: lado){
+                if(casilla.getPosicion()==posicion){
+                    return casilla;
+                }
+            }
+        }
+        return null;
+
     }
 
     /*Método para establecer al jugador en la cárcel. 
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
         this.enCarcel = true;
+        //posición de la casilla Cárcel
+        int posicionCarcel=11;
+
+        //movemos al jugador a la casilla Cárcel
+        Casilla carcel=ObtenerCasillaporPosicion(pos,posicionCarcel);
+        avatar.setLugar(carcel);
+        System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
+        
     }
 
+    @Override
+    public String toString() {
+        return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + this.getPropiedades() + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+    }
 }

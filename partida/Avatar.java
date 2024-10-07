@@ -67,9 +67,37 @@ public class Avatar {
     * - Un entero que indica el numero de casillas a moverse (será el valor sacado en la tirada de los dados).
     * EN ESTA VERSIÓN SUPONEMOS QUE valorTirada siemrpe es positivo.
      */
-    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        
+    public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
+        Casilla casillaActual=this.lugar;
+        for (int i=0; i<valorTirada; i++){
+            casillaActual=ObtenerSiguienteCasilla(casillas, casillaActual);
+        }
+        //Actualizamos 
+        this.lugar=casillaActual;
+        System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
     }
+
+    private Casilla ObtenerSiguienteCasilla(ArrayList<ArrayList<Casilla>> casillas, Casilla casillaActual){
+        int posActual=casillaActual.getPosicion();
+        //Incrementamos la posción una unidad.
+        int nuevaPosicion=posActual+1;
+        //si la posición excede el número 40 (vuelta completada), regresamos a la casilla 1.
+        if(nuevaPosicion>40){
+            nuevaPosicion=1;
+        } 
+        //buscamos la nueva casilla actual basada en la posición
+        for(ArrayList<Casilla> lado : casillas){
+            for (Casilla casilla: lado){
+                if (casilla.getPosicion()==nuevaPosicion){
+                    return casilla;
+                }
+            }
+        }
+
+        throw new IllegalArgumentException("La casilla no se encuentra");
+
+    }
+
 
     /*Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase (por ello es privado).
     * El ID generado será una letra mayúscula. Parámetros:
@@ -93,5 +121,10 @@ public class Avatar {
         } while(!idUnico);
 
         this.id = newID;
+    }
+
+    @Override
+    public String toString() {
+        return "{\n\tid: " + this.getId() + ",\n\ttipo: " + this.getTipo() + ",\n\tcasilla: " + this.getLugar() +",\n\tjugador: " + this.getJugador() + "\n}";
     }
 }
