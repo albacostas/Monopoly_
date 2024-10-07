@@ -284,6 +284,7 @@ public class Menu {
         Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
         jugadores.add(jugador);
         avatares.add(jugador.getAvatar());
+        this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
         System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
     }
 
