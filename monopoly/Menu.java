@@ -20,6 +20,8 @@ public class Menu {
 
 
     // Métodos Getter y Setter para cada atributo
+
+    
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
@@ -89,13 +91,16 @@ public class Menu {
     }
     public void setSolvente(boolean solvente) {
         this.solvente = solvente;
+        avatares = new ArrayList<>();
+        tablero = new tablero();
+
     }
 
 
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida() {
-        
+        jugadores = new ArrayList<>();
 
     }
     
@@ -172,6 +177,8 @@ public class Menu {
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
     private void comprar(String nombre) {
+        //miro qué jugador está en esa casila y hago lo de comprar.
+
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
@@ -180,6 +187,11 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
+        // boolean propiedadVenta = false;
+        // System.out.println("Propiedades en venta: ");
+        // for (Casilla casilla : tablero.getCasillas()){
+
+        // }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
