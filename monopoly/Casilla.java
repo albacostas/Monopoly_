@@ -279,10 +279,10 @@ public class Casilla {
         // Concatenamos cadenas de texto
         StringBuilder info = new StringBuilder(" La casilla en venta: ");
         
-        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");
+        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");    //AÑADIR GRUPO
         info.append(", Tipo: ").append(tipo != null ? tipo : " desconocido");
         info.append(", Valor: ").append(valor != 0 ? valor : "0");
-        info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
+        //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
     }
 
