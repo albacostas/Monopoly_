@@ -77,7 +77,6 @@ public class Casilla {
         this.valor = valor;
         this.duenho= duenho;
         this.avatares = new ArrayList<Avatar>();
-
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -102,7 +101,6 @@ public class Casilla {
         this.posicion=posicion;
         this.duenho=duenho;
         this.avatares = new ArrayList<Avatar>();
-
     }
 
 
@@ -160,12 +158,35 @@ public class Casilla {
             case "Especial":
                 return manejarEspecial(actual, banca);
                 break;
-        
-            default:
-                System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
 
-                break;
-        }
+        // Codigo que no sirve, Alba
+        // switch (this.getTipo()) {
+        //     case "Solar":
+        //         return manejarSolar(actual,casillaActual);
+        //         break;
+        //     case "Impuesto":
+        //         return manejarImpuesto(actual, casillaActual, tirada);
+        //         break;
+        //     case "Transporte":
+        //         return manejarTransporte(actual, casillaActual);
+        //         break;
+        //     case "Servicio":
+        //         return manejarServicio (actual, casillaActual,tirada);
+        //         break;
+        //     case "Caja":
+        //         return manejarComunidad(actual);
+        //         break;
+        //     case "Suerte":
+        //         return manejarSuerte(actual);
+        //         break;
+        //     case "Especial":
+        //         return manejarEspecial(actual, banca);
+        //         break;        
+        //     default:
+        //         System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
+
+        //         break;
+        // }
 
     }
 
@@ -283,10 +304,10 @@ public class Casilla {
         // Concatenamos cadenas de texto
         StringBuilder info = new StringBuilder(" La casilla en venta: ");
         
-        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");
+        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");    //AÑADIR GRUPO
         info.append(", Tipo: ").append(tipo != null ? tipo : " desconocido");
         info.append(", Valor: ").append(valor != 0 ? valor : "0");
-        info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
+        //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
     }
 }

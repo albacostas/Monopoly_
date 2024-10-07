@@ -94,13 +94,13 @@ public class Jugador {
      */
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
         for (Avatar i: avCreados){
-            if (i.getJugador().getNombre().equals(nombre)){
+            if (i.getJugador()!=null && i.getJugador().getNombre()!= null && i.getJugador().getNombre().equals(nombre)){
                 System.out.println("No es válido repetir nombres.");
-            }
-            else{
-                this.nombre=nombre;
+                throw new IllegalArgumentException("No se puede crear un jugador con nombre repetido");
             }
         }
+
+        this.nombre = nombre;
         this.avatar = new Avatar(tipoAvatar, this, inicio, avCreados);
         this.fortuna=Valor.FORTUNA_INICIAL;
         this.gastos=0.0f;
@@ -165,4 +165,8 @@ public class Jugador {
         
     }
 
+    @Override
+    public String toString() {
+        return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + this.getPropiedades() + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+    }
 }

@@ -4,23 +4,23 @@
   HECHO comprarCasilla 
   HECHO sumarValor
 
-  ManejarTransporte (revisar)
-
 - Grupo: HECHO y revisado
   HECHO anhadirCasilla
   HECHO DuenhoGrupo
 
 - Menu:
   iniciarPartida
-  analizarCamonado
-  descJugador
+  analizarCamonado HECHO
+  crearJugador HECHO
+  descJugador HECHO
   descCasilla
-  comprar
-  salirCarcel
-  listarVenta
-  listarJugadores
-  listarAvatares
-  acabarTurno
+  comprar HECHO
+  salirCarcel HECHO
+  lanzarDados HECHO
+  listarVenta HECHO
+  listarJugadores HECHO
+  listarAvatares HECHO
+  acabarTurno HECHO
 
 - Tablero: HECHO
   toString HECHO {
@@ -29,10 +29,10 @@
     Cajas HECHO
   }
   encontrar_casilla HECHO
->>>>>>> 6e8789d1dcfbe821999c6dc42f0348454e0560fa
+
 
 - Avatar:
-  moverAvatar
+  moverAvatar HECHO
 
 - Jugador:
   anhadirPropiedad (hecho, Alba)
