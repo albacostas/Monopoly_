@@ -268,10 +268,9 @@ public class Tablero {
         ArrayList<Casilla> ladoOeste = posiciones.get(1);  // El segundo lado es el oeste
         ArrayList<Casilla> ladoNorte = posiciones.get(2);  // El tercer lado es el norte
         ArrayList<Casilla> ladoEste = posiciones.get(3);  // El cuarto lado es el este
-
+        
         Collections.reverse(ladoSur);
         Collections.reverse(ladoOeste);
-
 
         // Imprimir la fila superior (Norte)
         for (Casilla casilla : ladoNorte){
@@ -282,7 +281,7 @@ public class Tablero {
         }
         sb.append("\n");
         for (Casilla casilla : ladoNorte) {
-            sb.append("|").append(colorCasillas(casilla));
+            sb.append("|").append(colorCasillas(casilla));                      //nombres casillas
         }
         sb.append("|\n");
         for (Casilla casilla : ladoNorte){
@@ -297,14 +296,14 @@ public class Tablero {
         Casilla casilla = new Casilla();
 
         for (int i = 0; i < ladoOeste.size()-1; i++) {
-            sb.append("|").append(colorCasillas(ladoOeste.get(i))).append("|");
+            sb.append("|").append(colorCasillas(ladoOeste.get(i))).append("|");         //nombres casillas
             for(int l = 0; l < ladoNorte.size()-2; l++){
                 for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
                     sb.append(" ");
                 }
             }
             sb.deleteCharAt(sb.length()-1);
-            sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n|");
+            sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n|");       //nombres casillas
             for (int j = 0; j < formatCasilla(casilla).length(); j++) {
                 sb.append("_");
             }
@@ -365,6 +364,9 @@ public class Tablero {
             }
         }
         sb.append("|\n");
+
+        Collections.reverse(ladoSur);
+        Collections.reverse(ladoOeste);
 
         return sb.toString();
     }
