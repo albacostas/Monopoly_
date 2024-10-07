@@ -126,7 +126,12 @@ public class Avatar {
     }
 
     @Override
+    // public String toString() {
+    //     return "{\n\tid: " + this.getId() + ",\n\ttipo: " + this.getTipo() + ",\n\tcasilla: " + this.getLugar() +",\n\tjugador: " + this.getJugador() + "\n}";
+    // }
+
     public String toString() {
-        return "{\n\tid: " + this.getId() + ",\n\ttipo: " + this.getTipo() + ",\n\tcasilla: " + this.getLugar() +",\n\tjugador: " + this.getJugador() + "\n}";
+        return "{\n" + "\tid: " + getId() + ",\n" + "\ttipo: " + this.getTipo() + ",\n" + "\tcasilla: " + (this.getLugar() != null ? this.getLugar().toString() : "null") + ",\n" +
+            "\tjugador: " + (this.getJugador() != null ? this.getJugador().toString() : "null") +",\n" + "}";
     }
 }

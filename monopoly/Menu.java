@@ -172,7 +172,7 @@ public class Menu {
                         this.listarJugadores();
                         break;
 
-                    case "avatares":                //Corregir tostring
+                    case "avatares":                
                         this.listarAvatares();
                         break;
 
@@ -194,7 +194,7 @@ public class Menu {
                 System.out.println(this.tablero.toString());
                 break;
 
-            case "acabar":                      //No acaba el turno
+            case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
                 if (partes.length != 2) {
                     System.out.println("Error: Debes introducir el comando completo.");
                     break;
@@ -475,15 +475,21 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
         for (Jugador i: jugadores){
-            i.toString();
+            System.out.println(i.toString());
         }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
-        for (Avatar i: avatares){
-            System.out.println(i.toString());
+
+        if ( avatares.isEmpty()){
+            System.out.println("No hay avatares creados.");
+        }else{
+            for (Avatar i: avatares){
+                System.out.println(i.toString());
+            }
         }
+        
 
     }
 

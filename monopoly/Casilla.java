@@ -121,6 +121,17 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        
+    }
+
+    /*
+    /*Método para evaluar qué hacer en una casilla concreta. Parámetros:
+    * - Jugador cuyo avatar está en esa casilla.
+    * - La banca (para ciertas comprobaciones).
+    * - El valor de la tirada: para determinar impuesto a pagar en casillas de servicios.
+    * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
+    * en caso de no cumplirlas.*/
+    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         // if (this.tipo=="Solar"){
         //     if (this.duenho.equals(banca)){
         //         if (actual.getFortuna()>=this.valor){
@@ -241,7 +252,7 @@ public class Casilla {
     // private boolean manejarServicio(Jugador actual, Casilla casilla, int tirada){
         
     // }
-
+    
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
@@ -322,5 +333,10 @@ public class Casilla {
             """.formatted(this.tipo, this.valor));
         }
         return("La casilla " + this.nome + " no se puede vender");
+    }
+
+    @Override
+    public String toString(){
+        return this.nome;
     }
 }
