@@ -128,13 +128,13 @@ public class Menu {
         System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
         String[] j1 = scanner.nextLine().split(" ");
         if (j1.length != 2) {
-            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+            System.out.println("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
         }
         crearJugador(j1[0], j1[1]);
         System.out.println("Introduce los datos de otro jugador (nombre y tipo de avatar):");
         String[] j2 = scanner.nextLine().split(" ");
         if (j2.length != 2) {
-            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+            System.out.println("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
         }
         crearJugador(j2[0], j2[1]);
     }
@@ -151,6 +151,7 @@ public class Menu {
                     break;
                 }
                 this.crearJugador(partes[2], partes[3]);
+                System.out.println(this.tablero.toString());
                 break;
 
             case "jugador":
@@ -190,6 +191,7 @@ public class Menu {
                     break;
                 }
                 this.lanzarDados();
+                System.out.println(this.tablero.toString());
                 break;
 
             case "acabar":                      //No acaba el turno
@@ -281,10 +283,15 @@ public class Menu {
      * Parámetros: nombre del jugador y tipo del avatar
     */
     private void crearJugador(String nombrejugador, String avatar_j) {
-        Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
-        jugadores.add(jugador);
-        avatares.add(jugador.getAvatar());
-        System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
+        if (jugadores.size() < 6){
+            Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
+            jugadores.add(jugador);
+            avatares.add(jugador.getAvatar());
+            System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
+        }
+        else{
+            System.out.println("Número máximo de jugadores en la partida alcanzado.");
+        }
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -361,9 +368,8 @@ public class Menu {
         }
             // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
-        int consecutivos = 0;
 
-        while(consecutivos < 3){
+        while(lanzamientos < 3){
             int valorDado1 = dado1.hacerTirada();
             int valorDado2 = dado2.hacerTirada();
             int sumaDados = valorDado1 + valorDado2;
@@ -372,10 +378,10 @@ public class Menu {
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
     
             if(valorDado1 == valorDado2){
-                consecutivos++;
+                lanzamientos++;
                 System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
 
-                if(consecutivos == 3){
+                if(lanzamientos == 3){
                     System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
                     jActual.encarcelar(tablero.getPosiciones()); 
                     break;
@@ -452,17 +458,14 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
     private void listarVenta() {
-        ArrayList<ArrayList<Casilla>> casilla=tablero.getPosiciones();
+        ArrayList<ArrayList<Casilla>> casilla = tablero.getPosiciones();
         for (ArrayList<Casilla> lado : casilla){
             for (Casilla i:lado){
-                //if(i.getDuenho()==banca){ //tipo solar, transporte o servicio!!!!!!!!!
-                    //System.out.println("{ ");
-                    //System.out.println("tipo: "+ i.getTipo());
-                    //System.out.println("grupo: "+ i.getGrupo());
-                    //System.out.println("tipo: "+ i.getValor());
-                    //System.out.println("} ");
-                if(i.getDuenho()!=banca){
-                    System.out.println(i.casaEnVenta());
+                if(i.getDuenho().equals(banca)){
+                    String tipo = i.getTipo();
+                    if(tipo.equals("Solar") || tipo.equals("Transporte") || tipo.equals("Servicios")){
+                        System.out.println(i.casEnVenta());
+                    }
                 }
             }
         }
@@ -486,17 +489,23 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
+        if (tirado){
+            lanzamientos = 0; 
+            turno++;
 
-        lanzamientos = 0; 
-        turno++;
+            if (turno >= jugadores.size()){
+                turno = 0; // Regresamos la 1º jugador.
+            }
 
-        if ( turno >= jugadores.size()){
-            turno = 0; // Regresamos la 1º jugador.
+            Jugador jActual = jugadores.get(turno);
+            tirado = false;
+
+            System.out.println("El jugador actual es " + jActual.getNombre()+".");
         }
-
-        Jugador jActual = jugadores.get(turno);
-
-        System.out.println("El jugador actual es " + jActual.getNombre()+".");
+        else{
+            System.out.println("No realizaste la tirada");
+        }
+        
         
     }
 

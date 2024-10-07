@@ -95,8 +95,7 @@ public class Jugador {
     public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
         for (Avatar i: avCreados){
             if (i.getJugador()!=null && i.getJugador().getNombre()!= null && i.getJugador().getNombre().equals(nombre)){
-                System.out.println("No es válido repetir nombres.");
-                throw new IllegalArgumentException("No se puede crear un jugador con nombre repetido");
+                System.out.println("No se puede crear un jugador con nombre repetido");
             }
         }
 
@@ -155,12 +154,13 @@ public class Jugador {
     * Se requiere disponer de las casillas del tablero para ello (por eso se pasan como parámetro).*/
     public void encarcelar(ArrayList<ArrayList<Casilla>> pos) {
         this.enCarcel = true;
+        tiradasCarcel=0;
         //posición de la casilla Cárcel
         int posicionCarcel=11;
-
         //movemos al jugador a la casilla Cárcel
         Casilla carcel=ObtenerCasillaporPosicion(pos,posicionCarcel);
         avatar.setLugar(carcel);
+        carcel.anhadirAvatar(this.avatar);
         System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
         
     }

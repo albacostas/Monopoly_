@@ -269,46 +269,58 @@ public class Casilla {
     /*Método para mostrar información sobre una casilla.
     * Devuelve una cadena con información específica de cada tipo de casilla.*/
     public String infoCasilla() {
+        if(this.tipo.equals("Solar")){
+            return ("""
+            {
+                tipo: %s,
+                grupo: %s,
+                propietario: %s,
+                valor: %f,
+                alquiler: %d,
+                valor hotel: &d,
+                valor casa: %d,
+                valor piscina: %d,
+                valor pista de deporte: %d,
+                alquiler una casa: %d,
+                alquiler dos casas: %d,
+                alquiler tres casas: %d,
+                alquiler cuatro casas: %d,
+                alquiler hotel: %d,
+                alquiler piscina: %d,
+                alquiler pista de deportes: %d
 
-        StringBuilder info = new StringBuilder("Casilla: ");
-
-        info.append(nome != null ? nome : "no tiene dueño");
-        info.append(", tipo: ");
-        info.append(tipo != null ? tipo : "se desconoce el tipo");
-        info.append(", valor: ");
-        info.append(valor != 0 ? valor : "0");
-        info.append(" , dueño: ");
-        info.append(duenho != null ? duenho.getNombre() : " la Banca");
-        info.append(" , avatares: ");
-        
-        if(avatares != null && !avatares.isEmpty()){
-            for (Avatar avatar : avatares){
-                if(avatar != null && avatar.getId() != null){
-                    info.append(avatar.getId()).append(" ");
-                }
-            }
+            } 
+            """.formatted(this.tipo, this.grupo, this.duenho, this.valor));
         }
+        if(this.tipo.equals("Impuesto")){
+            return ("""
+                    tipo: %s,
 
-        return info.toString().trim();
-    }
+                    """.formatted(this.tipo,));
+
+        }
 
     /* Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.
      */
-    public String casaEnVenta() {
-
-        // Verificamos que la casilla está en venta.
-        boolean enVenta = (duenho == null || duenho.getNombre().equalsIgnoreCase("Banca"));
-        if(!enVenta){
-            return "Está casilla no está en venta";
+    public String casEnVenta() {
+        if (this.tipo.equals("Solar")){
+            return ("""
+            {
+                tipo: %s,
+                grupo: %s,
+                valor: %f
+            }
+            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.valor));
         }
-        // Concatenamos cadenas de texto
-        StringBuilder info = new StringBuilder(" La casilla en venta: ");
-        
-        info.append("Nombre: ").append(nome != null ? nome : "Sin nombre asignado");    //AÑADIR GRUPO
-        info.append(", Tipo: ").append(tipo != null ? tipo : " desconocido");
-        info.append(", Valor: ").append(valor != 0 ? valor : "0");
-        //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
-        return info.toString().trim();
+        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicios")){
+            return("""
+            {
+                tipo: %s,
+                valor: %f
+            }
+            """.formatted(this.tipo, this.valor));
+        }
+        return("La casilla " + this.nome + " no se puede vender");
     }
 }

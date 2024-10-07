@@ -72,9 +72,11 @@ public class Avatar {
         for (int i=0; i<valorTirada; i++){
             casillaActual=ObtenerSiguienteCasilla(casillas, casillaActual);
         }
-        //Actualizamos 
-        this.lugar=casillaActual;
-        System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
+        if(casillaActual!=null){
+            //Actualizamos 
+            this.lugar=casillaActual;
+            System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
+        }
     }
 
     private Casilla ObtenerSiguienteCasilla(ArrayList<ArrayList<Casilla>> casillas, Casilla casillaActual){
@@ -84,6 +86,7 @@ public class Avatar {
         //si la posición excede el número 40 (vuelta completada), regresamos a la casilla 1.
         if(nuevaPosicion>40){
             nuevaPosicion=1;
+            this.jugador.sumarFortuna(Valor.SUMA_VUELTA);
         } 
         //buscamos la nueva casilla actual basada en la posición
         for(ArrayList<Casilla> lado : casillas){
@@ -93,9 +96,8 @@ public class Avatar {
                 }
             }
         }
-
-        throw new IllegalArgumentException("La casilla no se encuentra");
-
+        System.out.println("La casilla no se encuentra");
+        return null;
     }
 
 
