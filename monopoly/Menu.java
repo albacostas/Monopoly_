@@ -33,22 +33,17 @@ public class Menu {
 
         //Partida
         this.tablero.toString();
-        this.iniciarPartida();
+        Scanner scanner = new Scanner(System.in);
+        this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         System.out.println("Instrucciones:\n");
         analizarComando("ayuda");
 
-        Scanner scanner = new Scanner(System.in);
         String comando;
         do {
             System.out.println("Introduce un comando: ");
-            try {
-                comando = scanner.nextLine(); // Leer el comando del usuario
-                analizarComando(comando); // Llama a tu método para procesar el comando
-            } catch (NoSuchElementException e) {
-                System.out.println("Error: No se puede leer la entrada. Asegúrate de que la entrada está disponible.");
-                break; // Sal del bucle si hay un error
-            }
+            comando = scanner.nextLine(); // Leer el comando del usuario
+            analizarComando(comando); // Llama a tu método para procesar el comando
         } while(!comando.equals("finalizar"));    //Revisar la condición finaliza y cambiar analizarcomando para incluirlo
 
         scanner.close();
@@ -130,15 +125,19 @@ public class Menu {
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
-    private void iniciarPartida() {
+    private void iniciarPartida(Scanner scanner) {
         System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
-        Scanner scanner = new Scanner(System.in);
         String[] j1 = scanner.nextLine().split(" ");
+        if (j1.length != 2) {
+            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+        }
         crearJugador(j1[0], j1[1]);
         System.out.println("Introduce los datos de otro jugador (nombre y tipo de avatar):");
         String[] j2 = scanner.nextLine().split(" ");
+        if (j2.length != 2) {
+            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+        }
         crearJugador(j2[0], j2[1]);
-        scanner.close();
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
@@ -148,24 +147,30 @@ public class Menu {
         String[] partes = comando.split(" ");
         switch (partes[0]) {
             case "crear":
+                if (partes.length != 4) {
+                    throw new IllegalArgumentException("Error: Debes introducir el comando y exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+                }
                 this.crearJugador(partes[2], partes[3]);
                 break;
 
             case "jugador":
+                if (partes.length != 1) {
+                    throw new IllegalArgumentException("Error: Este comando no tiene argumentos.");
+                }
                 System.out.println("{\n\tnombre: " + this.jugadores.get(this.turno).getNombre() + ",\n\tavatar: " + this.jugadores.get(this.turno).getAvatar().getId() + "\n}");
                 break;
 
             case "listar":
                 switch (partes[1]) {
-                    case "jugadores":
+                    case "jugadores":               //No va
                         this.listarJugadores();
                         break;
 
-                    case "avatares":
+                    case "avatares":                //Corregir tostring
                         this.listarAvatares();
                         break;
 
-                    case "enventa":
+                    case "enventa":                 //No va
                         this.listarVenta();
                         break;
 
@@ -174,11 +179,11 @@ public class Menu {
                 }
                 break;
 
-            case "lanzar":
+            case "lanzar":                      //Falta enseñar tablero
                 this.lanzarDados();
                 break;
 
-            case "acabar":
+            case "acabar":                      //No acaba el turni
                 this.acabarTurno();
                 break;
 
@@ -189,20 +194,32 @@ public class Menu {
             case "describir":
             switch (partes[1]) {
                 case "jugador":
+                    if (partes.length != 3) {
+                        throw new IllegalArgumentException("Error: Debes introducir el comando y exactamente 1 argumento (jugador).");
+                    }
                     this.descJugador(partes);
                     break;
 
                 case "avatar":
+                    if (partes.length != 3) {
+                        throw new IllegalArgumentException("Error: Debes introducir el comando y exactamente 1 argumento (avatar).");
+                    }
                     this.descAvatar(partes[2]);
                     break;
 
                 default:
+                    if (partes.length != 2) {                                                                                                       //Corregir el caso de no encontrarla
+                        throw new IllegalArgumentException("Error: Debes introducir el comando y exactamente 1 argumento (casilla).");
+                    }
                     this.descCasilla(partes[1]);
                     break;
             }
             break;
 
-            case "comprar":
+            case "comprar":                                                                                                                         //Corregir caso de no existir la casilla y caso de no ser una casilla que se pueda comprar
+                if (partes.length != 2) {
+                    throw new IllegalArgumentException("Error: Debes introducir el comando y exactamente 1 argumento (casilla).");
+                }
                 this.comprar(partes[0]);
             break;
 
