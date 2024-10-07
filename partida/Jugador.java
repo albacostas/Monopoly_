@@ -78,7 +78,7 @@ public class Jugador {
     
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
-        this.avatar = new Avatar();
+        this.nombre = "Banca";
         this.propiedades = new ArrayList<>();
         this.fortuna = 0;
         this.gastos = 0;
