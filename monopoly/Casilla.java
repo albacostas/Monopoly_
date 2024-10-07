@@ -254,7 +254,7 @@ public class Casilla {
     // private boolean manejarServicio(Jugador actual, Casilla casilla, int tirada){
         
     // }
-
+  
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
@@ -323,5 +323,10 @@ public class Casilla {
         info.append(", Valor: ").append(valor != 0 ? valor : "0");
         //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
+    }
+
+    @Override
+    public String toString(){
+        return this.nome;
     }
 }
