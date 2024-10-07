@@ -1,6 +1,7 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import partida.*;
@@ -34,16 +35,21 @@ public class Menu {
         this.tablero.toString();
         this.iniciarPartida();
         System.out.println(this.tablero.toString());
-        Scanner scanner = new Scanner(System.in);
-        String comando;
         System.out.println("Instrucciones:\n");
         analizarComando("ayuda");
 
+        Scanner scanner = new Scanner(System.in);
+        String comando;
         do {
             System.out.println("Introduce un comando: ");
-            comando = scanner.nextLine();
-            analizarComando(comando);
-        } while(comando.equals("finalizar"));    //Revisar la condición finaliza y cambiar analizarcomando para incluirlo
+            try {
+                comando = scanner.nextLine(); // Leer el comando del usuario
+                analizarComando(comando); // Llama a tu método para procesar el comando
+            } catch (NoSuchElementException e) {
+                System.out.println("Error: No se puede leer la entrada. Asegúrate de que la entrada está disponible.");
+                break; // Sal del bucle si hay un error
+            }
+        } while(!comando.equals("finalizar"));    //Revisar la condición finaliza y cambiar analizarcomando para incluirlo
 
         scanner.close();
     }
