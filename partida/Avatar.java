@@ -69,31 +69,6 @@ public class Avatar {
     * - Un entero que indica el numero de casillas a moverse (será el valor sacado en la tirada de los dados).
     * EN ESTA VERSIÓN SUPONEMOS QUE valorTirada siemrpe es positivo.
      */
-    // public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
-    //     Casilla casillaActual=this.lugar;
-    //     for (int i=0; i<valorTirada; i++){
-    //         casillaActual=ObtenerSiguienteCasilla(casillas, casillaActual);
-    //     }
-    //     //Actualizamos 
-    //     this.lugar=casillaActual;
-    //     System.out.println("El avatar ha sido movido a la casilla "+ this.lugar.getNombre());
-    // }
-    // public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
-    //     int posActual = this.lugar.getPosicion();
-
-    //     int newPosicion = posActual + valorTirada;
-    //     if(newPosicion > 40){
-    //         newPosicion = newPosicion % 40;
-    //     }
-
-    //     Casilla newCasilla = ObtenerCasillaporPosicion(casillas, newPosicion);
-    //     this.lugar = newCasilla;
-
-    //     System.out.println("El avatar " + this.getId() + " avanza " + valorTirada + " posiciones, desde " + this.lugar.getNombre() + " hasta " + newCasilla.getNombre() + ".");
-
-    // }
-
-
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
 
@@ -124,17 +99,6 @@ public class Avatar {
         }
     }
 
-    private Casilla ObtenerCasillaporPosicion(ArrayList<ArrayList<Casilla>> casillas, int posicion) {
-        for (ArrayList<Casilla> lado : casillas) {
-            for (Casilla casilla : lado) {
-                if (casilla.getPosicion() == posicion) {
-                    return casilla;
-                }
-            }
-        }
-        throw new IllegalArgumentException("La casilla no se encuentra en la posición: " + posicion);
-    }
-    
 
     private Casilla ObtenerSiguienteCasilla(ArrayList<ArrayList<Casilla>> casillas, Casilla casillaActual){
         int posActual=casillaActual.getPosicion();
@@ -183,9 +147,6 @@ public class Avatar {
     }
 
     @Override
-    // public String toString() {
-    //     return "{\n\tid: " + this.getId() + ",\n\ttipo: " + this.getTipo() + ",\n\tcasilla: " + this.getLugar() +",\n\tjugador: " + this.getJugador() + "\n}";
-    // }
 
     public String toString() {
         return "{\n" + "\tid: " + getId() + ",\n" + "\ttipo: " + this.getTipo() + ",\n" + "\tcasilla: " + (this.getLugar() != null ? this.getLugar().toString() : "null") + ",\n" +
