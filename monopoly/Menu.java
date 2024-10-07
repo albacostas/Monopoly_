@@ -33,7 +33,7 @@ public class Menu {
         //Partida
         this.tablero.toString();
         Scanner scanner = new Scanner(System.in);
-        this.iniciarPartida(scanner);
+        iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         System.out.println("Instrucciones:\n");
         analizarComando("ayuda");
@@ -41,23 +41,10 @@ public class Menu {
         String comando;
         do {
             System.out.println("Introduce un comando: ");
-            // comando = scanner.nextLine(); // Leer el comando del usuario
-            // analizarComando(comando); // Llama a tu método para procesar el comando
-
-            if(scanner.hasNextLine()){
-                comando = scanner.nextLine().trim();
-                if(!comando.isEmpty()){
-                   analizarComando(comando); 
-                }
-                
-            }else{
-                System.out.println("Comando no disponible.");
-                comando = "finalizar";
-            }
-
-        scanner.close();
-        }
-
+            comando = scanner.nextLine(); // Leer el comando del usuario
+            analizarComando(comando); // Llama a tu método para procesar el comando
+        } while (!comando.equals("finalizar"));
+    }
         // Métodos Getter y Setter para cada atributo
         // por ahora no se utilizan
         public ArrayList<Jugador> getJugadores() {
@@ -67,14 +54,14 @@ public class Menu {
         //     this.jugadores = jugadores;
         // }   
 
-        public ArrayList<Avatar> getAvatares() {
+        public ArrayList<Avatar> getAvatares(){
             return avatares;
         }
         // public void setAvatares(ArrayList<Avatar> avatares) {
         //     this.avatares = avatares;
         // }
 
-        public int getTurno() {
+        public int getTurno(){
             return turno;
         }
         public void setTurno(int turno) {
@@ -109,7 +96,6 @@ public class Menu {
             this.dado2 = dado2;
         }
 
-
         public Jugador getBanca() {
             return banca;
         }
@@ -129,10 +115,10 @@ public class Menu {
         }
         public void setSolvente(boolean solvente) {
             this.solvente = solvente;
-            avatares = new ArrayList<>();
-            tablero = new Tablero(banca); //hay que definir este constructor!!!
+            // avatares = new ArrayList<>();
+            // tablero = new Tablero(banca); //hay que definir este constructor!!!
         }
-
+    
         // Método para inciar una partida: crea los jugadores y avatares.
         private void iniciarPartida(Scanner scanner) {
             System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
@@ -224,6 +210,7 @@ public class Menu {
                             System.out.println("Fin de la partida");
                             break;
                     }
+                    break;
                     
                 case "describir":
                 if (partes.length ==1) {
@@ -283,7 +270,7 @@ public class Menu {
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
-                    break;
+                break;
             }
         }
 
@@ -526,5 +513,5 @@ public class Menu {
             }
         }      
 
-    }
 }
+
