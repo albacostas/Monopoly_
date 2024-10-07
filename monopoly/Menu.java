@@ -192,7 +192,7 @@ public class Menu {
                 this.lanzarDados();
                 break;
 
-            case "acabar":                      //No acaba el turno
+            case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
                 if (partes.length != 2) {
                     System.out.println("Error: Debes introducir el comando completo.");
                     break;
@@ -478,14 +478,20 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
-        for (Avatar i: avatares){
-            System.out.println(i.toString());
+
+        if ( avatares.isEmpty()){
+            System.out.println("No hay avatares creados.");
+        }else{
+            for (Avatar i: avatares){
+                System.out.println(i.toString());
+            }
         }
+        
 
     }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
-    private void acabarTurno() {s
+    private void acabarTurno() {
 
         if (jugadores.isEmpty()){
             System.out.println("No hay jugadores en el juego.");

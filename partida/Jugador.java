@@ -166,7 +166,12 @@ public class Jugador {
     }
 
     @Override
+    // public String toString() {
+    //     return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + this.getPropiedades() + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+    // }
     public String toString() {
-        return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + this.getPropiedades() + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+        return this.nombre;
     }
 }
+  
+    
