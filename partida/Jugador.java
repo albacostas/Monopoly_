@@ -78,7 +78,7 @@ public class Jugador {
     
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
-
+        this.avatar = new Avatar();
         this.propiedades = new ArrayList<>();
         this.fortuna = 0;
         this.gastos = 0;
@@ -125,18 +125,18 @@ public class Jugador {
     //Método para añadir fortuna a un jugador
     //Como parámetro se pide el valor a añadir. Si hay que restar fortuna, se pasaría un valor negativo.
     public void sumarFortuna(float valor) {
-        
         this.fortuna += valor;
     }
 
     //Método para sumar gastos a un jugador.
     //Parámetro: valor a añadir a los gastos del jugador (será el precio de un solar, impuestos pagados...).
     public void sumarGastos(float valor) {
-
         if(valor < 0 ){
             System.out.println("El valor del gasto no puede ser negativo");
         }
-        this.gastos += valor;
+        else{
+            this.gastos += valor;
+        }
     }
 
     private Casilla ObtenerCasillaporPosicion(ArrayList<ArrayList<Casilla>> pos, int posicion){

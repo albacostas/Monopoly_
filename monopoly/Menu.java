@@ -264,11 +264,20 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar av: avatares){
             if(av.getId().equals(ID)){
-                System.out.println(av.toString());
-                return; 
+                System.out.println("{ ");
+                System.out.println("id: "+av.getId());
+                System.out.println("tipo: "+av.getTipo());
+                System.out.println("casilla: "+av.getLugar());
+                System.out.println("jugador: "+av.getJugador());
+                System.out.println("} ");
+                break;
+                //System.out.println(av.toString());
+                //return; 
+            }
+            else{
+                System.out.println("No se ha encontrado ningún avatar con ese ID.");
             }
         }
-        System.out.println("No se ha encontrado ningún avatar con ese ID.");
 
     }
 
@@ -392,6 +401,12 @@ public class Menu {
         ArrayList<ArrayList<Casilla>> casilla=tablero.getPosiciones();
         for (ArrayList<Casilla> lado : casilla){
             for (Casilla i:lado){
+                //if(i.getDuenho()==banca){ //tipo solar, transporte o servicio!!!!!!!!!
+                    //System.out.println("{ ");
+                    //System.out.println("tipo: "+ i.getTipo());
+                    //System.out.println("grupo: "+ i.getGrupo());
+                    //System.out.println("tipo: "+ i.getValor());
+                    //System.out.println("} ");
                 if(i.getDuenho()!=banca){
                     System.out.println(i.casaEnVenta());
                 }
@@ -402,7 +417,6 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
     private void listarJugadores() {
-        ArrayList<Jugador> jugadores=getJugadores();
         for (Jugador i: jugadores){
             i.toString();
         }
@@ -410,7 +424,6 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
-        ArrayList<Avatar> avatares=getAvatares();
         for (Avatar i: avatares){
             System.out.println(i.toString());
         }

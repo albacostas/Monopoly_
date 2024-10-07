@@ -76,7 +76,7 @@ public class Casilla {
         this.posicion = posicion;
         this.valor = valor;
         this.duenho= duenho;
-        this.avatares = new ArrayList<>();
+        this.avatares = new ArrayList<Avatar>();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -89,6 +89,7 @@ public class Casilla {
         this.impuesto = impuesto;
         this.duenho = duenho;
         this.tipo = "Impuestos";
+        this.avatares = new ArrayList<Avatar>();
     }
 
     /*Constructor utilizado para crear las otras casillas (Suerte, Caja de comunidad y Especiales):
@@ -99,6 +100,7 @@ public class Casilla {
         this.tipo=tipo;
         this.posicion=posicion;
         this.duenho=duenho;
+        this.avatares = new ArrayList<Avatar>();
     }
 
 
@@ -133,6 +135,30 @@ public class Casilla {
         //     }
         // }  No sé si está bien, pero hay que eva(luar todos los tipos de casilla. 
 
+
+        switch (this.getTipo()) {
+            case "Solar":
+                return manejarSolar(actual,this);
+                break;
+            case "Impuesto":
+                return manejarImpuesto(actual, this, tirada);
+                break;
+            case "Transporte":
+                return manejarTransporte(actual, this);
+                break;
+            case "Servicio":
+                return manejarServicio (actual, this,tirada);
+                break;
+            case "Caja":
+                return manejarComunidad(actual);
+                break;
+            case "Suerte":
+                return manejarSuerte(actual);
+                break;
+            case "Especial":
+                return manejarEspecial(actual, banca);
+                break;
+
         // Codigo que no sirve, Alba
         // switch (this.getTipo()) {
         //     case "Solar":
@@ -155,8 +181,7 @@ public class Casilla {
         //         break;
         //     case "Especial":
         //         return manejarEspecial(actual, banca);
-        //         break;
-        
+        //         break;        
         //     default:
         //         System.out.println("Tipo de casilla no encontrado " +tipoCasilla);
 
@@ -226,7 +251,7 @@ public class Casilla {
         solicitante.anhadirPropiedad(this);
         banca.eliminarPropiedad(this);
         solicitante.sumarGastos(this.valor);
-        //le damos el dinero que pagamos a la banca?
+        solicitante.sumarFortuna(-this.valor);
         
 
     }
@@ -284,15 +309,5 @@ public class Casilla {
         info.append(", Valor: ").append(valor != 0 ? valor : "0");
         //info.append(", Dueño: ").append(duenho != null ? duenho.getNombre() : "Banca");
         return info.toString().trim();
-    }
-
-    public Object getPropiedades() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPropiedades'");
-    }
-
-    public void setPropiedades(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setPropiedades'");
     }
 }
