@@ -195,7 +195,7 @@ public class Tablero {
         Casilla Trans4 = new Casilla("Trans4", "Transporte", 36, Valor.SUMA_VUELTA, banca);
         Casilla Suerte = new Casilla("Suerte", "Suerte", 37, banca);
         Casilla Solar21 = new Casilla("Solar21", "Solar", 38, 3764911.02f, banca);
-        Casilla Imp2 = new Casilla("Imp2", 39,Valor.SUMA_VUELTA, banca);
+        Casilla Impuesto2 = new Casilla("Impuesto2", 39,Valor.SUMA_VUELTA, banca);
         Casilla Solar22 = new Casilla("Solar22", "Solar", 40, 3764911.02f, banca);
 
         Grupo green = new Grupo(Solar18, Solar19, Solar20, "Green");
@@ -216,7 +216,7 @@ public class Tablero {
         ladoEste.add(Trans4);
         ladoEste.add(Suerte);
         ladoEste.add(Solar21);
-        ladoEste.add(Imp2);
+        ladoEste.add(Impuesto2);
         ladoEste.add(Solar22);
 
         posiciones.add(ladoEste);
