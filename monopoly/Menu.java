@@ -306,7 +306,7 @@ public class Menu {
             System.out.println(jugadorBuscado.toString()); 
         }
         else{
-            System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
+            System.out.println("El jugador no ha sido encontrado. Compruebe el nombre"); 
         }
     }
 
