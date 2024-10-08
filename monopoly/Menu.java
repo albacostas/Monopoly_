@@ -36,13 +36,13 @@ public class Menu {
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         System.out.println("Instrucciones:\n");
-        analizarComando("ayuda");
+        analizarComando("ayuda", scanner);
 
         String comando;
         do {
             System.out.println("Introduce un comando: ");
             comando = scanner.nextLine(); // Leer el comando del usuario
-            analizarComando(comando); // Llama a tu método para procesar el comando
+            analizarComando(comando, scanner); // Llama a tu método para procesar el comando
         } while(!comando.equals("finalizar"));    //Revisar la condición finaliza y cambiar analizarcomando para incluirlo
 
         scanner.close();
@@ -142,7 +142,7 @@ public class Menu {
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
     * Parámetro: cadena de caracteres (el comando).
     */
-    private void analizarComando(String comando) {
+    private void analizarComando(String comando, Scanner scanner) {
         String[] partes = comando.split(" ");
         switch (partes[0]) {
             case "crear":
@@ -254,7 +254,7 @@ public class Menu {
                     System.out.println("Error: Debes introducir el comando y exactamente 1 argumento (casilla).");
                     break;
                 }
-                this.comprar(partes[0]);
+                this.comprar(partes[0], scanner);
             break;
 
             case "ver":
@@ -325,6 +325,7 @@ public class Menu {
     private void descAvatar(String ID) {
         for (Avatar av: avatares){
             if(av.getId().equals(ID)){
+                /*
                 System.out.println("{ ");
                 System.out.println("id: "+av.getId());
                 System.out.println("tipo: "+av.getTipo());
@@ -332,8 +333,9 @@ public class Menu {
                 System.out.println("jugador: "+av.getJugador());
                 System.out.println("} ");
                 break;
-                //System.out.println(av.toString());
-                //return; 
+                */
+                System.out.println(av.toString());
+                return; 
             }
             else{
                 System.out.println("No se ha encontrado ningún avatar con ese ID.");
@@ -398,7 +400,7 @@ public class Menu {
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
      */
-    private void comprar(String nombre) {
+    private void comprar(String nombre, Scanner scanner) {
         Jugador jActual = jugadores.get(turno);
         Casilla casilla = tablero.encontrar_casilla(nombre);
 
@@ -415,13 +417,11 @@ public class Menu {
 
         System.out.println("La casilla " + nombre + " cuesta " + precio);
         System.out.println(("Desea comprar la casilla (si o no): "));
-        Scanner scanner = new Scanner(System.in);
         String respuesta = scanner.nextLine();
         
         if(respuesta.equalsIgnoreCase("si")){
             if(jActual.getFortuna() < precio){
                 System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-                scanner.close();
                 return;
             }
 
@@ -433,9 +433,7 @@ public class Menu {
         }else {
             System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
         }
-        
-        scanner.close();
-        
+                
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
