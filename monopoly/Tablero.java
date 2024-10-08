@@ -289,6 +289,7 @@ public class Tablero {
         for (Casilla casilla : ladoNorte){
             sb.append("|");
             for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += "&";
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
@@ -319,6 +320,7 @@ public class Tablero {
 
             sb.append("|");
             for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += "&";
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
@@ -336,6 +338,7 @@ public class Tablero {
 
             sb.append("|");
             for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += "&";
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
@@ -375,6 +378,7 @@ public class Tablero {
 
         sb.append("|");
         for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            aux += "&";
             aux += casilla.getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
@@ -388,6 +392,7 @@ public class Tablero {
         sb.deleteCharAt(sb.length()-1);
         sb.append("|");
         for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            aux += "&";
             aux += casilla.getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
@@ -426,6 +431,7 @@ public class Tablero {
         for (Casilla casilla1 : ladoSur){
             sb.append("|");
             for (int j = 0; j < casilla1.getAvatares().size(); j++) {    //Avatares
+                aux += "&";
                 aux += casilla1.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
