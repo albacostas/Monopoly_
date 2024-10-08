@@ -275,7 +275,7 @@ public class Menu {
                     System.out.println("Error: El comando introducido no es correcto.");
                 break;
             }
-        }
+    }
 
     /*Método que da de alta a un jugador
     * Parámetros: nombre del jugador y tipo del avatar
@@ -498,9 +498,10 @@ public class Menu {
         Jugador jActual = jugadores.get(turno);
         if (jActual.isEnCarcel()){
             if(jActual.getFortuna() >= 500000){
-                jActual.sumarGastos((500000));
+                jActual.sumarGastos(500000);
                 jActual.setEnCarcel(false);
-                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel. Puede lanzar los daos.");
+                jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
+                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
             }else {
                 System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
             }
