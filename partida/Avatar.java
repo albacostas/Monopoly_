@@ -92,7 +92,7 @@ public class Avatar {
         }
 
         if (nuevaCasilla != null) { // Actualizamos el lugar del avatar
-            System.out.println("El avatar ha sido movido a la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
+            System.out.println("El avatar ha sido movido de la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
             this.lugar = nuevaCasilla;
         }else {
             System.out.println("Error: la nueva casilla no se encontró.");
@@ -150,6 +150,6 @@ public class Avatar {
 
     public String toString() {
         return "{\n" + "\tid: " + getId() + ",\n" + "\ttipo: " + this.getTipo() + ",\n" + "\tcasilla: " + (this.getLugar() != null ? this.getLugar().toString() : "null") + ",\n" +
-            "\tjugador: " + (this.getJugador() != null ? this.getJugador().toString() : "null") +",\n" + "}";
+            "\tjugador: " + getJugador().getNombre() +",\n" + "}";
     }
 }

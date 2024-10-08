@@ -184,10 +184,10 @@ public class Jugador {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
-        sb.append("     nombre: ").append(this.nombre).append(",\n");
-        sb.append("     avatar: ").append(avatar.getId()).append(",\n");
-        sb.append("     fortuna: ").append(this.fortuna).append(",\n");
-        sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
+        sb.append("\tnombre: ").append(this.nombre).append(",\n");
+        sb.append("\tavatar: ").append(avatar.getId()).append(",\n");
+        sb.append("\tfortuna: ").append(this.fortuna).append(",\n");
+        sb.append("\tpropiedades: ").append(listarPropiedades()).append(",\n}");
         //sb.append("hipotecas: ").append(listarHipotecas()).append(",\n");
         //sb.append("edificios: ").append(listarEdificios()).append("\n");
         //sb.append("}");
