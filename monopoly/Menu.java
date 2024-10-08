@@ -44,6 +44,7 @@ public class Menu {
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
         } while (!comando.equals("finalizar"));
+        scanner.close();
     }
     // Métodos Getter y Setter para cada atributo
     // por ahora no se utilizan
@@ -267,11 +268,11 @@ public class Menu {
                     System.out.println("listar enventa: Lista las propiedades en venta\nlanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
                     System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
-                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
+                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual");
                     System.out.println("finalizar: Finaliza la partida automáticamente\n\n");
                     break;
                 case "finalizar":
-                    System.out.println("Finalizando partida...\n");
+                    System.out.println("Finalizando partida...");
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
@@ -453,7 +454,6 @@ public class Menu {
         if(respuesta.equalsIgnoreCase("si")){
             if(jActual.getFortuna() < precio){
                 System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-                //scanner.close();          //REVISAR
                 return;
             }
 
@@ -465,9 +465,7 @@ public class Menu {
         }else {
             System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
         }
-        
-        //scanner.close();          //REVISAR
-    
+            
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
@@ -536,16 +534,17 @@ public class Menu {
         }
 
         Jugador jActual = jugadores.get(turno);
+        //lanzamientos = 0;
+        //tirado = false;
 
         if(!tirado){
             System.out.println(jActual.getNombre() + ", lanza los dados.");
             lanzarDados();
+            System.out.println(this.tablero.toString());
             tirado = true;
+            acabarTurno();
             return;
         }
-
-        lanzamientos = 0;
-        tirado = false;
         
         turno = (turno +1) % jugadores.size(); // movemso el turno al siguiente jugador
         Jugador jSiguiente =  jugadores.get(turno);

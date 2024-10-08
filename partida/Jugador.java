@@ -189,9 +189,9 @@ public class Jugador {
         sb.append("     avatar: ").append(avatar.getId()).append(",\n");
         sb.append("     fortuna: ").append(this.fortuna).append(",\n");
         sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
-        //sb.append("hipotecas: ").append(listarHipotecas()).append(",\n");
-        //sb.append("edificios: ").append(listarEdificios()).append("\n");
-        //sb.append("}");
+        sb.append("     hipotecas: ").append("-\n");                                        //listarHipotecas()
+        sb.append("     edificios: ").append("-\n");                                         //listarEdificios()
+        sb.append("}");
         return sb.toString();
     }
 }
