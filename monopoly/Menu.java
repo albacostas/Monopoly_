@@ -41,6 +41,23 @@ public class Menu {
 
         String comando;
         do {
+            System.out.println("Comandos disponibles:");
+            System.out.println("  - crear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.");
+            System.out.println("  - jugador: Indica el jugador que tiene el turno");
+            System.out.println("  - listar jugadores: Lista los jugadores de la partida y sus características");
+            System.out.println("  - listar avatares: Lista los avatares de la partida y sus características");
+            System.out.println("  - listar enventa: Lista las propiedades en venta");
+            System.out.println("  - lanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
+            System.out.println("  - acabar turno: Finaliza el turno del jugador actual");
+            System.out.println("  - salir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
+            System.out.println("  - describir jugador (jugador): Muestra las características del jugador introducido");
+            System.out.println("  - describir avatar (avatar): Muestra las características del avatar introducido");
+            System.out.println("  - describir (casilla): Muestra las características de la casilla introducida");
+            System.out.println("  - comprar (casilla): Compra la propiedad indicada");
+            System.out.println("  - ver tablero: Muestra el tablero en su estado actual");
+            System.out.println("  - finalizar: Finaliza la partida automáticamente");
+            System.out.println("  - ayuda: Muestra esta lista de comandos");
+
             System.out.println("Introduce un comando: ");
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
