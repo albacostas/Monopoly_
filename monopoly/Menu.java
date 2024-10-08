@@ -19,6 +19,7 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
+    private Scanner scanner;
     //Constructor del menú: Desarrollo de la partida (Necesario porque los métodos son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu(){
         //Constuctor
@@ -29,10 +30,10 @@ public class Menu {
         this.avatares = new ArrayList<Avatar>();
         this.tablero = new Tablero(this.banca);
         turno = 0;
+        this.scanner = new Scanner(System.in);
 
         //Partida
         this.tablero.toString();
-        Scanner scanner = new Scanner(System.in);
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         System.out.println("Instrucciones:\n");
@@ -44,6 +45,7 @@ public class Menu {
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
         } while (!comando.equals("finalizar"));
+        scanner.close();
     }
     // Métodos Getter y Setter para cada atributo
     // por ahora no se utilizan
@@ -436,31 +438,32 @@ public class Menu {
             return;
         }
 
+        if (!verificarCasilla(jActual, casilla)){
+            System.out.println("El jugador " + jActual.getNombre() + " no está en la casilla " + nombre + ". No puede comprarla.");
+            return;
+        }
         float precio = casilla.getValor();
 
         System.out.println("La casilla " + nombre + " cuesta " + precio);
-        System.out.println(("Desea comprar la casilla (si o no): "));
-        Scanner scanner = new Scanner(System.in);
-        String respuesta = scanner.nextLine();
+
         
-        if(respuesta.equalsIgnoreCase("si")){
-            if(jActual.getFortuna() < precio){
-                System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-                //scanner.close();          //REVISAR
-                return;
-            }
-
-            jActual.sumarGastos(precio);
-            casilla.setDuenho(jActual);
-
-            jActual.anhadirPropiedad(casilla);
-            System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
-        }else {
-            System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
+        
+        if(jActual.getFortuna() < precio){
+            System.out.println("No dispone de suficiente dinero para comprar la casilla.");
+            return;
         }
+
+        jActual.sumarGastos(precio);
+        casilla.setDuenho(jActual);
+
+        jActual.anhadirPropiedad(casilla);
+        System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
         
-        //scanner.close();          //REVISAR
     
+    }
+
+    private boolean verificarCasilla(Jugador jugador, Casilla casilla){
+        return jugador.getAvatar().getLugar().equals(casilla);
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
