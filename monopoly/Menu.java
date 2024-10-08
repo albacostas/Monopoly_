@@ -453,7 +453,6 @@ public class Menu {
         }else {
             System.out.println(jActual.getNombre() + " no está en la carcel.");
         }
-
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
