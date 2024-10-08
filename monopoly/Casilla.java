@@ -340,11 +340,12 @@ public class Casilla {
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
-                    tipo: %s,
+                       tipo: %s,
 
-                    """.formatted(this.tipo,));
+                       """.formatted(this.tipo));
 
         }
+    }
 
     /* Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.

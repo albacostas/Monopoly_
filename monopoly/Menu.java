@@ -198,10 +198,13 @@ public class Menu {
                 }
                 
             case "describir":
-            if (partes.length ==1) {
-                System.out.println("Error: Debes introducir el comando completo");
+                if (partes.length ==1) {
+                    System.out.println("Error: Debes introducir el comando completo");
+                    break;
+                }
                 break;
             }
+    }
         // Método para inciar una partida: crea los jugadores y avatares.
         private void iniciarPartida(Scanner scanner) {
             System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
@@ -255,7 +258,7 @@ public class Menu {
 
         }
 
-    }
+
 
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
@@ -266,48 +269,6 @@ public class Menu {
         //Buscamos la Casilla
         System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
-    /* 
-    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    private void lanzarDados() {
-
-        if(tirado){ // Comprobamos que el jugador no haya tirado antes.
-            System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
-            return;
-        }
-
-        if(dado1 == null){
-            dado1 = new Dado();
-        }
-        if(dado2 == null){
-            dado2 = new Dado();
-        }
-            // mirar si salen nuemro iguales, volver a tirar
-        Jugador jActual = jugadores.get(turno);
-
-        while(lanzamientos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
-
-            System.out.println("El jugador: " + jActual.getNombre());
-            System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
-    
-            if(valorDado1 == valorDado2){
-                lanzamientos++;
-                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
-
-                if(lanzamientos == 3){
-                    System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
-                    jActual.encarcelar(tablero.getPosiciones()); 
-                    break;
-                    //System.out.println(av.toString());
-                    //return; 
-                }
-                else{
-                   System.out.println("No se ha encontrado ningún avatar con ese ID.");
-                }
-            }
-        }
 
 
         /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
@@ -386,7 +347,6 @@ public class Menu {
                     }
                     break;
                 }
-            
             }
             tirado = true;
         }
