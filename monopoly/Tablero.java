@@ -271,6 +271,8 @@ public class Tablero {
         Collections.reverse(ladoSur);
         Collections.reverse(ladoOeste);
 
+        String aux = new String();
+
         // Imprimir la fila superior (Norte)
         for (Casilla casilla : ladoNorte){
             sb.append(" ");
@@ -279,10 +281,20 @@ public class Tablero {
             }
         }
         sb.append("\n");
+
         for (Casilla casilla : ladoNorte) {
-            sb.append("|").append(colorCasillas(casilla));                      //nombres casillas
+            sb.append("|").append(colorCasillas(casilla));
         }
         sb.append("|\n");
+        for (Casilla casilla : ladoNorte){
+            sb.append("|");
+            for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += casilla.getAvatares().get(j).getId();
+            }
+            sb.append(String.format("%-15s", aux));
+        }
+        sb.append("|\n");
+
         for (Casilla casilla : ladoNorte){
             sb.append("|");
             for (int j = 0; j < formatCasilla(casilla).length(); j++) {
@@ -302,7 +314,33 @@ public class Tablero {
                 }
             }
             sb.deleteCharAt(sb.length()-1);
-            sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n|");       //nombres casillas
+            sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n");        //nombres casillas
+
+            sb.append("|");
+            for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += casilla.getAvatares().get(j).getId();
+            }
+            sb.append(String.format("%-15s", aux));
+            sb.append("|");
+
+            //Espacios
+            for(int l = 0; l < ladoNorte.size()-2; l++){
+                for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+                    sb.append(" ");
+                }
+            }
+            sb.deleteCharAt(sb.length()-1);
+            
+
+            sb.append("|");
+            for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+                aux += casilla.getAvatares().get(j).getId();
+            }
+            sb.append(String.format("%-15s", aux));
+            sb.append("|\n");
+
+
+            sb.append("|");
             for (int j = 0; j < formatCasilla(casilla).length(); j++) {
                 sb.append("_");
             }
@@ -312,7 +350,11 @@ public class Tablero {
                     sb.append(" ");
                 }
             }
-            sb.deleteCharAt(sb.length()-1).append("|");
+            sb.deleteCharAt(sb.length()-1);
+
+            
+
+            sb.append("|");
             for (int j = 0; j < formatCasilla(casilla).length(); j++) {
                 sb.append("_");
             }
@@ -326,9 +368,29 @@ public class Tablero {
             }
         }
         sb.deleteCharAt(sb.length()-1);
-        sb.append("|").append(colorCasillas(ladoEste.get(ladoOeste.size()-1))).append("|\n|"); //Imprime la última casilla del lado este conectándola con el lado sur
-        
+        sb.append("|").append(colorCasillas(ladoEste.get(ladoOeste.size()-1))).append("|\n"); //Imprime la última casilla del lado este conectándola con el lado sur
+
+        sb.append("|");
+        for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            aux += casilla.getAvatares().get(j).getId();
+        }
+        sb.append(String.format("%-15s", aux));
+        sb.append("|");
+        for(int l = 0; l < ladoNorte.size()-2; l++){
+            for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+                sb.append(" ");
+            }
+        }
+        sb.deleteCharAt(sb.length()-1);
+        sb.append("|");
+        for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            aux += casilla.getAvatares().get(j).getId();
+        }
+        sb.append(String.format("%-15s", aux));
+        sb.append("|\n");
+    
         //Imprime la fila superior del lado sur
+        sb.append("|");
         for (int i = 0; i < formatCasilla(casilla).length(); i++) {         //Imprime la parte inferior de la última casilla del lado este
             sb.append("_");
         }
@@ -354,6 +416,14 @@ public class Tablero {
         // Imprimir la fila inferior (Sur)
         for (Casilla casilla1 : ladoSur) {
             sb.append("|").append(colorCasillas(casilla1));
+        }
+        sb.append("|\n");
+        for (Casilla casilla1 : ladoSur){
+            sb.append("|");
+            for (int j = 0; j < casilla1.getAvatares().size(); j++) {    //Avatares
+                aux += casilla1.getAvatares().get(j).getId();
+            }
+            sb.append(String.format("%-15s", aux));
         }
         sb.append("|\n");
         for(int i = 0; i < ladoSur.size(); i++){

@@ -165,8 +165,34 @@ public class Jugador {
         
     }
 
+
+    private String listarPropiedades() {
+        if (propiedades.isEmpty()) return "-";
+        StringBuilder sb = new StringBuilder("[");
+        for (Casilla propiedad : propiedades) {
+            sb.append(propiedad.getNombre()).append(", ");
+        }
+        sb.setLength(sb.length() - 2); // Eliminar la última coma
+        sb.append("]");
+        return sb.toString();
+    }
+
     @Override
+    // public String toString() {
+    //     return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + (avatar != null ? avatar.getId() : "-") + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + listarPropiedades(this.propiedades) + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+    // }
     public String toString() {
-        return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + this.avatar.getId() + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + this.getPropiedades() + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n");
+        sb.append("     nombre: ").append(this.nombre).append(",\n");
+        sb.append("     avatar: ").append(avatar.getId()).append(",\n");
+        sb.append("     fortuna: ").append(this.fortuna).append(",\n");
+        sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
+        //sb.append("hipotecas: ").append(listarHipotecas()).append(",\n");
+        //sb.append("edificios: ").append(listarEdificios()).append("\n");
+        //sb.append("}");
+        return sb.toString();
     }
 }
+  
+    

@@ -49,6 +49,9 @@ public class Casilla {
     public int setPosicion(){
         return this.posicion;
     }
+    public ArrayList<Avatar> getAvatares() {
+        return avatares;
+    }
 
     //Constructores:
     public Casilla() {
@@ -121,6 +124,49 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        Casilla casillaActual = actual.getAvatar().getLugar(); // Obtener la casilla actual del avatar
+        String tipoCasilla = casillaActual.getTipo(); // Obtener el tipo de casilla
+    
+        // Si la casilla es una propiedad
+        if (tipoCasilla.equals("Solar") || tipoCasilla.equals("Transporte") || tipoCasilla.equals("Servizos")) {
+            Jugador duenho = casillaActual.getDuenho(); // Obtener el dueño de la propiedad
+    
+            // Comprobar si la propiedad pertenece a otro jugador
+            if (duenho != null && !duenho.equals(actual)) {
+                float alquiler = casillaActual.getImpuesto(); // Obtener el alquiler
+    
+                System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
+    
+                // Verificar si el jugador tiene suficiente dinero
+                if (actual.getFortuna() < alquiler) {
+                    System.out.println("No tienes suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
+                    return false; // Jugador no es solvente
+                } else {
+                    // Pagar el alquiler
+                    actual.sumarGastos(alquiler);
+                    duenho.sumarFortuna(alquiler);
+                    System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
+                }
+            }
+        } 
+        // Si la casilla es Parking
+        else if (tipoCasilla.equals("Parking")) {
+            float bote = casillaActual.getValor(); // Obtener el bote
+            System.out.println("Has caído en 'Parking'. Recibes " + bote + ".");
+            actual.sumarFortuna(bote);
+        } 
+    
+        return true; // El jugador sigue siendo solvente
+    }
+    
+
+    /*Método para evaluar qué hacer en una casilla concreta. Parámetros:
+    /* - Jugador cuyo avatar está en esa casilla.
+    * - La banca (para ciertas comprobaciones).
+    * - El valor de la tirada: para determinar impuesto a pagar en casillas de servicios.
+    * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
+    * en caso de no cumplirlas.
+    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {*/
         // if (this.tipo=="Solar"){
         //     if (this.duenho.equals(banca)){
         //         if (actual.getFortuna()>=this.valor){
@@ -135,7 +181,7 @@ public class Casilla {
         //     }
         // }  No sé si está bien, pero hay que eva(luar todos los tipos de casilla. 
 
-
+        /*
         switch (this.getTipo()) {
             case "Solar":
                 return manejarSolar(actual,this);
@@ -158,7 +204,7 @@ public class Casilla {
             case "Especial":
                 return manejarEspecial(actual, banca);
                 break;
-
+        */
         // Codigo que no sirve, Alba
         // switch (this.getTipo()) {
         //     case "Solar":
@@ -188,9 +234,9 @@ public class Casilla {
         //         break;
         // }
 
-        }
-    }
-
+       // }
+    //}
+    
     // private boolean manejarSolar(Jugador actual, Casilla casilla){
     //     if(casilla.getDuenho() == null){
     //         if(actual.getFortuna() >= casilla.getValor()){
@@ -241,7 +287,7 @@ public class Casilla {
     // private boolean manejarServicio(Jugador actual, Casilla casilla, int tirada){
         
     // }
-
+  
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
@@ -322,5 +368,10 @@ public class Casilla {
             """.formatted(this.tipo, this.valor));
         }
         return("La casilla " + this.nome + " no se puede vender");
+    }
+
+    @Override
+    public String toString(){
+        return this.nome;
     }
 }
