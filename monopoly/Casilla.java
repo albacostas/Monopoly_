@@ -342,9 +342,10 @@ public class Casilla {
             return ("""
                     tipo: %s,
 
-                    """.formatted(this.tipo,));
+                    """.formatted(this.tipo));
 
         }
+    }
 
     /* Método para mostrar información de una casilla en venta.
      * Valor devuelto: texto con esa información.
