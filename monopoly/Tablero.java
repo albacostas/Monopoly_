@@ -293,6 +293,7 @@ public class Tablero {
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
+            aux = "";
         }
         sb.append("|\n");
 
@@ -323,6 +324,7 @@ public class Tablero {
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
+            aux = "";
             sb.append("|");
 
             //Espacios
@@ -340,6 +342,7 @@ public class Tablero {
                 aux += casilla.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
+            aux = "";
             sb.append("|\n");
 
 
@@ -379,6 +382,7 @@ public class Tablero {
             aux += casilla.getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
+        aux = "";
         sb.append("|");
         for(int l = 0; l < ladoNorte.size()-2; l++){
             for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
@@ -392,6 +396,7 @@ public class Tablero {
             aux += casilla.getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
+        aux = "";
         sb.append("|\n");
     
         //Imprime la fila superior del lado sur
@@ -430,6 +435,7 @@ public class Tablero {
                 aux += casilla1.getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
+            aux = "";
         }
         sb.append("|\n");
         for(int i = 0; i < ladoSur.size(); i++){

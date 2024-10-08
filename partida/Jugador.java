@@ -192,6 +192,7 @@ public class Jugador {
         sb.append("     hipotecas: ").append("-\n");                                        //listarHipotecas()
         sb.append("     edificios: ").append("-\n");                                         //listarEdificios()
         sb.append("}");
+
         return sb.toString();
     }
 }
