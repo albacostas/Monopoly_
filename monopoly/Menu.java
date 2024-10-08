@@ -20,6 +20,7 @@ public class Menu {
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
     private Scanner scanner;
+    private boolean dadosDobles = false;
     //Constructor del menú: Desarrollo de la partida (Necesario porque los métodos son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu(){
         //Constuctor
@@ -185,10 +186,6 @@ public class Menu {
                     }
                     this.lanzarDados();
                     System.out.println(this.tablero.toString());
-                    if (!solvente){
-                        System.out.println("El jugador " + jugadores.get(turno)+ " no es solvente.");
-                        comando = "finalizar";
-                    }
                     break;
 
             case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
@@ -354,7 +351,6 @@ public class Menu {
         }
     }
 
-
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
@@ -364,7 +360,9 @@ public class Menu {
         System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
 
-    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
+    /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
+    * Parámetros: nombre de la casilla a describir.
+    */
     private void lanzarDados() {
 
         if(tirado){ // Comprobamos que el jugador no haya tirado antes.
@@ -451,6 +449,8 @@ public class Menu {
         tirado = true;
     }
 
+
+
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
         */
@@ -503,12 +503,12 @@ public class Menu {
 
         Jugador jActual = jugadores.get(turno);
         if (jActual.isEnCarcel()){
-            if(solvente){
-                jActual.sumarGastos((500000));
-
+            if(jActual.getFortuna() >= 500000){
+                jActual.sumarGastos(500000);
                 jActual.setEnCarcel(false);
-
-                jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
+                
+                jActual.setTiradasCarcel(0);
+                //jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
                 System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
 
             }else {
