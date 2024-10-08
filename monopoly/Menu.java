@@ -275,7 +275,7 @@ public class Menu {
                     System.out.println("Error: El comando introducido no es correcto.");
                 break;
             }
-        }
+    }
 
     /*Método que da de alta a un jugador
     * Parámetros: nombre del jugador y tipo del avatar
@@ -457,6 +457,7 @@ public class Menu {
     private void comprar(String nombre) {
         Jugador jActual = this.jugadores.get(this.turno);
         Casilla casilla = this.tablero.encontrar_casilla(nombre);
+        String tipo = casilla.getTipo();
 
         if (casilla == null){
             System.out.println("La casilla " + nombre + " no existe en el tablero.");
@@ -466,7 +467,10 @@ public class Menu {
             System.out.println("La casilla "+ nombre + " ya tiene propietario.");
             return;
         }
-
+        if(!tipo.equals("Solar") && !tipo.equals("Transporte") && !tipo.equals("Servicio")){
+            System.out.println("La casilla "+ nombre + " no está en venta.");
+            return;
+        }
         if (!verificarCasilla(jActual, casilla)){
             System.out.println("El jugador " + jActual.getNombre() + " no está en la casilla " + nombre + ". No puede comprarla.");
             return;
@@ -500,9 +504,12 @@ public class Menu {
         Jugador jActual = jugadores.get(turno);
         if (jActual.isEnCarcel()){
             if(jActual.getFortuna() >= 500000){
-                jActual.sumarGastos((500000));
+                jActual.sumarGastos(500000);
                 jActual.setEnCarcel(false);
-                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel. Puede lanzar los dados.");
+
+                jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
+                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
+
             }else {
                 System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
             }
@@ -523,7 +530,7 @@ public class Menu {
                     //System.out.println("grupo: "+ i.getGrupo());
                     //System.out.println("tipo: "+ i.getValor());
                 //System.out.println("} ");
-                if(i.getDuenho().equals(banca) && (i.getTipo().equals("Solar") || i.getTipo().equals("Tranporte") || i.getTipo().equals("Servicios"))){
+                if(i.getDuenho().equals(banca) && (i.getTipo().equals("Solar") || i.getTipo().equals("Transporte") || i.getTipo().equals("Servicio"))){
                     System.out.println(i.casEnVenta());
                 }
             }   
