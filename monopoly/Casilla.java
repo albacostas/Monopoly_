@@ -220,7 +220,15 @@ public class Casilla {
                 a pagar: %f
             }
             """.formatted(this.tipo, this.impuesto));
+        }
+
+        if(this.tipo.equals("Salida")){
+            return ("""
+            {
+                recibe: %f
             }
+            """.formatted(Valor.SUMA_VUELTA));
+        }
 
         if (this.nome.equals("Parking")){
             StringBuilder texto = new StringBuilder("[");
@@ -261,7 +269,7 @@ public class Casilla {
             } 
             """.formatted(1/4*Valor.SUMA_VUELTA, texto)); 
         }
-        return("La casilla " + this.nome + " no existe");
+        return("La casilla " + this.nome + " no tiene descripción");
     }
 
     /* Método para mostrar información de una casilla en venta.
