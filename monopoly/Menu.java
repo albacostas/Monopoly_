@@ -19,6 +19,7 @@ public class Menu {
     private boolean tirado; //Booleano para comprobar si el jugador que tiene el turno ha tirado o no.
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
+    private Scanner scanner;
     //Constructor del menú: Desarrollo de la partida (Necesario porque los métodos son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu(){
         //Constuctor
@@ -29,10 +30,10 @@ public class Menu {
         this.avatares = new ArrayList<Avatar>();
         this.tablero = new Tablero(this.banca);
         turno = 0;
+        this.scanner = new Scanner(System.in);
 
         //Partida
         this.tablero.toString();
-        Scanner scanner = new Scanner(System.in);
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         System.out.println("Instrucciones:\n");
@@ -44,6 +45,7 @@ public class Menu {
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
         } while (!comando.equals("finalizar"));
+        scanner.close();
     }
     // Métodos Getter y Setter para cada atributo
     // por ahora no se utilizan
@@ -264,7 +266,10 @@ public class Menu {
                     System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
                     System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
-                    System.out.println("\n\n");
+                    System.out.println("finalizar: Finaliza la partida automáticamente\n\n");
+                    break;
+                case "finalizar":
+                    System.out.println("Finalizando partida...\n");
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
@@ -456,31 +461,32 @@ public class Menu {
             return;
         }
 
+        if (!verificarCasilla(jActual, casilla)){
+            System.out.println("El jugador " + jActual.getNombre() + " no está en la casilla " + nombre + ". No puede comprarla.");
+            return;
+        }
         float precio = casilla.getValor();
 
         System.out.println("La casilla " + nombre + " cuesta " + precio);
-        System.out.println(("Desea comprar la casilla (si o no): "));
-        Scanner scanner = new Scanner(System.in);
-        String respuesta = scanner.nextLine();
+
         
-        if(respuesta.equalsIgnoreCase("si")){
-            if(jActual.getFortuna() < precio){
-                System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-                //scanner.close();          //REVISAR
-                return;
-            }
-
-            jActual.sumarGastos(precio);
-            casilla.setDuenho(jActual);
-
-            jActual.anhadirPropiedad(casilla);
-            System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
-        }else {
-            System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
+        
+        if(jActual.getFortuna() < precio){
+            System.out.println("No dispone de suficiente dinero para comprar la casilla.");
+            return;
         }
+
+        jActual.sumarGastos(precio);
+        casilla.setDuenho(jActual);
+
+        jActual.anhadirPropiedad(casilla);
+        System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
         
-        //scanner.close();          //REVISAR
     
+    }
+
+    private boolean verificarCasilla(Jugador jugador, Casilla casilla){
+        return jugador.getAvatar().getLugar().equals(casilla);
     }
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'. 
@@ -568,39 +574,6 @@ public class Menu {
         if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
         }
-        // if (tirado){
-        //     lanzamientos = 0; 
-        //     turno++;
-
-        //     if (turno >= jugadores.size()){
-        //         turno = 0; // Regresamos la 1º jugador.
-        //     }
-
-        //     Jugador jActual = jugadores.get(turno);
-        //     tirado = false;
-
-        //     System.out.println("El jugador actual es " + jActual.getNombre()+".");
-        // }
-        // else{
-        //     System.out.println("No realizaste la tirada");
-        // }
-        
-            
-        //     Jugador jActual = jugadores.get(turno);
-        //     tirado = false; // reiniciamos la variable para el promximo turno
-        //      // solvente = true;
-        //     turno = (turno + 1) % jugadores.size(); // Obtenemos el siguiente jugador.
-        //     if(turno >= jugadores.size()){
-        //         turno = 0;
-        //     }
-        
-        //     Jugador jSiguiente = jugadores.get(turno);
-
-        //     System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
-        
-        //     if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
-        //        System.out.println("Ha terminado.");
-        //     }
     }     
 
 }
