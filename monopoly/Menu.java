@@ -491,6 +491,8 @@ public class Menu {
 
         jActual.anhadirPropiedad(casilla);
         System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
+        System.out.println("Información del jugador: ");
+        descJugador(new String[]{ "", "", jActual.getNombre()});
 
     }
 
