@@ -306,9 +306,6 @@ public class Menu {
         }
         else{
             System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
-        }
-
-    }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
@@ -332,7 +329,6 @@ public class Menu {
         }
 
     }
-
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
@@ -412,7 +408,7 @@ public class Menu {
             int valorDado1 = dado1.hacerTirada();
             int valorDado2 = dado2.hacerTirada();
             int sumaDados = valorDado1 + valorDado2;
-
+          
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
             
@@ -566,7 +562,7 @@ public class Menu {
         }
     
 
-    } 
+    }
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
@@ -607,5 +603,4 @@ public class Menu {
                System.out.println("Ha terminado.");
             }
         }      
-
 }
