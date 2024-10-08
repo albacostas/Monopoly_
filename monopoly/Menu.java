@@ -379,12 +379,42 @@ public class Menu {
                 }else {
                     System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
                     jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+
+                    Casilla casActual = jActual.getAvatar().getLugar();
+                    if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
+                        Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
+
+                        if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
+                            float alquiler = casActual.getImpuesto();
+                            System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
+                            System.out.println("Debes pagar " + alquiler + " de alquiler.");
+
+                            if( jActual.getFortuna()< alquiler){
+                                System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
+                                // aqui iria un codigo para o hipotecarse o declararse en bancarrota.
+                                return;
+                            } else{
+                                jActual.sumarGastos(alquiler);
+                                duenho.sumarFortuna(alquiler);
+                                System.out.println(jActual.getNombre() + " ha pagado " + alquiler + " de alquier a " + duenho.getNombre() + ".");
+                            }
+
+                        }
+
+                    }else if(casActual.getTipo().equals("IrACarcel")){
+                        System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
+                        jActual.encarcelar(tablero.getPosiciones());
+                    }else if(casActual.getTipo().equals("Parking")){
+                        float bote = casActual.getValor();
+                        System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Recibes " + bote + ".");
+                        jActual.sumarFortuna(bote);
+                    }else if (casActual.getTipo().equals("Suerte") || casActual.getTipo().equals("Comunidad")){
+                        System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
+                    }
                     break;
                 }
-
             
             }
-
             tirado = true;
         }
 
