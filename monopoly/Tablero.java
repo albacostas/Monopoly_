@@ -190,7 +190,7 @@ public class Tablero {
 
         Casilla Solar18 = new Casilla("Solar18", "Solar",32,1930723.6f,banca);
         Casilla Solar19 = new Casilla("Solar19", "Solar",33, 1930723.6f,banca);
-        Casilla Caja = new Casilla("Caja", "Comunidad",33,banca);
+        Casilla Caja = new Casilla("Caja", "Comunidad",34,banca);
         Casilla Solar20 = new Casilla("Solar20", "Solar",35,1930723.6f,banca);
         Casilla Trans4 = new Casilla("Trans4", "Transporte", 36, Valor.SUMA_VUELTA, banca);
         Casilla Suerte = new Casilla("Suerte", "Suerte", 37, banca);
@@ -319,9 +319,9 @@ public class Tablero {
             sb.append("|").append(colorCasillas(ladoEste.get(i))).append("|\n");        //nombres casillas
 
             sb.append("|");
-            for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            for (int j = 0; j < ladoOeste.get(i).getAvatares().size(); j++) {    //Avatares
                 aux += "&";
-                aux += casilla.getAvatares().get(j).getId();
+                aux += ladoOeste.get(i).getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
             aux = "";
@@ -337,9 +337,9 @@ public class Tablero {
             
 
             sb.append("|");
-            for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+            for (int j = 0; j < ladoEste.get(i).getAvatares().size(); j++) {    //Avatares
                 aux += "&";
-                aux += casilla.getAvatares().get(j).getId();
+                aux += ladoEste.get(i).getAvatares().get(j).getId();
             }
             sb.append(String.format("%-15s", aux));
             aux = "";
@@ -369,31 +369,31 @@ public class Tablero {
 
         sb.append("|").append(colorCasillas(ladoOeste.get(ladoOeste.size()-1))).append("|"); //Imprime la última casilla del lado oeste conectándola con el lado sur
         for(int i = 0; i < ladoNorte.size()-2; i++){
-            for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+            for (int j = 0; j < formatCasilla(ladoOeste.get(ladoOeste.size()-1)).length()+1; j++) {
                 sb.append(" ");
             }
         }
         sb.deleteCharAt(sb.length()-1);
-        sb.append("|").append(colorCasillas(ladoEste.get(ladoOeste.size()-1))).append("|\n"); //Imprime la última casilla del lado este conectándola con el lado sur
+        sb.append("|").append(colorCasillas(ladoEste.get(ladoEste.size()-1))).append("|\n"); //Imprime la última casilla del lado este conectándola con el lado sur
 
         sb.append("|");
-        for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+        for (int j = 0; j < ladoOeste.get(ladoOeste.size()-1).getAvatares().size(); j++) {    //Avatares
             aux += "&";
-            aux += casilla.getAvatares().get(j).getId();
+            aux += ladoOeste.get(ladoOeste.size()-1).getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
         aux = "";
         sb.append("|");
         for(int l = 0; l < ladoNorte.size()-2; l++){
-            for (int j = 0; j < formatCasilla(casilla).length()+1; j++) {
+            for (int j = 0; j < formatCasilla(ladoEste.get(ladoEste.size()-1)).length()+1; j++) {
                 sb.append(" ");
             }
         }
         sb.deleteCharAt(sb.length()-1);
         sb.append("|");
-        for (int j = 0; j < casilla.getAvatares().size(); j++) {    //Avatares
+        for (int j = 0; j < ladoEste.get(ladoEste.size()-1).getAvatares().size(); j++) {    //Avatares
             aux += "&";
-            aux += casilla.getAvatares().get(j).getId();
+            aux += ladoEste.get(ladoEste.size()-1).getAvatares().get(j).getId();
         }
         sb.append(String.format("%-15s", aux));
         aux = "";
@@ -449,9 +449,8 @@ public class Tablero {
         Collections.reverse(ladoSur);
         Collections.reverse(ladoOeste);
 
-        return sb.toString();
-    }
-
+        return sb.toString();}
+        
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
     public Casilla encontrar_casilla(String nombre){
