@@ -211,7 +211,7 @@ public class Casilla {
                 alquiler piscina: %f,
                 alquiler pista de deportes: %f
             } 
-            """.formatted(this.tipo, this.grupo, this.duenho, this.valor, this.impuesto, 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
+            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.duenho.getNombre(), this.valor, this.impuesto, 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
