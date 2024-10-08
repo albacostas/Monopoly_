@@ -451,6 +451,7 @@ public class Menu {
     private void comprar(String nombre) {
         Jugador jActual = this.jugadores.get(this.turno);
         Casilla casilla = this.tablero.encontrar_casilla(nombre);
+        String tipo = casilla.getTipo();
 
         if (casilla == null){
             System.out.println("La casilla " + nombre + " no existe en el tablero.");
@@ -460,7 +461,10 @@ public class Menu {
             System.out.println("La casilla "+ nombre + " ya tiene propietario.");
             return;
         }
-
+        if(!tipo.equals("Solar") && !tipo.equals("Transporte") && !tipo.equals("Servicio")){
+            System.out.println("La casilla "+ nombre + " no está en venta.");
+            return;
+        }
         if (!verificarCasilla(jActual, casilla)){
             System.out.println("El jugador " + jActual.getNombre() + " no está en la casilla " + nombre + ". No puede comprarla.");
             return;
@@ -518,7 +522,7 @@ public class Menu {
                     //System.out.println("grupo: "+ i.getGrupo());
                     //System.out.println("tipo: "+ i.getValor());
                 //System.out.println("} ");
-                if(i.getDuenho().equals(banca) && (i.getTipo().equals("Solar") || i.getTipo().equals("Tranporte") || i.getTipo().equals("Servicios"))){
+                if(i.getDuenho().equals(banca) && (i.getTipo().equals("Solar") || i.getTipo().equals("Transporte") || i.getTipo().equals("Servicio"))){
                     System.out.println(i.casEnVenta());
                 }
             }   
