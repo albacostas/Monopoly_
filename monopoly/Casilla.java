@@ -127,42 +127,62 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
-        Casilla casillaActual = actual.getAvatar().getLugar(); // Obtener la casilla actual del avatar
-        String tipoCasilla = casillaActual.getTipo(); // Obtener el tipo de casilla
+        String tipoCasilla = this.getTipo(); // Obtener el tipo de casilla
     
         // Si la casilla es una propiedad
-        if (tipoCasilla.equals("Solar") || tipoCasilla.equals("Transporte") || tipoCasilla.equals("Servizos")) {
-            Jugador duenho = casillaActual.getDuenho(); // Obtener el dueño de la propiedad
+        if (tipoCasilla.equals("Solar") || tipoCasilla.equals("Transporte") || tipoCasilla.equals("Servicio")) {
+            Jugador duenho = this.getDuenho(); // Obtener el dueño de la propiedad
     
             // Comprobar si la propiedad pertenece a otro jugador
             if (duenho != null && !duenho.equals(actual)) {
-                float alquiler = casillaActual.getImpuesto(); // Obtener el alquiler
-    
-                System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
-    
-                // Verificar si el jugador tiene suficiente dinero
-                if (actual.getFortuna() < alquiler) {
-                    System.out.println("No tienes suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
-                    return false; // Jugador no es solvente
-                } else {
-                    // Pagar el alquiler
-                    actual.sumarGastos(alquiler);
-                    duenho.sumarFortuna(alquiler);
-                    System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
+                float alquiler = this.getImpuesto(); // Obtener el alquiler
+                if (!duenho.equals(banca)){    
+                    System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
+        
+                    // Verificar si el jugador tiene suficiente dinero
+                    if (actual.getFortuna() < alquiler) {
+                        System.out.println("No tienes suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
+                        return false; // Jugador no es solvente
+                    } else {
+                        // Pagar el alquiler
+                        actual.sumarGastos(alquiler);
+                        actual.sumarFortuna(-alquiler);
+                        duenho.sumarFortuna(alquiler);
+                        System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
+                    }
                 }
+                else{
+                    return actual.getFortuna() > alquiler;
+                }
+                
             }
         } 
         // Si la casilla es Parking
-        else if (tipoCasilla.equals("Parking")) {
-            float bote = casillaActual.getValor(); // Obtener el bote
+        else if (this.nome.equals("Parking")) {
+            float bote = this.getValor(); // Obtener el bote
             System.out.println("Has caído en 'Parking'. Recibes " + bote + ".");
             actual.sumarFortuna(bote);
-        } else if (tipoCasilla.equals("Sorte") || tipoCasilla.equals("Comunidad")){
-            System.out.println("El jugador " + actual.getNombre() + " ha caido ");
+            this.setValor(0);
         }
-    
-    
-    
+        else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad")){
+            System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
+        }
+        else if(this.nome.equals("Salida")){
+        }
+        else if(this.tipo.equals("Impuesto")){
+            if(actual.getFortuna() < this.impuesto){
+                return false;
+            }
+            System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
+            actual.sumarFortuna(-this.impuesto);
+            actual.sumarGastos(this.impuesto);
+            banca.sumarFortuna(this.impuesto);
+        }
+        else if(this.nome.equals("Carcel")){
+            if(actual.getFortuna() < 500000){
+                return false;
+            }
+        }
         return true; // El jugador sigue siendo solvente
     }
     
@@ -285,7 +305,7 @@ public class Casilla {
             }
             """.formatted(this.tipo, this.grupo.getColorGrupo(), this.valor));
         }
-        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicios")){
+        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicio")){
             return("""
             {
                 tipo: %s,
