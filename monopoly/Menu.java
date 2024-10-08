@@ -444,7 +444,7 @@ public class Menu {
             if(respuesta.equalsIgnoreCase("si")){
                 if(jActual.getFortuna() < precio){
                     System.out.println("No dispone de suficiente dinero para comprar la casilla.");
-                    // scanner.close();
+                    scanner.close();
                     return;
                 }
 
@@ -456,8 +456,8 @@ public class Menu {
             }else {
                 System.out.println(jActual.getNombre() + " ha decidico no comprar la casilla.");
             }
-        
-            //scanner.close();
+            
+            scanner.close();
         
         }
 
