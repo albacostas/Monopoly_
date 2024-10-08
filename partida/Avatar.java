@@ -5,6 +5,8 @@ import monopoly.*;
 import java.util.ArrayList;
 import java.util.Random;
 
+//import javax.management.AttributeChangeNotificationFilter;
+
 
 public class Avatar {
 
@@ -68,8 +70,57 @@ public class Avatar {
     * EN ESTA VERSIÓN SUPONEMOS QUE valorTirada siemrpe es positivo.
      */
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
-        
+        int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
+
+        // Si la nueva posición excede 40, hacemos un bucle al inicio
+        if (nuevaPosicion > 40) {
+            nuevaPosicion = nuevaPosicion % 40; // Asegúrate de que la posición es válida.
+        }
+
+    // Buscar la nueva casilla basándonos en la nueva posición
+        Casilla nuevaCasilla = null;
+        for (ArrayList<Casilla> lado : casillas) {
+            for (Casilla casilla : lado) {
+                if (casilla.getPosicion() == nuevaPosicion) {
+                    nuevaCasilla = casilla; // Asignamos la nueva casilla
+                    break;
+                }
+            }
+            if (nuevaCasilla != null) {
+                break; // Salimos si encontramos la nueva casilla
+            }
+        }
+
+        if (nuevaCasilla != null) { // Actualizamos el lugar del avatar
+            System.out.println("El avatar ha sido movido a la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
+            this.lugar = nuevaCasilla;
+        }else {
+            System.out.println("Error: la nueva casilla no se encontró.");
+        }
     }
+
+
+    // private Casilla ObtenerSiguienteCasilla(ArrayList<ArrayList<Casilla>> casillas, Casilla casillaActual){
+    //     int posActual=casillaActual.getPosicion();
+    //     //Incrementamos la posción una unidad.
+    //     int nuevaPosicion=posActual+1;
+    //     //si la posición excede el número 40 (vuelta completada), regresamos a la casilla 1.
+    //     if(nuevaPosicion>40){
+    //         nuevaPosicion=1;
+    //     } 
+    //     //buscamos la nueva casilla actual basada en la posición
+    //     for(ArrayList<Casilla> lado : casillas){
+    //         for (Casilla casilla: lado){
+    //             if (casilla.getPosicion()==nuevaPosicion){
+    //                 return casilla;
+    //             }
+    //         }
+    //     }
+
+    //     throw new IllegalArgumentException("La casilla no se encuentra");
+
+    // }
+
 
     /*Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase (por ello es privado).
     * El ID generado será una letra mayúscula. Parámetros:
@@ -93,5 +144,12 @@ public class Avatar {
         } while(!idUnico);
 
         this.id = newID;
+    }
+
+    @Override
+
+    public String toString() {
+        return "{\n" + "\tid: " + getId() + ",\n" + "\ttipo: " + this.getTipo() + ",\n" + "\tcasilla: " + (this.getLugar() != null ? this.getLugar().toString() : "null") + ",\n" +
+            "\tjugador: " + (this.getJugador() != null ? this.getJugador().toString() : "null") +",\n" + "}";
     }
 }
