@@ -124,7 +124,7 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida(Scanner scanner) {
         while(jugadores.size()<2){
-            System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
+            System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar(Esfinge, Sombrero, Coche o Pelota)):");
             String[] j1 = scanner.nextLine().split(" ");
             if (j1.length != 2) {
                 throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
@@ -269,17 +269,17 @@ public class Menu {
                     System.out.println("listar enventa: Lista las propiedades en venta\nlanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
                     System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
-                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
+                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual");
                     System.out.println("finalizar: Finaliza la partida automáticamente\n\n");
                     break;
                 case "finalizar":
-                    System.out.println("Finalizando partida...\n");
+                    System.out.println("Finalizando partida...");
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
                 break;
             }
-        }
+    }
 
     /*Método que da de alta a un jugador
     * Parámetros: nombre del jugador y tipo del avatar
@@ -336,18 +336,22 @@ public class Menu {
     * Parámetro: id del avatar a describir.
     */
     private void descAvatar(String ID) {
+        boolean avat = false;
         for (Avatar av: avatares){
             if(av.getId().equals(ID)){
                 System.out.println(av.toString());
+                avat = false;
                 break;
                 //System.out.println(av.toString());
                 //return; 
             }
             else{
-                System.out.println("No se ha encontrado ningún avatar con ese ID.");
+                avat = true;
             }
         }
-
+        if (avat) {
+            System.out.println("No se ha encontrado ningún avatar con ese ID.");
+        }
     }
 
 
@@ -394,6 +398,7 @@ public class Menu {
                 if(lanzamientos == 3){
                     System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
                     jActual.encarcelar(tablero.getPosiciones()); 
+                    acabarTurno();
                     break;
                 }
             }
@@ -426,6 +431,14 @@ public class Menu {
                 }else if(casActual.getNombre().equals("IrACarcel")){
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
                     jActual.encarcelar(tablero.getPosiciones());
+                    acabarTurno();
+                }else if(casActual.getNombre().equals("Parking")){
+                    float bote = casActual.getValor();
+                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Recibes " + bote + ".");
+                    jActual.sumarFortuna(bote);
+                    casActual.setValor(0);
+                }else if (casActual.getNombre().equals("Suerte") || casActual.getTipo().equals("Comunidad")){
+                    System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
                 }
                 else if(casActual.getTipo().equals("Impuesto")){
                     Casilla parking = tablero.encontrar_casilla("Parking");
@@ -467,7 +480,6 @@ public class Menu {
         System.out.println("La casilla " + nombre + " cuesta " + precio);
 
         
-        
         if(jActual.getFortuna() < precio){
             System.out.println("No dispone de suficiente dinero para comprar la casilla.");
             return;
@@ -476,10 +488,10 @@ public class Menu {
         jActual.sumarGastos(precio);
         casilla.setDuenho(jActual);
 
+
         jActual.anhadirPropiedad(casilla);
         System.out.println("El jugador " + jActual.getNombre() + " ha comprado la casilla " + nombre );
-        
-    
+
     }
 
     private boolean verificarCasilla(Jugador jugador, Casilla casilla){
@@ -493,8 +505,12 @@ public class Menu {
         if (jActual.isEnCarcel()){
             if(solvente){
                 jActual.sumarGastos((500000));
+
                 jActual.setEnCarcel(false);
-                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel. Puede lanzar los daos.");
+
+                jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
+                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
+
             }else {
                 System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
             }
@@ -552,25 +568,27 @@ public class Menu {
         }
 
         Jugador jActual = jugadores.get(turno);
+        //lanzamientos = 0;
+        //tirado = false;
 
         if(!tirado){
             System.out.println(jActual.getNombre() + ", lanza los dados.");
             lanzarDados();
+            System.out.println(this.tablero.toString());
             tirado = true;
+            acabarTurno();
             return;
         }
-
-        lanzamientos = 0;
-        tirado = false;
         
         turno = (turno +1) % jugadores.size(); // movemso el turno al siguiente jugador
         Jugador jSiguiente =  jugadores.get(turno);
 
         System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
-        
+        tirado = false;
         if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
         }
+        lanzamientos = 0;
     }     
 
 }
