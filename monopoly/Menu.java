@@ -337,53 +337,6 @@ public class Menu {
         //Buscamos la Casilla
         System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
-    /* 
-    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    private void lanzarDados() {
-
-        if(tirado){ // Comprobamos que el jugador no haya tirado antes.
-            System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
-            return;
-        }
-
-        if(dado1 == null){
-            dado1 = new Dado();
-        }
-        if(dado2 == null){
-            dado2 = new Dado();
-        }
-            // mirar si salen nuemro iguales, volver a tirar
-        Jugador jActual = jugadores.get(turno);
-
-        while(lanzamientos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
-
-            System.out.println("El jugador: " + jActual.getNombre());
-            System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
-    
-            if(valorDado1 == valorDado2){
-                lanzamientos++;
-                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
-
-                if(lanzamientos == 3){
-                    System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
-                    jActual.encarcelar(tablero.getPosiciones()); 
-                    break;
-                    //System.out.println(av.toString());
-                    //return; 
-                }
-                else{
-                   System.out.println("No se ha encontrado ningún avatar con ese ID.");
-                }
-            }
-        }
-
-
-    /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
-    * Parámetros: nombre de la casilla a describir.
-    */
 
     //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
     private void lanzarDados() {
@@ -565,42 +518,64 @@ public class Menu {
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
-        if (tirado){
-            lanzamientos = 0; 
-            turno++;
-
-            if (turno >= jugadores.size()){
-                turno = 0; // Regresamos la 1º jugador.
-            }
-
-            Jugador jActual = jugadores.get(turno);
-            tirado = false;
-
-            System.out.println("El jugador actual es " + jActual.getNombre()+".");
+        if (jugadores.isEmpty()){
+            System.out.println("No hay jugadores en el juego.");
+            return;
         }
-        else{
-            System.out.println("No realizaste la tirada");
-        }
-        
-            if (jugadores.isEmpty()){
-                System.out.println("No hay jugadores en el juego.");
-                return;
-            }
-            Jugador jActual = jugadores.get(turno);
-            tirado = false; // reiniciamos la variable para el promximo turno
-             // solvente = true;
-            turno = (turno + 1) % jugadores.size(); // Obtenemos el siguiente jugador.
-            if(turno >= jugadores.size()){
-                turno = 0;
-            }
-        
-            Jugador jSiguiente = jugadores.get(turno);
 
-            System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+        Jugador jActual = jugadores.get(turno);
+
+        if(!tirado){
+            System.out.println(jActual.getNombre() + ", lanza los dados.");
+            lanzarDados();
+            tirado = true;
+            return;
+        }
+
+        lanzamientos = 0;
+        tirado = false;
         
-            if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
-               System.out.println("Ha terminado.");
-            }
-        }      
+        turno = (turno +1) % jugadores.size(); // movemso el turno al siguiente jugador
+        Jugador jSiguiente =  jugadores.get(turno);
+
+        System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+        
+        if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
+            System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
+        }
+        // if (tirado){
+        //     lanzamientos = 0; 
+        //     turno++;
+
+        //     if (turno >= jugadores.size()){
+        //         turno = 0; // Regresamos la 1º jugador.
+        //     }
+
+        //     Jugador jActual = jugadores.get(turno);
+        //     tirado = false;
+
+        //     System.out.println("El jugador actual es " + jActual.getNombre()+".");
+        // }
+        // else{
+        //     System.out.println("No realizaste la tirada");
+        // }
+        
+            
+        //     Jugador jActual = jugadores.get(turno);
+        //     tirado = false; // reiniciamos la variable para el promximo turno
+        //      // solvente = true;
+        //     turno = (turno + 1) % jugadores.size(); // Obtenemos el siguiente jugador.
+        //     if(turno >= jugadores.size()){
+        //         turno = 0;
+        //     }
+        
+        //     Jugador jSiguiente = jugadores.get(turno);
+
+        //     System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+        
+        //     if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
+        //        System.out.println("Ha terminado.");
+        //     }
+    }     
 
 }

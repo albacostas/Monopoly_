@@ -135,6 +135,7 @@ public class Jugador {
         }
         else{
             this.gastos += valor;
+            this.fortuna -= valor;
         }
     }
 
