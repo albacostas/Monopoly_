@@ -342,7 +342,11 @@ public class Casilla {
             return ("""
                        tipo: %s,
 
+<<<<<<< HEAD
                        """.formatted(this.tipo));
+=======
+                    """.formatted(this.tipo));
+>>>>>>> e1841ddcd3d9ce25407ef7c7c09eeb042d48e2c9
 
         }
     }
