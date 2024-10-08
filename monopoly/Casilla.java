@@ -34,6 +34,9 @@ public class Casilla {
     public float getValor(){
         return this.valor;
     }
+    public void setValor(float valor){
+        this.valor = valor;
+    }
     public float getImpuesto(){
         return this.impuesto;
     }

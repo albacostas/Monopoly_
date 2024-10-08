@@ -121,18 +121,14 @@ public class Menu {
 
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida(Scanner scanner) {
-        System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
-        String[] j1 = scanner.nextLine().split(" ");
-        if (j1.length != 2) {
-            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+        while(jugadores.size()<2){
+            System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar):");
+            String[] j1 = scanner.nextLine().split(" ");
+            if (j1.length != 2) {
+                throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+            }
+            crearJugador(j1[0], j1[1]);
         }
-        crearJugador(j1[0], j1[1]);
-        System.out.println("Introduce los datos de otro jugador (nombre y tipo de avatar):");
-        String[] j2 = scanner.nextLine().split(" ");
-        if (j2.length != 2) {
-            throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
-        }
-        crearJugador(j2[0], j2[1]);
     }
     
     /*Método que interpreta el comando introducido y toma la accion correspondiente.
@@ -280,11 +276,26 @@ public class Menu {
     * Parámetros: nombre del jugador y tipo del avatar
     */
     private void crearJugador(String nombrejugador, String avatar_j) {
-        Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
-        jugadores.add(jugador);
-        avatares.add(jugador.getAvatar());
-        this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
-        System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
+        boolean error = false;
+        for (Jugador i: jugadores){
+            if (i.getNombre().equals(nombrejugador)){
+                error = true;
+                System.out.println("No se puede crear un jugador con nombre repetido");
+            }
+        }
+
+        if (!avatar_j.equals("Esfinge") && !avatar_j.equals("Sombrero") && !avatar_j.equals("Coche") && !avatar_j.equals("Pelota")){
+            System.out.println("El avatar debe ser de tipo Esfinge, Sombrero, Coche o Pelota");
+            error = true;
+        }
+
+        if (!error){
+            Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0), avatares);
+            jugadores.add(jugador);
+            avatares.add(jugador.getAvatar());
+            this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
+            System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); //El avatar debe ser una letra generada automaticamente
+        }
     }
 
     /*Método que realiza las acciones asociadas al comando 'describir jugador'.
@@ -354,7 +365,7 @@ public class Menu {
         if(dado2 == null){
             dado2 = new Dado();
         }
-            // mirar si salen nuemro iguales, volver a tirar
+        // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
 
         int valorDado1 = dado1.hacerTirada();
@@ -402,15 +413,25 @@ public class Menu {
 
                     }
 
-                }else if(casActual.getTipo().equals("IrACarcel")){
+                }else if(casActual.getNombre().equals("IrACarcel")){
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
                     jActual.encarcelar(tablero.getPosiciones());
-                }else if(casActual.getTipo().equals("Parking")){
+                }else if(casActual.getNombre().equals("Parking")){
                     float bote = casActual.getValor();
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Recibes " + bote + ".");
                     jActual.sumarFortuna(bote);
-                }else if (casActual.getTipo().equals("Suerte") || casActual.getTipo().equals("Comunidad")){
+                    casActual.setValor(0);
+                }else if (casActual.getNombre().equals("Suerte") || casActual.getTipo().equals("Comunidad")){
                     System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
+                }
+                else if(casActual.getTipo().equals("Impuesto")){
+                    float pagar = casActual.getImpuesto();
+                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Pagas " + pagar + ".");
+                    jActual.sumarFortuna(-pagar);
+                    jActual.sumarGastos(pagar);
+                    banca.sumarFortuna(pagar);
+                    Casilla parking = tablero.encontrar_casilla("Parking");
+                    parking.setValor(parking.getValor() + pagar);
                 }
                 break;
             }
