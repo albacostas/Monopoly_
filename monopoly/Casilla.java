@@ -340,7 +340,7 @@ public class Casilla {
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
-                    tipo: %s,
+                       tipo: %s,
 
                     """.formatted(this.tipo));
 

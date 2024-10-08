@@ -149,70 +149,70 @@ public class Menu {
                 this.crearJugador(partes[2], partes[3]);
                 break;
 
-                case "jugador":
-                    if (partes.length != 1) {
-                        System.out.println("Error: Este comando no tiene argumentos.");
-                        break;
-                    }
-                    System.out.println("{\n\tnombre: " + this.jugadores.get(this.turno).getNombre() + ",\n\tavatar: " + this.jugadores.get(this.turno).getAvatar().getId() + "\n}");
+            case "jugador":
+                if (partes.length != 1) {
+                    System.out.println("Error: Este comando no tiene argumentos.");
                     break;
+                }
+                System.out.println("{\n\tnombre: " + this.jugadores.get(this.turno).getNombre() + ",\n\tavatar: " + this.jugadores.get(this.turno).getAvatar().getId() + "\n}");
+                break;
 
-                case "listar":
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando completo.");
-                        break;
-                    }
-                    switch (partes[1]) {
-                        case "jugadores":               //Ya va
-                            this.listarJugadores();
-                            break;
-
-                        case "avatares":                
-                            this.listarAvatares();
-                            break;
-
-                        case "enventa":                 //No va
-                            this.listarVenta();
-                            break;
-
-                        default:
-                            break;
-                    }
+            case "listar":
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando completo.");
                     break;
-
-                case "lanzar":                      //Falta enseñar tablero
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando completo.");
+                }
+                switch (partes[1]) {
+                    case "jugadores":               //Ya va
+                        this.listarJugadores();
                         break;
-                    }
-                    this.lanzarDados();
-                    break;
 
-                case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando completo.");
+                    case "avatares":                
+                        this.listarAvatares();
                         break;
-                    }
-                    this.acabarTurno();
-                    break;
 
-                case "salir":
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando completo.");
+                    case "enventa":                 //No va
+                        this.listarVenta();
                         break;
-                    }
-                    switch (partes[1]) {
-                        case "carcel":
-                            this.salirCarcel();
-                            break;
 
-                        default:
-                            System.out.println("Fin de la partida");
-                            break;
-                    }
+                    default:
+                        break;
+                }
+                break;
+
+            case "lanzar":                      //Falta enseñar tablero
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando completo.");
                     break;
-                    
-                case "describir":
+                }
+                this.lanzarDados();
+                break;
+
+            case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                this.acabarTurno();
+                break;
+
+            case "salir":
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                switch (partes[1]) {
+                    case "carcel":
+                        this.salirCarcel();
+                        break;
+
+                    default:
+                        System.out.println("Fin de la partida");
+                        break;
+                }
+                break;
+                
+            case "describir":
                 if (partes.length ==1) {
                     System.out.println("Error: Debes introducir el comando completo");
                     break;
@@ -244,35 +244,36 @@ public class Menu {
                 }
                 break;
 
-                case "comprar":                                                                                                                         //Corregir caso de no existir la casilla y caso de no ser una casilla que se pueda comprar
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando y exactamente 1 argumento (casilla).");
-                        break;
-                    }
-                    this.comprar(partes[1]);
+            case "comprar":                                                                                                                         //Corregir caso de no existir la casilla y caso de no ser una casilla que se pueda comprar
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando y exactamente 1 argumento (casilla).");
                     break;
-
-                case "ver":
-                    if (partes.length != 2) {
-                        System.out.println("Error: Debes introducir el comando completo");
-                        break;
-                    }
-                    System.out.println(this.tablero.toString());
-                    break;
-
-                case "ayuda":
-                    System.out.println("Lista de comandos:\ncrear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.");
-                    System.out.println("jugador: Indica el jugador que tiene el turno\nlistar jugadores: Lista los jugadores de la partida y sus carácteristicas\nlistar avatares: Lista los avatares de la partida y sus características");
-                    System.out.println("listar enventa: Lista las propiedades en venta\nlanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
-                    System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
-                    System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
-                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
-                    break;
-                default:
-                    System.out.println("Error: El comando introducido no es correcto.");
+                }
+                this.comprar(partes[1]);
                 break;
-            }
+
+            case "ver":
+                if (partes.length != 2) {
+                    System.out.println("Error: Debes introducir el comando completo");
+                    break;
+                }
+                System.out.println(this.tablero.toString());
+                break;
+
+            case "ayuda":
+                System.out.println("Lista de comandos:\ncrear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.");
+                System.out.println("jugador: Indica el jugador que tiene el turno\nlistar jugadores: Lista los jugadores de la partida y sus carácteristicas\nlistar avatares: Lista los avatares de la partida y sus características");
+                System.out.println("listar enventa: Lista las propiedades en venta\nlanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
+                System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
+                System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
+                System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
+                break;
+            
+            default:
+                System.out.println("Error: El comando introducido no es correcto.");
+            break;
         }
+    }
 
     /*Método que da de alta a un jugador
     * Parámetros: nombre del jugador y tipo del avatar
@@ -305,8 +306,9 @@ public class Menu {
             System.out.println(jugadorBuscado.toString()); 
         }
         else{
-            System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
+            System.out.println("El jugador no ha sido encontrado. Compruebe el nombre"); 
         }
+    }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
@@ -328,8 +330,8 @@ public class Menu {
                 System.out.println("No se ha encontrado ningún avatar con ese ID.");
             }
         }
-
     }
+
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
@@ -339,48 +341,6 @@ public class Menu {
         //Buscamos la Casilla
         System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
-    /* 
-    //Método que ejecuta todas las acciones relacionadas con el comando 'lanzar dados'.
-    private void lanzarDados() {
-
-        if(tirado){ // Comprobamos que el jugador no haya tirado antes.
-            System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
-            return;
-        }
-
-        if(dado1 == null){
-            dado1 = new Dado();
-        }
-        if(dado2 == null){
-            dado2 = new Dado();
-        }
-            // mirar si salen nuemro iguales, volver a tirar
-        Jugador jActual = jugadores.get(turno);
-
-        while(lanzamientos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
-
-            System.out.println("El jugador: " + jActual.getNombre());
-            System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
-    
-            if(valorDado1 == valorDado2){
-                lanzamientos++;
-                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
-
-                if(lanzamientos == 3){
-                    System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
-                    jActual.encarcelar(tablero.getPosiciones()); 
-                    break;
-                    //System.out.println(av.toString());
-                    //return; 
-                }
-                else{
-                   System.out.println("No se ha encontrado ningún avatar con ese ID.");
-                }
-            }
-        }
 
 
     /* Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
@@ -602,6 +562,6 @@ public class Menu {
         
             if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
                System.out.println("Ha terminado.");
-            }
-        }      
+        }
+    }      
 }
