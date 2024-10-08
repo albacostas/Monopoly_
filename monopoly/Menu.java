@@ -307,6 +307,7 @@ public class Menu {
         else{
             System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
         }
+    }
 
     /*Método que realiza las acciones asociadas al comando 'describir avatar'.
     * Parámetro: id del avatar a describir.
