@@ -20,7 +20,6 @@ public class Menu {
     private boolean solvente; //Booleano para comprobar si el jugador que tiene el turno es solvente, es decir, si ha pagado sus deudas.
 
     private Scanner scanner;
-    private boolean dadosDobles = false;
     //Constructor del menú: Desarrollo de la partida (Necesario porque los métodos son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu(){
         //Constuctor
@@ -459,7 +458,7 @@ public class Menu {
         Casilla casilla = this.tablero.encontrar_casilla(nombre);
         String tipo = casilla.getTipo();
 
-        if (casilla == null){
+        if (!casilla.getNombre().equals(nombre)){
             System.out.println("La casilla " + nombre + " no existe en el tablero.");
             return;
         }
