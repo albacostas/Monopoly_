@@ -268,7 +268,10 @@ public class Menu {
                     System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
                     System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
-                    System.out.println("\n\n");
+                    System.out.println("finalizar: Finaliza la partida automáticamente\n\n");
+                    break;
+                case "finalizar":
+                    System.out.println("Finalizando partida...\n");
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
