@@ -71,7 +71,7 @@ public class Avatar {
      */
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
-
+        this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
         if (nuevaPosicion > 40) {
             nuevaPosicion = nuevaPosicion % 40; // Asegúrate de que la posición es válida.
@@ -92,8 +92,9 @@ public class Avatar {
         }
 
         if (nuevaCasilla != null) { // Actualizamos el lugar del avatar
-            System.out.println("El avatar ha sido movido a la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
+            System.out.println("El avatar ha sido movido de la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
             this.lugar = nuevaCasilla;
+            nuevaCasilla.anhadirAvatar(this);
         }else {
             System.out.println("Error: la nueva casilla no se encontró.");
         }
