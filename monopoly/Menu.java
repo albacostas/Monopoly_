@@ -185,6 +185,10 @@ public class Menu {
                     }
                     this.lanzarDados();
                     System.out.println(this.tablero.toString());
+                    if (!solvente){
+                        System.out.println("El jugador " + jugadores.get(turno)+ " no es solvente.");
+                        comando = "finalizar";
+                    }
                     break;
 
             case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
@@ -403,6 +407,7 @@ public class Menu {
                 jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
 
                 Casilla casActual = jActual.getAvatar().getLugar();
+                solvente = casActual.evaluarCasilla(jActual, banca, sumaDados);
                 if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
                     Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
@@ -436,13 +441,8 @@ public class Menu {
                     System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
                 }
                 else if(casActual.getTipo().equals("Impuesto")){
-                    float pagar = casActual.getImpuesto();
-                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Pagas " + pagar + ".");
-                    jActual.sumarFortuna(-pagar);
-                    jActual.sumarGastos(pagar);
-                    banca.sumarFortuna(pagar);
                     Casilla parking = tablero.encontrar_casilla("Parking");
-                    parking.setValor(parking.getValor() + pagar);
+                    parking.setValor(parking.getValor() + casActual.getImpuesto());
                 }
                 break;
             }
@@ -503,8 +503,9 @@ public class Menu {
 
         Jugador jActual = jugadores.get(turno);
         if (jActual.isEnCarcel()){
-            if(jActual.getFortuna() >= 500000){
-                jActual.sumarGastos(500000);
+            if(solvente){
+                jActual.sumarGastos((500000));
+
                 jActual.setEnCarcel(false);
 
                 jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
