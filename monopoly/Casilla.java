@@ -135,7 +135,7 @@ public class Casilla {
             Jugador duenho = casillaActual.getDuenho(); // Obtener el dueño de la propiedad
     
             // Comprobar si la propiedad pertenece a otro jugador
-            if (duenho != null && !duenho.equals(actual)) {
+            if (duenho != null && !duenho.equals(actual) && !duenho.equals(banca)) {
                 float alquiler = casillaActual.getImpuesto(); // Obtener el alquiler
     
                 System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
@@ -269,7 +269,10 @@ public class Casilla {
             } 
             """.formatted(1/4*Valor.SUMA_VUELTA, texto)); 
         }
-        return("La casilla " + this.nome + " no tiene descripción");
+        if (this.nome.equals("IrCarcel") || this.tipo.equals("Suerte") || this.tipo.equals("Comunidad") || this.tipo.equals("Servicio") || this.tipo.equals("Transporte") ){
+            return("La casilla " + this.nome + " no tiene descripción");
+        }
+        return("La casilla no existe");
     }
 
     /* Método para mostrar información de una casilla en venta.
@@ -285,7 +288,7 @@ public class Casilla {
             }
             """.formatted(this.tipo, this.grupo.getColorGrupo(), this.valor));
         }
-        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicios")){
+        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicio")){
             return("""
             {
                 tipo: %s,

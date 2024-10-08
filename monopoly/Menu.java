@@ -145,6 +145,7 @@ public class Menu {
                     break;
                 }
                 this.crearJugador(partes[2], partes[3]);
+                System.out.println(this.tablero.toString());
                 break;
 
             case "jugador":
@@ -399,10 +400,11 @@ public class Menu {
                 }
             }
             else {
-                System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
+                System.out.println(jActual.getNombre() + " no ha sacado dobles");
                 jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
 
                 Casilla casActual = jActual.getAvatar().getLugar();
+                solvente = casActual.evaluarCasilla(jActual, banca, sumaDados);
                 if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
                     Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
@@ -436,13 +438,8 @@ public class Menu {
                     System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
                 }
                 else if(casActual.getTipo().equals("Impuesto")){
-                    float pagar = casActual.getImpuesto();
-                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Pagas " + pagar + ".");
-                    jActual.sumarFortuna(-pagar);
-                    jActual.sumarGastos(pagar);
-                    banca.sumarFortuna(pagar);
                     Casilla parking = tablero.encontrar_casilla("Parking");
-                    parking.setValor(parking.getValor() + pagar);
+                    parking.setValor(parking.getValor() + casActual.getImpuesto());
                 }
                 break;
             }
@@ -450,6 +447,7 @@ public class Menu {
         }
         tirado = true;
     }
+
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
@@ -502,17 +500,50 @@ public class Menu {
     private void salirCarcel() {
 
         Jugador jActual = jugadores.get(turno);
+        
         if (jActual.isEnCarcel()){
-            if(jActual.getFortuna() >= 500000){
-                jActual.sumarGastos(500000);
-                jActual.setEnCarcel(false);
-
-                jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
-                System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
-
-            }else {
-                System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
+            System.out.println("Para salir de la carcel pagando escriba el comando 'pagar_fianza'.\nPara salir de la carcel tirando dobles escriba el comando 'dobles'.");
+            System.out.println("Si no sacas dobles en 3 turnos, sales automáticamente.");
+            Scanner scanner = new Scanner(System.in);
+            String cmd = scanner.nextLine();
+            switch (cmd) {
+                case "pagar_fianza":
+                    if(jActual.getFortuna() >= 1/4*Valor.SUMA_VUELTA){
+                        jActual.sumarGastos(1/4*Valor.SUMA_VUELTA);
+                        jActual.setEnCarcel(false);
+        
+                        //jActual.getAvatar().setLugar(tablero.getPosiciones().get(0).get(0));
+                        System.out.println(jActual.getNombre() + " paga 500000€ y sale de la carcel.");
+                        jActual.setTiradasCarcel(0);
+                    }else {
+                        System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000€.");
+                    }
+                    break;
+                
+                case "dobles":
+                    int valorDado1 = dado1.hacerTirada();
+                    int valorDado2 = dado2.hacerTirada();
+                    int sumaDados = valorDado1 + valorDado2;
+                    if (jActual.getTiradasCarcel()<=3) {
+                        System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
+                        if (valorDado1==valorDado2) {
+                            jActual.setEnCarcel(false);
+                            System.out.println("¡Eres libre!");
+                        }
+                        else{
+                            jActual.contar_tiradas_carcel();
+                            System.out.println("Lo sentimos, no has sacado dobles, te quedas en la cárcel :(");
+                            acabarTurno();
+                        }
+                    }
+                    else{
+                        jActual.setEnCarcel(false);
+                        System.out.println("Has realizado 3 tiradas sin éxito, quedas libre");
+                    } 
+                default:
+                    break;
             }
+            
         }else {
             System.out.println(jActual.getNombre() + " no está en la carcel.");
         }
@@ -570,7 +601,7 @@ public class Menu {
         //lanzamientos = 0;
         //tirado = false;
 
-        if(!tirado){
+        if(!tirado ){
             System.out.println(jActual.getNombre() + ", lanza los dados.");
             lanzarDados();
             System.out.println(this.tablero.toString());
@@ -588,6 +619,5 @@ public class Menu {
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
         }
         lanzamientos = 0;
-    }     
-
+    }
 }

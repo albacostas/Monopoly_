@@ -167,6 +167,10 @@ public class Jugador {
         
     }
 
+    public void contar_tiradas_carcel(){
+        tiradasCarcel++;
+    }
+
 
     private String listarPropiedades() {
         if (propiedades.isEmpty()) return "-";
