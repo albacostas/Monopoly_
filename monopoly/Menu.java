@@ -186,6 +186,7 @@ public class Menu {
                         break;
                     }
                     this.lanzarDados();
+                    System.out.println(this.tablero.toString());
                     break;
 
                 case "acabar":                      //No acaba el turno, funcion corregida pero no se sabe si va
@@ -267,6 +268,7 @@ public class Menu {
                     System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
                     System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
                     System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual\n\n");
+                    System.out.println("\n\n");
                     break;
                 default:
                     System.out.println("Error: El comando introducido no es correcto.");
@@ -406,26 +408,28 @@ public class Menu {
         }
             // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
-        int consecutivos = 0;
 
-        while(consecutivos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
+        int valorDado1 = dado1.hacerTirada();
+        int valorDado2 = dado2.hacerTirada();
+        int sumaDados = valorDado1 + valorDado2;
+
+        while(lanzamientos < 3){
 
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
             
             if(valorDado1 == valorDado2){
-                consecutivos++;
+                lanzamientos++;
                 System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
+                sumaDados += valorDado1 + valorDado2;
 
-                if(consecutivos == 3){
-                    System.out.println("Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la carcel");
+                if(lanzamientos == 3){
+                    System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
                     jActual.encarcelar(tablero.getPosiciones()); 
                     break;
                 }
-            }else {
+            }
+            else {
                 System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
                 jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
 
