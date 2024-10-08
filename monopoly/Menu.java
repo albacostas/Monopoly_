@@ -558,39 +558,6 @@ public class Menu {
         if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
         }
-        // if (tirado){
-        //     lanzamientos = 0; 
-        //     turno++;
-
-        //     if (turno >= jugadores.size()){
-        //         turno = 0; // Regresamos la 1º jugador.
-        //     }
-
-        //     Jugador jActual = jugadores.get(turno);
-        //     tirado = false;
-
-        //     System.out.println("El jugador actual es " + jActual.getNombre()+".");
-        // }
-        // else{
-        //     System.out.println("No realizaste la tirada");
-        // }
-        
-            
-        //     Jugador jActual = jugadores.get(turno);
-        //     tirado = false; // reiniciamos la variable para el promximo turno
-        //      // solvente = true;
-        //     turno = (turno + 1) % jugadores.size(); // Obtenemos el siguiente jugador.
-        //     if(turno >= jugadores.size()){
-        //         turno = 0;
-        //     }
-        
-        //     Jugador jSiguiente = jugadores.get(turno);
-
-        //     System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
-        
-        //     if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
-        //        System.out.println("Ha terminado.");
-        //     }
     }     
 
 }
