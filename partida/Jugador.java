@@ -160,6 +160,7 @@ public class Jugador {
         int posicionCarcel=11;
         //movemos al jugador a la casilla Cárcel
         Casilla carcel=ObtenerCasillaporPosicion(pos,posicionCarcel);
+        avatar.getLugar().eliminarAvatar(avatar);
         avatar.setLugar(carcel);
         carcel.anhadirAvatar(this.avatar);
         System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
