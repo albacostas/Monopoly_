@@ -174,8 +174,7 @@ public class Casilla {
         banca.eliminarPropiedad(this);
         solicitante.sumarGastos(this.valor);
         solicitante.sumarFortuna(-this.valor);
-        
-
+        banca.sumarFortuna(this.valor);
     }
 
     /*Método para añadir valor a una casilla. Utilidad:
@@ -184,7 +183,6 @@ public class Casilla {
     * Este método toma como argumento la cantidad a añadir del valor de la casilla.*/
     public void sumarValor(float suma) {
         this.valor+=suma;
-
     }
 
     /*Método para mostrar información sobre una casilla.
@@ -197,29 +195,70 @@ public class Casilla {
                 grupo: %s,
                 propietario: %s,
                 valor: %f,
-                alquiler: %d,
-                valor hotel: &d,
-                valor casa: %d,
-                valor piscina: %d,
-                valor pista de deporte: %d,
-                alquiler una casa: %d,
-                alquiler dos casas: %d,
-                alquiler tres casas: %d,
-                alquiler cuatro casas: %d,
-                alquiler hotel: %d,
-                alquiler piscina: %d,
-                alquiler pista de deportes: %d
-
+                alquiler: %f,
+                valor hotel: %f,
+                valor casa: %f,
+                valor piscina: %f,
+                valor pista de deporte: %f,
+                alquiler una casa: %f,
+                alquiler dos casas: %f,
+                alquiler tres casas: %f,
+                alquiler cuatro casas: %f,
+                alquiler hotel: %f,
+                alquiler piscina: %f,
+                alquiler pista de deportes: %f
             } 
-            """.formatted(this.tipo, this.grupo, this.duenho, this.valor));
+            """.formatted(this.tipo, this.grupo, this.duenho, this.valor, this.impuesto, 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
-                    tipo: %s,
+            {
+                tipo: %s,
+                a pagar: %f
+            }
+            """.formatted(this.tipo, this.impuesto));
+            }
 
-                    """.formatted(this.tipo));
+        if (this.nome.equals("Parking")){
+            StringBuilder texto = new StringBuilder("[");
+            for(int i=0; i<avatares.size();i++){
+                texto.append(avatares.get(i).getJugador().getNombre());
+                if (i!=avatares.size()-1){
+                    texto.append(", ");
+                }
+            }
+            texto.append("]");
+
+            return ("""
+            {
+                bote: %f,
+                jugadores: %s
+            }
+            """.formatted(this.valor, texto)); 
 
         }
+
+        if (this.nome.equals("Carcel")){
+            StringBuilder texto = new StringBuilder("");
+            for(int i=0; i<avatares.size();i++){
+                texto.append("[");
+                texto.append(avatares.get(i).getJugador().getNombre() + ",");
+                texto.append(avatares.get(i).getJugador().getTiradasCarcel());
+                texto.append("]");
+                if (i!=avatares.size()-1){
+                    texto.append(", ");
+                }
+            }
+
+            return ("""
+            {
+                salir: %f,
+                jugadores: %s 
+            
+            } 
+            """.formatted(1/4*Valor.SUMA_VUELTA, texto)); 
+        }
+        return("La casilla " + this.nome + " no existe");
     }
 
     /* Método para mostrar información de una casilla en venta.

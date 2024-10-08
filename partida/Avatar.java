@@ -151,6 +151,6 @@ public class Avatar {
 
     public String toString() {
         return "{\n" + "\tid: " + getId() + ",\n" + "\ttipo: " + this.getTipo() + ",\n" + "\tcasilla: " + (this.getLugar() != null ? this.getLugar().toString() : "null") + ",\n" +
-            "\tjugador: " + (this.getJugador() != null ? this.getJugador().toString() : "null") +",\n" + "}";
+            "\tjugador: " + getJugador().getNombre() +",\n" + "}";
     }
 }
