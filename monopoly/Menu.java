@@ -401,7 +401,7 @@ public class Menu {
                 }
             }
             else {
-                System.out.println("Fin del turno. " + jActual.getNombre() + " no ha sacado dobles");
+                System.out.println(jActual.getNombre() + " no ha sacado dobles");
                 jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
 
                 Casilla casActual = jActual.getAvatar().getLugar();
