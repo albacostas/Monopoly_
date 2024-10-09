@@ -442,7 +442,7 @@ public class Menu {
                     Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
                     if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
-                        float alquiler = casActual.getImpuesto();
+                        float alquiler = casActual.getValor();
                         System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
                         System.out.println("Debes pagar " + alquiler + " de alquiler.");
 
