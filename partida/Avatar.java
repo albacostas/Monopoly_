@@ -76,7 +76,7 @@ public class Avatar {
         if (nuevaPosicion > 40) {
             nuevaPosicion = nuevaPosicion % 40; // Asegúrate de que la posición es válida.
         }
-
+    
     // Buscar la nueva casilla basándonos en la nueva posición
         Casilla nuevaCasilla = null;
         for (ArrayList<Casilla> lado : casillas) {
