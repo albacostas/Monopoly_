@@ -41,27 +41,29 @@ public class Menu {
 
         String comando;
         do {
-            System.out.println("Comandos disponibles:");
-            System.out.println("  - crear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.");
-            System.out.println("  - jugador: Indica el jugador que tiene el turno");
-            System.out.println("  - listar jugadores: Lista los jugadores de la partida y sus características");
-            System.out.println("  - listar avatares: Lista los avatares de la partida y sus características");
-            System.out.println("  - listar enventa: Lista las propiedades en venta");
-            System.out.println("  - lanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
-            System.out.println("  - acabar turno: Finaliza el turno del jugador actual");
-            System.out.println("  - salir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
-            System.out.println("  - describir jugador (jugador): Muestra las características del jugador introducido");
-            System.out.println("  - describir avatar (avatar): Muestra las características del avatar introducido");
-            System.out.println("  - describir (casilla): Muestra las características de la casilla introducida");
-            System.out.println("  - comprar (casilla): Compra la propiedad indicada");
-            System.out.println("  - ver tablero: Muestra el tablero en su estado actual");
-            System.out.println("  - finalizar: Finaliza la partida automáticamente");
-            System.out.println("  - ayuda: Muestra esta lista de comandos");
-
-            System.out.println("Introduce un comando: ");
+            System.out.println("\nComandos disponibles");
+            System.out.println("-------------------------");
+            System.out.println("  1.  Crear jugador          : crear jugador (nombre) (avatar)");
+            System.out.println("  2.  Jugador actual         : jugador");
+            System.out.println("  3.  Listar jugadores       : listar jugadores");
+            System.out.println("  4.  Listar avatares        : listar avatares");
+            System.out.println("  5.  Listar en venta        : listar en venta");
+            System.out.println("  6.  Lanzar dados           : lanzar dados");
+            System.out.println("  7.  Acabar turno           : acabar turno");
+            System.out.println("  8.  Salir de la cárcel     : salir cárcel");
+            System.out.println("  9.  Describir jugador      : describir jugador (jugador)");
+            System.out.println(" 10.  Describir avatar       : describir avatar (avatar)");
+            System.out.println(" 11.  Describir casilla      : describir (casilla)");
+            System.out.println(" 12.  Comprar propiedad      : comprar (casilla)");
+            System.out.println(" 13.  Ver tablero            : ver tablero");
+            System.out.println(" 14.  Finalizar partida      : finalizar");
+            System.out.println(" 15.  Ayuda                  : ayuda");
+            System.out.println("-------------------------");
+            System.out.print("Introduce un comando: ");
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
-        } while (!comando.equals("finalizar"));
+        } while (!comando.equalsIgnoreCase("finalizar")); // Utiliza equalsIgnoreCase para más flexibilidad
+        
         scanner.close();
     }
     // Métodos Getter y Setter para cada atributo
