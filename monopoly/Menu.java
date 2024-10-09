@@ -645,7 +645,6 @@ public class Menu {
             lanzarDados();
             System.out.println(this.tablero.toString());
             tirado = true;
-            acabarTurno();
             return;
         }
         
