@@ -135,6 +135,7 @@ public class Jugador {
         }
         else{
             this.gastos += valor;
+            this.fortuna -= valor;
         }
     }
 
@@ -159,6 +160,7 @@ public class Jugador {
         int posicionCarcel=11;
         //movemos al jugador a la casilla Cárcel
         Casilla carcel=ObtenerCasillaporPosicion(pos,posicionCarcel);
+        avatar.getLugar().eliminarAvatar(avatar);
         avatar.setLugar(carcel);
         carcel.anhadirAvatar(this.avatar);
         System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
@@ -184,13 +186,14 @@ public class Jugador {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
-        sb.append("\tnombre: ").append(this.nombre).append(",\n");
-        sb.append("\tavatar: ").append(avatar.getId()).append(",\n");
-        sb.append("\tfortuna: ").append(this.fortuna).append(",\n");
-        sb.append("\tpropiedades: ").append(listarPropiedades()).append(",\n");
-        //sb.append("hipotecas: ").append(listarHipotecas()).append(",\n");
-        //sb.append("edificios: ").append(listarEdificios()).append("\n");
-        //sb.append("}");
+        sb.append("     nombre: ").append(this.nombre).append(",\n");
+        sb.append("     avatar: ").append(avatar.getId()).append(",\n");
+        sb.append("     fortuna: ").append(this.fortuna).append(",\n");
+        sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
+        sb.append("     hipotecas: ").append("-\n");                                        //listarHipotecas()
+        sb.append("     edificios: ").append("-\n");                                         //listarEdificios()
+        sb.append("}");
+
         return sb.toString();
     }
 }
