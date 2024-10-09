@@ -36,16 +36,38 @@ public class Menu {
         this.tablero.toString();
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
-        System.out.println("Instrucciones:\n");
-        analizarComando("ayuda");
+        
+        
 
         String comando;
         do {
-            System.out.print("Introduce un comando: ");
+            System.out.println("\n**************************************");
+            System.out.println("      ** Bienvenido al Menú de Monopoly **");
+            System.out.println("**************************************");
+            System.out.println("        ** Opciones Disponibles **");
+            System.out.println("**************************************");
+            System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
+            System.out.println("  2.  👀 **Jugador actual**       : jugador");
+            System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
+            System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
+            System.out.println("  5.  🏘️ **Listar en venta**        : listar en venta");
+            System.out.println("  6.  🎲 **Lanzar dados**           : lanzar dados");
+            System.out.println("  7.  ⏳ **Acabar turno**           : acabar turno");
+            System.out.println("  8.  🚔 **Salir de la cárcel**     : salir cárcel");
+            System.out.println("  9.  🧑‍🎤 **Describir jugador**      : describir jugador (jugador)");
+            System.out.println(" 10.  🎭 **Describir avatar**       : describir avatar (avatar)");
+            System.out.println(" 11.  🏠 **Describir casilla**      : describir (casilla)");
+            System.out.println(" 12.  💸 **Comprar propiedad**      : comprar (casilla)");
+            System.out.println(" 13.  🧮 **Ver tablero**            : ver tablero");
+            System.out.println(" 14.  🚪 **Finalizar partida**      : finalizar");
+            System.out.println("**************************************");
+            System.out.print("  🎮 **Introduce un comando:** ");
+            
             comando = scanner.nextLine(); // Leer el comando del usuario
             analizarComando(comando); // Llama a tu método para procesar el comando
+            
         } while (!comando.equalsIgnoreCase("finalizar")); // Utiliza equalsIgnoreCase para más flexibilidad
-        
+
         scanner.close();
     }
     // Métodos Getter y Setter para cada atributo
