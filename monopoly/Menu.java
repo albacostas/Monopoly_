@@ -358,8 +358,6 @@ public class Menu {
                 System.out.println(av.toString());
                 avat = false;
                 break;
-                //System.out.println(av.toString());
-                //return; 
             }
             else{
                 avat = true;
@@ -398,11 +396,11 @@ public class Menu {
         // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
 
-        int valorDado1 = dado1.hacerTirada();
-        int valorDado2 = dado2.hacerTirada();
-        int sumaDados = valorDado1 + valorDado2;
 
         while(lanzamientos < 3){
+            int valorDado1 = dado1.hacerTirada();
+            int valorDado2 = dado2.hacerTirada();
+            int sumaDados = valorDado1 + valorDado2;
 
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
@@ -445,7 +443,7 @@ public class Menu {
 
                     }
 
-                }else if(casActual.getNombre().equals("IrACarcel")){
+                }else if(casActual.getNombre().equals("Ir Cárcel")){
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
                     jActual.encarcelar(tablero.getPosiciones());
                     acabarTurno();

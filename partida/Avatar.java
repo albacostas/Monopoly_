@@ -74,7 +74,9 @@ public class Avatar {
         this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
         if (nuevaPosicion > 40) {
-            nuevaPosicion = nuevaPosicion % 40; // Asegúrate de que la posición es válida.
+            nuevaPosicion = nuevaPosicion % 40;
+            this.jugador.sumarFortuna(Valor.SUMA_VUELTA); 
+            this.jugador.setVueltas(this.jugador.getVueltas()+1);// Asegúrate de que la posición es válida.
         }
     
     // Buscar la nueva casilla basándonos en la nueva posición
