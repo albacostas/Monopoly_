@@ -284,13 +284,24 @@ public class Menu {
                 break;
 
                 case "ayuda":
-                    System.out.println("Lista de comandos:\ncrear jugador (nombre) (avatar): Crea un nuevo jugador con el nombre y avatar introducidos.");
-                    System.out.println("jugador: Indica el jugador que tiene el turno\nlistar jugadores: Lista los jugadores de la partida y sus carácteristicas\nlistar avatares: Lista los avatares de la partida y sus características");
-                    System.out.println("listar enventa: Lista las propiedades en venta\nlanzar dados: Lanza los dados y mueve el avatar, describiendo sus próximas acciones");
-                    System.out.println("acabar turno: Finaliza el turno del jugador actual\nsalir carcel: Paga la cantidad necesaria para que el jugador salga de la cárcel");
-                    System.out.println("describir jugador (jugador): Muestra las carácteristicas del jugador introducido\ndescribir avatar (avatar): Muestra las carácteristicas del avatar introducido");
-                    System.out.println("describir (casilla): Muestra las carácteristicas de la casilla introducida\ncomprar (casilla): Compra la propiedad indicada\nver tablero: Muestra el tablero en su estado actual");
-                    System.out.println("finalizar: Finaliza la partida automáticamente\n\n");
+                    System.out.println("\nComandos disponibles");
+                    System.out.println("-------------------------");
+                    System.out.println("  1.  Crear jugador          : crear jugador (nombre) (avatar)");
+                    System.out.println("  2.  Jugador actual         : jugador");
+                    System.out.println("  3.  Listar jugadores       : listar jugadores");
+                    System.out.println("  4.  Listar avatares        : listar avatares");
+                    System.out.println("  5.  Listar en venta        : listar en venta");
+                    System.out.println("  6.  Lanzar dados           : lanzar dados");
+                    System.out.println("  7.  Acabar turno           : acabar turno");
+                    System.out.println("  8.  Salir de la cárcel     : salir cárcel");
+                    System.out.println("  9.  Describir jugador      : describir jugador (jugador)");
+                    System.out.println(" 10.  Describir avatar       : describir avatar (avatar)");
+                    System.out.println(" 11.  Describir casilla      : describir (casilla)");
+                    System.out.println(" 12.  Comprar propiedad      : comprar (casilla)");
+                    System.out.println(" 13.  Ver tablero            : ver tablero");
+                    System.out.println(" 14.  Finalizar partida      : finalizar");
+                    System.out.println(" 15.  Ayuda                  : ayuda");
+                    System.out.println("-------------------------");
                     break;
                 case "finalizar":
                     System.out.println("Finalizando partida...");
@@ -400,11 +411,11 @@ public class Menu {
         // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
 
+        int valorDado1 = dado1.hacerTirada();
+        int valorDado2 = dado2.hacerTirada();
+        int sumaDados = valorDado1 + valorDado2;
 
         while(lanzamientos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
 
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
@@ -625,7 +636,7 @@ public class Menu {
         //lanzamientos = 0;
         //tirado = false;
 
-        if(!tirado ){
+        if(!tirado){
             System.out.println(jActual.getNombre() + ", lanza los dados.");
             lanzarDados();
             System.out.println(this.tablero.toString());
