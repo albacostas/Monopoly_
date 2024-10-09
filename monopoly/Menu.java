@@ -397,7 +397,7 @@ public class Menu {
     */
     private void lanzarDados() {
 
-        if(tirado){ // Comprobamos que el jugador no haya tirado antes.
+        if(tirado){ // Comprobamos que el jugador no haya tirado antes o si haya tirado, pero haya sacado dobles
             System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
             return;
         }
@@ -411,57 +411,59 @@ public class Menu {
         // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
 
+        int valorDado1 = dado1.hacerTirada();
+        int valorDado2 = dado2.hacerTirada();
+        int sumaDados = valorDado1 + valorDado2;
 
-        while(lanzamientos < 3){
-            int valorDado1 = dado1.hacerTirada();
-            int valorDado2 = dado2.hacerTirada();
-            int sumaDados = valorDado1 + valorDado2;
-
+        if(lanzamientos <= 3){
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
             
+            if(lanzamientos == 3){
+                System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
+                lanzamientos = 0;
+                jActual.encarcelar(tablero.getPosiciones()); 
+                acabarTurno();
+                return;
+            }
+
             if(valorDado1 == valorDado2){
                 lanzamientos++;
-                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar.");
-                sumaDados += valorDado1 + valorDado2;
-
-                if(lanzamientos == 3){
-                    System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
-                    jActual.encarcelar(tablero.getPosiciones()); 
-                    acabarTurno();
-                    break;
-                }
+                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar tras realizar las acciones pertinentes.");
+                //sumaDados += valorDado1 + valorDado2;
             }
-            else {
+            else{
                 System.out.println(jActual.getNombre() + " no ha sacado dobles");
-                jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+            }
+            jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
 
-                Casilla casActual = jActual.getAvatar().getLugar();
-                solvente = casActual.evaluarCasilla(jActual, banca, sumaDados);
-                if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
-                    Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
+            Casilla casActual = jActual.getAvatar().getLugar();
+            solvente = casActual.evaluarCasilla(jActual, banca, sumaDados);
+            if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
+                Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
-                    if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
-                        float alquiler = casActual.getValor();
-                        System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
-                        System.out.println("Debes pagar " + alquiler + " de alquiler.");
+                if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
+                    float alquiler = casActual.getImpuesto();
+                    System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
+                    System.out.println("Debes pagar " + alquiler + " de alquiler.");
 
-                        if( jActual.getFortuna()< alquiler){
-                            System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
-                            // aqui iria un codigo para o hipotecarse o declararse en bancarrota.
-                            return;
-                        } else{
-                            jActual.sumarGastos(alquiler);
-                            duenho.sumarFortuna(alquiler);
-                            System.out.println(jActual.getNombre() + " ha pagado " + alquiler + " de alquier a " + duenho.getNombre() + ".");
-                        }
+                    if( jActual.getFortuna()< alquiler){
+                        System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
+                        // aqui iria un codigo para o hipotecarse o declararse en bancarrota.
+                        return;
+                    } else{
+                        jActual.sumarGastos(alquiler);
+                        duenho.sumarFortuna(alquiler);
+                        System.out.println(jActual.getNombre() + " ha pagado " + alquiler + " de alquier a " + duenho.getNombre() + ".");
+                    }
 
                     }
 
                 }else if(casActual.getNombre().equals("Ir Cárcel")){
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
                     jActual.encarcelar(tablero.getPosiciones());
-                    acabarTurno();
+                    tirado = true;
+                    return;
                 }else if(casActual.getNombre().equals("Parking")){
                     float bote = casActual.getValor();
                     System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Recibes " + bote + ".");
@@ -474,12 +476,15 @@ public class Menu {
                     Casilla parking = tablero.encontrar_casilla("Parking");
                     parking.setValor(parking.getValor() + casActual.getImpuesto());
                 }
-                break;
-            }
-        
         }
-        tirado = true;
+        if(valorDado1 == valorDado2){
+            tirado = false;
+        }
+        else{
+            tirado = true;
+        }
     }
+    
 
 
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
@@ -631,7 +636,6 @@ public class Menu {
             System.out.println("No hay jugadores en el juego.");
             return;
         }
-
         Jugador jActual = jugadores.get(turno);
         //lanzamientos = 0;
         //tirado = false;

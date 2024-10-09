@@ -164,7 +164,6 @@ public class Jugador {
         avatar.setLugar(carcel);
         carcel.anhadirAvatar(this.avatar);
         System.out.println(this.getNombre() + " ha sido enviado a la cárcel ");
-        
     }
 
     public void contar_tiradas_carcel(){
