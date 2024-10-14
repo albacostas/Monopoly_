@@ -414,6 +414,7 @@ public class Menu {
         int valorDado1 = dado1.hacerTirada();
         int valorDado2 = dado2.hacerTirada();
         int sumaDados = valorDado1 + valorDado2;
+        lanzamientos++;
 
         if(lanzamientos <= 3){
             System.out.println("El jugador: " + jActual.getNombre());
@@ -423,12 +424,11 @@ public class Menu {
                 System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
                 lanzamientos = 0;
                 jActual.encarcelar(tablero.getPosiciones()); 
-                acabarTurno();
+                //acabarTurno();
                 return;
             }
 
             if(valorDado1 == valorDado2){
-                lanzamientos++;
                 System.out.println("El valor de los dados es igual. El jugador vuelve a tirar tras realizar las acciones pertinentes.");
                 //sumaDados += valorDado1 + valorDado2;
             }
