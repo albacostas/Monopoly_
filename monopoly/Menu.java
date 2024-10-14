@@ -442,10 +442,10 @@ public class Menu {
             if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
                 Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
-                if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
-                    float alquiler = casActual.getValor();
-                    System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
-                    System.out.println("Debes pagar " + alquiler + " de alquiler.");
+                    if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
+                        float alquiler = casActual.getValor();
+                        System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
+                        System.out.println("Debes pagar " + alquiler + " de alquiler.");
 
                     if( jActual.getFortuna()< alquiler){
                         System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
