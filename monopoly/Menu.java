@@ -414,7 +414,6 @@ public class Menu {
         int valorDado1 = dado1.hacerTirada();
         int valorDado2 = dado2.hacerTirada();
         int sumaDados = valorDado1 + valorDado2;
-        lanzamientos++;
 
         if(lanzamientos <= 3){
             System.out.println("El jugador: " + jActual.getNombre());
@@ -426,11 +425,11 @@ public class Menu {
                 jActual.encarcelar(tablero.getPosiciones());
                 tirado = true;
                 acabarTurno();
-
                 return;
             }
 
             if(valorDado1 == valorDado2){
+                lanzamientos++;
                 System.out.println("El valor de los dados es igual. El jugador vuelve a tirar tras realizar las acciones pertinentes.");
             }
             else{
@@ -445,9 +444,9 @@ public class Menu {
                 Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
 
                 if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
-                        float alquiler = casActual.getValor();
-                        System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
-                        System.out.println("Debes pagar " + alquiler + " de alquiler.");
+                    float alquiler = casActual.getValor();
+                    System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
+                    System.out.println("Debes pagar " + alquiler + " de alquiler.");
 
                     if( jActual.getFortuna()< alquiler){
                         System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
@@ -478,7 +477,6 @@ public class Menu {
                     Casilla parking = tablero.encontrar_casilla("Parking");
                     parking.setValor(parking.getValor() + casActual.getImpuesto());
                 }*/
-
         }
         if(valorDado1 == valorDado2 && jActual.isEnCarcel() == false){
             tirado = false;
