@@ -168,9 +168,9 @@ public class Casilla {
         else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad")){
             System.out.println("Has caido en una casilla de tipo Suerte o Caja de comunidad.");
         }
-        /*else if(this.nome.equals("Salida")){
-        }*/
-        else if(this.tipo.equals("Impuesto")){
+
+        else if(this.tipo.equals("Impuestos")){
+
             if(actual.getFortuna() < this.impuesto){
                 return false;
             }
