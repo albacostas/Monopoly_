@@ -170,7 +170,7 @@ public class Casilla {
         }
         else if(this.nome.equals("Salida")){
         }
-        else if(this.tipo.equals("Impuesto")){
+        else if(this.tipo.equals("Impuestos")){
             if(actual.getFortuna() < this.impuesto){
                 return false;
             }
