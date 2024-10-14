@@ -135,7 +135,7 @@ public class Casilla {
     
             // Comprobar si la propiedad pertenece a otro jugador
 
-            if (duenho != null && !duenho.equals(actual)) {
+            if (duenho != null && !duenho.equals(actual) && !duenho.equals(banca)) {
                 float alquiler = this.getImpuesto(); // Obtener el alquiler
                 if (!duenho.equals(banca)){    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
