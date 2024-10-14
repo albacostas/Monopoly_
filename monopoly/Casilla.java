@@ -136,13 +136,13 @@ public class Casilla {
             // Comprobar si la propiedad pertenece a otro jugador
 
             if (duenho != null && !duenho.equals(actual) && !duenho.equals(banca)) {
-                float alquiler = this.getImpuesto(); // Obtener el alquiler
+                float alquiler = this.getValor(); // Obtener el alquiler
                 if (!duenho.equals(banca)){    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
         
                     // Verificar si el jugador tiene suficiente dinero
                     if (actual.getFortuna() < alquiler) {
-                        System.out.println("No tienes suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
+                        System.out.println("El jugador " + actual.getNombre() + " no tiene suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
                         return false; // Jugador no es solvente
                     } else {
                         // Pagar el alquiler
@@ -166,11 +166,11 @@ public class Casilla {
             this.setValor(0);
         }
         else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad")){
-            System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
+            System.out.println("Has caido en una casilla de tipo Suerte o Caja de comunidad.");
         }
-        else if(this.nome.equals("Salida")){
-        }
+
         else if(this.tipo.equals("Impuestos")){
+
             if(actual.getFortuna() < this.impuesto){
                 return false;
             }
