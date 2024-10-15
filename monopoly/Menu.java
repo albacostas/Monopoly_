@@ -203,11 +203,11 @@ public class Menu {
                 break;
 
                 case "lanzar":                      //Falta enseñar tablero
-                    if (partes.length != 2) {
+                    if (partes.length != 4) {
                         System.out.println("Error: Debes introducir el comando completo.");
                         break;
                     }
-                    this.lanzarDados();
+                    this.lanzarDados(Integer.valueOf(partes[2]), Integer.valueOf(partes[3]));
                     System.out.println(this.tablero.toString());
                     break;
 
@@ -395,7 +395,7 @@ public class Menu {
     /** Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
     * Parámetros: nombre de la casilla a describir.
     */
-    private void lanzarDados() {
+    private void lanzarDados(int d1, int d2) {
 
         if(tirado){ // Comprobamos que el jugador no haya tirado antes o si haya tirado, pero haya sacado dobles
             System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
@@ -411,9 +411,10 @@ public class Menu {
         // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
 
-        int valorDado1 = dado1.hacerTirada();
-        int valorDado2 = dado2.hacerTirada();
+        int valorDado1 = d1;
+        int valorDado2 = d2;
         int sumaDados = valorDado1 + valorDado2;
+        lanzamientos ++;
 
         if(lanzamientos <= 3){
             System.out.println("El jugador: " + jActual.getNombre());
@@ -632,6 +633,31 @@ public class Menu {
     } 
 
     // Método que realiza las acciones asociadas al comando 'acabar turno'.
+    // private void acabarTurno() {
+    //     if (jugadores.isEmpty()){
+    //         System.out.println("No hay jugadores en el juego.");
+    //         return;
+    //     }
+    //     Jugador jActual = jugadores.get(turno);
+    //     //lanzamientos = 0;
+    //     //tirado = false;
+
+    //     if(!tirado){
+    //         System.out.println("Todavía no has lanzado los dados, no puedes acabar turno");
+    //         return;
+    //     }
+        
+    //     turno = (turno +1) % jugadores.size(); // movemso el turno al siguiente jugador
+    //     Jugador jSiguiente =  jugadores.get(turno);
+
+    //     System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+    //     tirado = false;
+    //     if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
+    //         System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
+    //     }
+    //     lanzamientos = 0;
+    // }
+    // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         if (jugadores.isEmpty()){
             System.out.println("No hay jugadores en el juego.");
@@ -642,7 +668,10 @@ public class Menu {
         //tirado = false;
 
         if(!tirado){
-            System.out.println("Todavía no has lanzado los dados, no puedes acabar turno");
+            System.out.println(jActual.getNombre() + ", lanza los dados.");
+            //lanzarDados();
+            System.out.println(this.tablero.toString());
+            tirado = true;
             return;
         }
         
