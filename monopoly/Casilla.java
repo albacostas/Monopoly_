@@ -16,8 +16,7 @@ public class Casilla {
     private float impuesto; //Cantidad a pagar por caer en la casilla: el alquiler en solares/servicios/transportes o impuestos.
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
-
-    //Getters
+    
     public String getNombre(){
         return this.nome;
     }
@@ -55,7 +54,10 @@ public class Casilla {
     public ArrayList<Avatar> getAvatares() {
         return avatares;
     }
-
+    
+    public boolean isComprada(){
+        return duenho != null;
+    }
     //Constructores:
     public Casilla() {
 
@@ -68,7 +70,6 @@ public class Casilla {
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
         this.avatares = new ArrayList<Avatar>();
-        
 
     }//Parámetros vacíos
 
@@ -137,7 +138,7 @@ public class Casilla {
     
             // Comprobar si la propiedad pertenece a otro jugador
             if (duenho != null && !duenho.equals(actual)) {
-                float alquiler = this.getValor(); // Hay que cambiarlo pero para que funcione ponemos getValor()
+                float alquiler = this.getImpuesto(); // Hay que cambiarlo pero para que funcione ponemos getValor()
 
                 if (!duenho.equals(banca)){    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
