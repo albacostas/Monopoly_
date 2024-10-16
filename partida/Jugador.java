@@ -111,6 +111,25 @@ public class Jugador {
     }
 
     //Otros métodos:
+
+    public int contarCasServicio(){
+        int contador = 0;
+        for(Casilla casilla : propiedades){
+            if(casilla.getTipo().equals("Servicio")){
+                contador++;
+            }
+        }
+        return contador;
+    }
+    public int getCantidadPropiedades(String tipo) {
+        int contador = 0;
+        for (Casilla propiedad : propiedades) {
+            if (propiedad.getTipo().equals(tipo)) {
+                contador++;
+            }
+        }
+        return contador;
+    }
     //Método para añadir una propiedad al jugador. Como parámetro, la casilla a añadir.
     public void anhadirPropiedad(Casilla casilla) {
         this.propiedades.add(casilla);

@@ -36,9 +36,6 @@ public class Casilla {
     public void setValor(float valor){
         this.valor = valor;
     }
-    public float getImpuesto(){
-        return this.impuesto;
-    }
     public Grupo getGrupo() {
         return grupo;
     }
@@ -54,7 +51,14 @@ public class Casilla {
     public ArrayList<Avatar> getAvatares() {
         return avatares;
     }
-    
+    public float getImpuesto(){
+        return impuesto;
+    }
+
+    public void setImpuesto(float impuesto) {
+        this.impuesto = impuesto;
+    }
+
     public boolean isComprada(){
         return duenho != null;
     }
@@ -82,8 +86,6 @@ public class Casilla {
         this.tipo = tipo;
         this.posicion = posicion;
         this.valor = valor;
-        // NO SE SI PUEDE HACERSE ASÍ
-        this.impuesto = valor;
         this.duenho= duenho;
         this.avatares = new ArrayList<Avatar>();
     }
@@ -111,18 +113,67 @@ public class Casilla {
         this.duenho=duenho;
         this.avatares = new ArrayList<Avatar>();
     }
-
-
     //Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
         this.avatares.add(av);
     }
-
     //Método utilizado para eliminar un avatar del array de avatares en casilla.
     public void eliminarAvatar(Avatar av) {
         this.avatares.remove(av);
     }
 
+    public float calcularAlquilerSolar(){
+        if(this.tipo.equals("Solar")){
+            this.impuesto = this.valor * 0.1f;
+            return impuesto;
+        }
+        return 0;
+    }
+    public float calcularAlquilerServicio(int sumaDados){
+        if(this.tipo.equals("Servicio") && this.isComprada()){
+
+            int numServicio = this.duenho.contarCasServicio();
+            float factoServicio = Valor.SUMA_VUELTA / 200;
+            if(numServicio == 1){
+                this.impuesto = 4 * sumaDados * factoServicio;
+            }else if(numServicio == 2){
+                this.impuesto = 10 * sumaDados * factoServicio;
+            }else{
+                this.impuesto = 0.0f;
+            }
+            return impuesto;
+        }
+        return 0;
+    }
+
+    public float calcularAlquilerTransporte(Jugador jActual){
+        if(this.tipo.equals("Transporte")){
+            Jugador duenho = this.getDuenho();
+            if(duenho != null){
+                int cantidadTransporte = duenho.getCantidadPropiedades("Transporte");
+                System.out.println("Cantidad de transportes: " + cantidadTransporte);
+                switch (cantidadTransporte){
+                    case 1:
+                        this.impuesto = this.valor * 0.25f; 
+                        break;
+                    case 2:
+                        this.impuesto = this.valor * 0.5f; 
+                        break;
+                    case 3:
+                        this.impuesto = this.valor * 0.75f; 
+                        break;
+                    case 4:
+                        this.impuesto = this.valor; 
+                        break;
+                    default:
+                        this.impuesto = 0.0f;
+                        break;
+                }
+            }  
+        }
+        return this.impuesto;
+    }
+    
     /*Método para evaluar qué hacer en una casilla concreta. Parámetros:
     * - Jugador cuyo avatar está en esa casilla.
     * - La banca (para ciertas comprobaciones).
@@ -131,15 +182,21 @@ public class Casilla {
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         String tipoCasilla = this.getTipo(); // Obtener el tipo de casilla
-    
+        float alquiler = 0;
         // Si la casilla es una propiedad
         if (tipoCasilla.equals("Solar") || tipoCasilla.equals("Transporte") || tipoCasilla.equals("Servicio")) {
             Jugador duenho = this.getDuenho(); // Obtener el dueño de la propiedad
     
             // Comprobar si la propiedad pertenece a otro jugador
             if (duenho != null && !duenho.equals(actual)) {
-                float alquiler = this.getImpuesto(); // Hay que cambiarlo pero para que funcione ponemos getValor()
-
+        
+                if(tipoCasilla.equals("Solar")){
+                    alquiler = this.calcularAlquilerSolar();
+                }else if (tipoCasilla.equals("Servicio")){
+                    alquiler = this.calcularAlquilerServicio(tirada);
+                }else if(tipoCasilla.equals("Transporte")){
+                    alquiler = this.calcularAlquilerTransporte(actual);
+                }
                 if (!duenho.equals(banca)){    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
         
@@ -150,7 +207,7 @@ public class Casilla {
                     } else {
                         // Pagar el alquiler
                         actual.sumarGastos(alquiler);
-                        actual.sumarFortuna(-alquiler);
+                        //actual.sumarFortuna(-alquiler);
                         duenho.sumarFortuna(alquiler);
                         System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
                     }
@@ -322,6 +379,7 @@ public class Casilla {
         }
         return("La casilla " + this.nome + " no se puede vender");
     }
+
 
     @Override
     public String toString(){

@@ -15,6 +15,7 @@ public class Tablero {
     private Jugador banca; //Un jugador que será la banca.
 
     private ArrayList<Casilla> casillas;
+    private Casilla impuCasilla;
     
     //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).
     public Tablero(Jugador banca) { // Inicializa los campos de instancia de la clase Tablero.
@@ -45,8 +46,6 @@ public class Tablero {
     public void setBanca(Jugador banca) {
         this.banca = banca;
     }
-
-    
     //Método para crear todas las casillas del tablero. Formado a su vez por cuatro métodos (1/lado).
     private void generarCasillas() {
         this.insertarLadoSur();
@@ -64,13 +63,13 @@ public class Tablero {
         Casilla Solar1 = new Casilla("Solar1", "Solar", 2, 600000, banca);
         Casilla Caja = new Casilla("Caja", "Comunidad", 3, banca);
         Casilla Solar2 = new Casilla("Solar2", "Solar", 4, 600000, banca);
-        Casilla Impuesto1 = new Casilla("Impuesto1", 5, Valor.SUMA_VUELTA/2, banca);
+        Casilla Impuesto1 = new Casilla("Impuesto1", 5, Valor.SUMA_VUELTA * 0.5f, banca);
         Casilla Trans1 = new Casilla("Trans1", "Transporte", 6, Valor.SUMA_VUELTA , banca);
         Casilla Solar3 = new Casilla("Solar3","Solar",7, 520000, banca);
         Casilla Suerte = new Casilla("Suerte","Suerte",8, banca);
         Casilla Solar4 =new Casilla("Solar4","Solar",9,520000, banca);
         Casilla Solar5 = new Casilla("Solar5","Solar",10,520000, banca);
-        Casilla Carcel = new Casilla("Cárcel","Especial",11, 1/4*Valor.SUMA_VUELTA, banca);
+        Casilla Carcel = new Casilla("Cárcel","Especial",11, Valor.SUMA_VUELTA *0.25f, banca);
 
         Grupo cyan = new Grupo(Solar5, Solar4, Solar3, "Cyan");
         this.grupos.put("Cyan", cyan);
@@ -151,7 +150,7 @@ public class Tablero {
         Casilla Trans3 = new Casilla("Trans3", "Transporte", 26, Valor.SUMA_VUELTA, banca);
         Casilla Solar15 = new Casilla("Solar15", "Solar", 27, 1485172, banca);
         Casilla Solar16 = new Casilla("Solar16", "Solar", 28, 1485172, banca);
-        Casilla Serv2 = new Casilla("Serv2", "Servicio", 29, 3/4*Valor.SUMA_VUELTA, banca);
+        Casilla Serv2 = new Casilla("Serv2", "Servicio", 29,Valor.SUMA_VUELTA * 0.75f, banca);
         Casilla Solar17 = new Casilla("Solar17", "Solar", 30, 1485172, banca);
         Casilla IrCarcel = new Casilla("Ir Cárcel","Especial",31, banca);
         
