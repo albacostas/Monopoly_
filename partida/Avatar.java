@@ -86,6 +86,7 @@ public class Avatar {
             nuevaPosicion = nuevaPosicion % 40;
             this.jugador.sumarFortuna(Valor.SUMA_VUELTA); 
             this.jugador.setVueltas(this.jugador.getVueltas()+1);// Asegúrate de que la posición es válida.
+            System.err.println(this.jugador.getNombre() + " ha pasado por la casilla de Salida, recibe " + Valor.SUMA_VUELTA);
             //this.incrementarVueltas();
         }
     
@@ -107,7 +108,6 @@ public class Avatar {
             System.out.println("El avatar ha sido movido de la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
             this.lugar = nuevaCasilla;
             nuevaCasilla.anhadirAvatar(this);
-            this.jugador.setVueltas(this.jugador.getVueltas() + 1);
 
         }else {
             System.out.println("Error: la nueva casilla no se encontró.");

@@ -605,7 +605,7 @@ public class Menu {
     // Método que realiza las acciones asociadas al comando 'listar avatares'.
     private void listarAvatares() {
 
-        if ( avatares.isEmpty()){
+        if (avatares.isEmpty()){
             System.out.println("No hay avatares creados.");
         }else{
             for (Avatar i: avatares){
