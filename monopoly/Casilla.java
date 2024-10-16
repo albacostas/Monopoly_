@@ -306,25 +306,53 @@ public class Casilla {
         if (this.tipo.equals("Solar")){
             return ("""
             {
+                nombre: %s,
                 tipo: %s,
                 grupo: %s,
                 valor: %f
             }
-            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.valor));
+            """.formatted(color(this.nome), this.tipo, color(this.grupo.getColorGrupo()), this.valor));
         }
-        else if (this.tipo.equals("Transporte") ||this.tipo.equals("Servicio")){
+        else if (this.tipo.equals("Transporte") || this.tipo.equals("Servicio")){
             return("""
             {
+                nombre: %s,
                 tipo: %s,
                 valor: %f
             }
-            """.formatted(this.tipo, this.valor));
+            """.formatted(this.nome, this.tipo, this.valor));
         }
         return("La casilla " + this.nome + " no se puede vender");
     }
 
+    private String color(String nombre_cas){
+        String color_casilla = this.getGrupo().getColorGrupo();
+
+        switch (color_casilla) {
+            case "Black":
+                return (Valor.BLACK + nombre_cas + Valor.RESET);
+            case "Red":
+                return (Valor.RED + nombre_cas + Valor.RESET);
+            case "Green":
+                return (Valor.GREEN + nombre_cas + Valor.RESET);
+            case "Yellow":
+                return (Valor.YELLOW + nombre_cas + Valor.RESET);
+            case "Blue":
+                return (Valor.BLUE + nombre_cas + Valor.RESET);
+            case "Purple":
+                return (Valor.PURPLE + nombre_cas + Valor.RESET);
+            case "Cyan":
+                return (Valor.CYAN + nombre_cas + Valor.RESET);
+            case "Brown":
+                return (Valor.BROWN + nombre_cas + Valor.RESET);
+            default:
+                return (nombre_cas);
+        }
+    }
+
     @Override
-    public String toString(){
+
+    public String toString() {
         return this.nome;
     }
 }
