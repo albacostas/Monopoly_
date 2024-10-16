@@ -16,6 +16,7 @@ public class Avatar {
     private Jugador jugador; //Un jugador al que pertenece ese avatar.
     private Casilla lugar; //Los avatares se sitúan en casillas del tablero.
 
+    private int vueltas;
 
     public String getId() {
         return id;
@@ -45,11 +46,18 @@ public class Avatar {
         this.lugar = lugar;
     }
     
+    public int getVueltas(){
+        return vueltas;
+    }
+    public void setVueltas(int vueltas){
+        this.vueltas = vueltas;
+    }
     
     //Constructor vacío
     public Avatar() {
         this.jugador = new Jugador();
         this.lugar = new Casilla();
+        this.vueltas = 0; // Iniciamos las vueltas a 0.
     }
 
     /*Constructor principal. Requiere éstos parámetros:
@@ -61,6 +69,7 @@ public class Avatar {
         this.jugador = jugador;
         this.lugar = lugar;
         this.generarId(avCreados);
+        this.vueltas = 0;
     }
 
     //A continuación, tenemos otros métodos útiles para el desarrollo del juego.
@@ -73,13 +82,14 @@ public class Avatar {
         int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
         this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
-        if (nuevaPosicion > 40) {
+        if (nuevaPosicion >= 40) { //if (nuevaPosicion > 40)
             nuevaPosicion = nuevaPosicion % 40;
             this.jugador.sumarFortuna(Valor.SUMA_VUELTA); 
             this.jugador.setVueltas(this.jugador.getVueltas()+1);// Asegúrate de que la posición es válida.
+            //this.incrementarVueltas();
         }
     
-    // Buscar la nueva casilla basándonos en la nueva posición
+        // Buscar la nueva casilla basándonos en la nueva posición
         Casilla nuevaCasilla = null;
         for (ArrayList<Casilla> lado : casillas) {
             for (Casilla casilla : lado) {
@@ -97,6 +107,8 @@ public class Avatar {
             System.out.println("El avatar ha sido movido de la casilla " + this.lugar.getNombre()+ " a la casilla " + nuevaCasilla.getNombre());
             this.lugar = nuevaCasilla;
             nuevaCasilla.anhadirAvatar(this);
+            this.jugador.setVueltas(this.jugador.getVueltas() + 1);
+
         }else {
             System.out.println("Error: la nueva casilla no se encontró.");
         }

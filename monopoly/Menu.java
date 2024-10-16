@@ -410,85 +410,69 @@ public class Menu {
         }
         // mirar si salen nuemro iguales, volver a tirar
         Jugador jActual = jugadores.get(turno);
-
         int valorDado1 = d1;
         int valorDado2 = d2;
         int sumaDados = valorDado1 + valorDado2;
         lanzamientos ++;
+        
+        System.out.println("El jugador: " + jActual.getNombre());
+        System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
 
-        if(lanzamientos <= 3){
-            System.out.println("El jugador: " + jActual.getNombre());
-            System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
-            
-            if(lanzamientos == 2 && valorDado1 == valorDado2){
-                System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
-                lanzamientos = 0;
-                jActual.encarcelar(tablero.getPosiciones());
-                tirado = true;
-                acabarTurno();
-                return;
-            }
-
-            if(valorDado1 == valorDado2){
-                lanzamientos++;
-                System.out.println("El valor de los dados es igual. El jugador vuelve a tirar tras realizar las acciones pertinentes.");
-            }
-            else{
-                System.out.println(jActual.getNombre() + " no ha sacado dobles");
-            }
-            jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
-
-            Casilla casActual = jActual.getAvatar().getLugar();
-            //solvente = 
-            casActual.evaluarCasilla(jActual, banca, sumaDados);
-            /*if(casActual.getTipo().equals("Solar") || casActual.getTipo().equals("Transporte") || casActual.getTipo().equals("Servizos")){
-                Jugador duenho = casActual.getDuenho(); // Dueño de la casilla en la que se callo.
-
-                if(duenho != null && !duenho.equals(jActual) && !duenho.equals(this.banca)){
-                    float alquiler = casActual.getValor();
-                    System.out.println("La casilla " + casActual.getNombre() + " es propiedad de " + duenho.getNombre() + ".");
-                    System.out.println("Debes pagar " + alquiler + " de alquiler.");
-
-                    if( jActual.getFortuna()< alquiler){
-                        System.out.println("El jugador " + jActual.getNombre() + " no tiene suficiente dinero. Debes hipotecar propiedades o declararte en bancarrota.");
-                        // aqui iria un codigo para o hipotecarse o declararse en bancarrota.
-                        return;
-                    } else{
-                        jActual.sumarGastos(alquiler);
-                        duenho.sumarFortuna(alquiler);
-                        System.out.println(jActual.getNombre() + " ha pagado " + alquiler + " de alquier a " + duenho.getNombre() + ".");
-                    }
-
-                    }
-
-                }else if(casActual.getNombre().equals("Ir Cárcel")){
-                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
-                    jActual.encarcelar(tablero.getPosiciones());
-                    tirado = true;
-                    return;
-                }else if(casActual.getNombre().equals("Parking")){
-                    float bote = casActual.getValor();
-                    System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Recibes " + bote + ".");
-                    jActual.sumarFortuna(bote);
-                    casActual.setValor(0);
-                }else if (casActual.getNombre().equals("Suerte") || casActual.getTipo().equals("Comunidad")){
-                    System.out.println("Has caido en una casilla de tipo Suerte o Caja de comundiad.");
-                }
-                else if(casActual.getTipo().equals("Impuesto")){
-                    Casilla parking = tablero.encontrar_casilla("Parking");
-                    parking.setValor(parking.getValor() + casActual.getImpuesto());
-                }*/
+        if(lanzamientos == 3 && valorDado1 == valorDado2){
+            System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
+            lanzamientos = 0;
+            jActual.encarcelar(tablero.getPosiciones());
+            tirado = true;
+            acabarTurno();
+            return;
         }
-        if(valorDado1 == valorDado2 && jActual.isEnCarcel() == false){
+        if(valorDado1 == valorDado2){
+            System.out.println("El jugador " + jActual.getNombre() +  " ha sacado dobles. Vuelve a tirar");
             tirado = false;
-        }
-        else{
+        }else{
+            System.out.println(jActual.getNombre() + " no ha sacado dobles.");
             tirado = true;
         }
+
+        jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+        Casilla casActual = jActual.getAvatar().getLugar();
+        casActual.evaluarCasilla(jActual, banca, sumaDados);
+        if(tirado){
+            lanzamientos = 0;
+        }
+
+        // if(lanzamientos <= 3){
+        //     System.out.println("El jugador: " + jActual.getNombre());
+        //     System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
+            
+        //     if(lanzamientos == 2 && valorDado1 == valorDado2){
+        //         System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
+        //         lanzamientos = 0;
+        //         jActual.encarcelar(tablero.getPosiciones());
+        //         tirado = true;
+        //         acabarTurno();
+        //         return;
+        //     }
+        //     if(valorDado1 == valorDado2){
+        //         lanzamientos++;
+        //         System.out.println("El valor de los dados es igual. El jugador vuelve a tirar tras realizar las acciones pertinentes.");
+        //     }
+        //     else{
+        //         System.out.println(jActual.getNombre() + " no ha sacado dobles");
+        //     }
+        //     jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+
+        //     Casilla casActual = jActual.getAvatar().getLugar();
+        //     casActual.evaluarCasilla(jActual, banca, sumaDados);
+        // }
+        // if(valorDado1 == valorDado2 && jActual.isEnCarcel() == false){
+        //     tirado = false;
+        // }
+        // else{
+        //     tirado = true;
+        // }
     }
     
-
-
     /*Método que ejecuta todas las acciones realizadas con el comando 'comprar nombre_casilla'.
     * Parámetro: cadena de caracteres con el nombre de la casilla.
         */
@@ -503,6 +487,10 @@ public class Menu {
         }
         if (casilla.getDuenho() != null && !casilla.getDuenho().equals(this.banca)){
             System.out.println("La casilla "+ nombre + " ya tiene propietario.");
+            return;
+        }
+        if (casilla.getDuenho().equals(jActual.getNombre())){
+            System.out.println(jActual.getNombre()+ " ya es propietario de la casilla " + casilla.getNombre());
             return;
         }
         if(!tipo.equals("Solar") && !tipo.equals("Transporte") && !tipo.equals("Servicio")){
@@ -597,12 +585,6 @@ public class Menu {
         ArrayList<ArrayList<Casilla>> casilla=tablero.getPosiciones();
         for (ArrayList<Casilla> lado : casilla){
             for (Casilla i:lado){
-                //if(i.getDuenho()==banca){ //tipo solar, transporte o servicio!!!!!!!!!
-                    //System.out.println("{ ");
-                    //System.out.println("tipo: "+ i.getTipo());
-                    //System.out.println("grupo: "+ i.getGrupo());
-                    //System.out.println("tipo: "+ i.getValor());
-                //System.out.println("} ");
                 if(i.getDuenho().equals(banca) && (i.getTipo().equals("Solar") || i.getTipo().equals("Transporte") || i.getTipo().equals("Servicio"))){
                     System.out.println(i.casEnVenta());
                 }
@@ -628,36 +610,7 @@ public class Menu {
                 System.out.println(i.toString());
             }
         }
-    
-
     } 
-
-    // Método que realiza las acciones asociadas al comando 'acabar turno'.
-    // private void acabarTurno() {
-    //     if (jugadores.isEmpty()){
-    //         System.out.println("No hay jugadores en el juego.");
-    //         return;
-    //     }
-    //     Jugador jActual = jugadores.get(turno);
-    //     //lanzamientos = 0;
-    //     //tirado = false;
-
-    //     if(!tirado){
-    //         System.out.println("Todavía no has lanzado los dados, no puedes acabar turno");
-    //         return;
-    //     }
-        
-    //     turno = (turno +1) % jugadores.size(); // movemso el turno al siguiente jugador
-    //     Jugador jSiguiente =  jugadores.get(turno);
-
-    //     System.out.println("El turno de " + jActual.getNombre()+" ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
-    //     tirado = false;
-    //     if(jugadores.size() == 1 && !jSiguiente.isEnCarcel()){
-    //         System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
-    //     }
-    //     lanzamientos = 0;
-    // }
-    // Método que realiza las acciones asociadas al comando 'acabar turno'.
     private void acabarTurno() {
         if (jugadores.isEmpty()){
             System.out.println("No hay jugadores en el juego.");
@@ -671,7 +624,7 @@ public class Menu {
             System.out.println(jActual.getNombre() + ", lanza los dados.");
             //lanzarDados();
             System.out.println(this.tablero.toString());
-            tirado = true;
+            //tirado = true;
             return;
         }
         
@@ -685,4 +638,22 @@ public class Menu {
         }
         lanzamientos = 0;
     }
+
+//     public void vueltas(Jugador jugador){
+//         jugador.setVueltas(jugador.getVueltas()+1);
+//         if(jugador.getVueltas() % 4 == 0){
+//             if(completarVueltas()){
+//                 tablero.manejarIncremento();
+//             }
+//         }
+//     }
+//     private boolean completarVueltas(){
+//         for(Jugador jugador : jugadores){
+//             if(jugador.getVueltas() < 4){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
 }
+

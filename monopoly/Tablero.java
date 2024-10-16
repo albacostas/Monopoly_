@@ -15,10 +15,9 @@ public class Tablero {
     private Jugador banca; //Un jugador que será la banca.
 
     private ArrayList<Casilla> casillas;
-
+    
     //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).
     public Tablero(Jugador banca) { // Inicializa los campos de instancia de la clase Tablero.
-
         this.banca = banca; 
         this.posiciones = new ArrayList<>();
         this.grupos = new HashMap<>(); // Grupos es un mapa que asocia claves a valores.
@@ -105,7 +104,7 @@ public class Tablero {
         ArrayList<Casilla> ladoEste = new ArrayList<>();
 
         Casilla Solar6 = new Casilla("Solar6", "Solar",12,676000,banca);
-        Casilla Serv1 = new Casilla("Serv1", "Servicio", 13, 3/4*Valor.SUMA_VUELTA, banca);
+        Casilla Serv1 = new Casilla("Serv1", "Servicio", 13, Valor.SUMA_VUELTA * 0.75f, banca);
         Casilla Solar7 = new Casilla("Solar7", "Solar",14,676000,banca);
         Casilla Solar8 = new Casilla("Solar8", "Solar",15,676000,banca);
         Casilla Trans2 = new Casilla("Trans2", "Transporte", 16, Valor.SUMA_VUELTA, banca);
@@ -257,6 +256,19 @@ public class Tablero {
                 return (formatCasilla(casilla));
         }
     }
+
+    // public void manejarIncremento(){
+    //     for (ArrayList<Casilla> lado : this.posiciones){
+    //         for(Casilla casilla : lado){
+    //             if(casilla.getTipo().equalsIgnoreCase("Solar") && casilla.getDuenho() == null){
+    //                 float nuevoValor = casilla.getValor() * 1.05f;
+    //                 casilla.setValor(nuevoValor);
+    //                 System.out.println(casilla.getNombre() + " precios actualizado: " +  nuevoValor);
+    //             }
+    //         }
+    //     }
+    // }
+    
 
     //Para imprimir el tablero, modificamos el método toString().
     @Override
@@ -449,7 +461,8 @@ public class Tablero {
         Collections.reverse(ladoSur);
         Collections.reverse(ladoOeste);
 
-        return sb.toString();}
+        return sb.toString();
+    }
         
 
     //Método usado para buscar la casilla con el nombre pasado como argumento:
