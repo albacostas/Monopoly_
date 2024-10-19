@@ -517,7 +517,7 @@ public class Menu {
                 case "pagar_fianza":
                     if(jActual.getFortuna() >= 500000.0f){
                         jActual.sumarGastos(500000.0f);
-                        jActual.sumarFortuna(500000.0f);
+                        jActual.sumarFortuna(-500000.0f);
                         jActual.setEnCarcel(false);
                         System.out.println(jActual.getNombre() + " paga 500000 y sale de la carcel.");
                         jActual.setTiradasCarcel(0);
