@@ -521,8 +521,12 @@ public class Menu {
                         jActual.setEnCarcel(false);
                         System.out.println(jActual.getNombre() + " paga 500000 y sale de la carcel.");
                         jActual.setTiradasCarcel(0);
-                        this.tirado=true;
-                        acabarTurno();
+                        int valorDado1 = dado1.hacerTirada();
+                        int valorDado2 = dado2.hacerTirada();
+                        int sumaDados = valorDado1 + valorDado2;
+                        System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
+                        jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+                        tirado=true;
                     }else {
                         System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
                     }
