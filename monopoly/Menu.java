@@ -672,8 +672,11 @@ public class Menu {
         lanzamientos = 0;
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 =======
+=======
+>>>>>>> 96eb823dc4b678db381bb14b930616d0def6a5a7
 
     // public void pagarJugadores(float cantidad) {
     //     Jugador jActual = jugadores.get(turno);
@@ -682,7 +685,10 @@ public class Menu {
     //             i.setFortuna(i.getFortuna() + cantidad);
     //             System.out.println(i.getNombre() + " ha recibido " + cantidad + "€");
     //         }
+<<<<<<< HEAD
 >>>>>>> d9734ab95a60ba74377c5f8d3fdd6c437549d157
+=======
+>>>>>>> 96eb823dc4b678db381bb14b930616d0def6a5a7
 
     //         float total = cantidad * (jugadores.size() - 1);
     //         jActual.setFortuna(jActual.getFortuna() - total);
