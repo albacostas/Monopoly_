@@ -16,6 +16,11 @@ public class Casilla {
     private float impuesto; //Cantidad a pagar por caer en la casilla: el alquiler en solares/servicios/transportes o impuestos.
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
+    private ArrayList<Edificacion> edificaciones; //Edificaciones que contiene la casilla
+    private int numCasas=0;
+    private int numHoteles=0;
+    private int numPiscinas=0;
+    private int numPistas=0;
     
     public String getNombre(){
         return this.nome;
@@ -45,8 +50,8 @@ public class Casilla {
     public int getPosicion(){
         return this.posicion;
     }
-    public int setPosicion(){
-        return this.posicion;
+    public void setPosicion(int posicion){
+         this.posicion=posicion;
     }
     public ArrayList<Avatar> getAvatares() {
         return avatares;
@@ -58,6 +63,38 @@ public class Casilla {
     public void setImpuesto(float impuesto) {
         this.impuesto = impuesto;
     }
+    public ArrayList<Edificacion> getEdificaciones() {
+        return edificaciones;
+    }
+
+    public int getnumCasas(){
+        return this.numCasas;
+    }
+    public void setnumCasas(int numCasas){
+        this.numCasas=numCasas;
+    }
+
+    public int getnumHoteles(){
+        return this.numHoteles;
+    }
+    public void setnumHoteles(int numHoteles){
+        this.numHoteles=numHoteles;
+    }
+
+    public int getnumPiscinas(){
+        return this.numPiscinas;
+    }
+    public void setnumPiscinas(int numPiscinas){
+        this.numPiscinas=numPiscinas;
+    }
+
+    public int getnumPistas(){
+        return this.numPistas;
+    }
+    public void setnumPistas(int numPistas){
+        this.numPistas=numPistas;
+    }
+
 
     public boolean isComprada(){
         return duenho != null;
@@ -74,6 +111,7 @@ public class Casilla {
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
         this.avatares = new ArrayList<Avatar>();
+        this.edificaciones=new ArrayList<Edificacion>();
 
     }//Parámetros vacíos
 
@@ -88,6 +126,7 @@ public class Casilla {
         this.valor = valor;
         this.duenho= duenho;
         this.avatares = new ArrayList<Avatar>();
+        this.edificaciones=new ArrayList<Edificacion>();
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -292,7 +331,7 @@ public class Casilla {
                 alquiler piscina: %f,
                 alquiler pista de deportes: %f
             } 
-            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.duenho.getNombre(), this.valor, this.impuesto, 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
+            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.duenho.getNombre(), this.valor, calcularAlquilerSolar(), 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
@@ -405,6 +444,77 @@ public class Casilla {
                 return (Valor.BROWN + nombre_cas + Valor.RESET);
             default:
                 return (nombre_cas);
+        }
+    }
+
+
+    public boolean edificarCasa(){
+        float precio= this.valor*0.6f;
+        if(!"Solar".equals(this.tipo) || !grupo.esDuenhoGrupo(duenho) || this.duenho.getFortuna()<precio || this.numCasas>=4){
+            System.out.println("Lo siento, no cumples los requisitos para edificar una casa.");
+            return false;
+        }
+        else{
+            Edificacion casa=new Edificacion("Casa", precio);
+            this.numCasas=this.numCasas+1;
+            this.duenho.sumarFortuna(-precio);
+            edificaciones.add(casa);
+            System.out.println("Casa construida en la casilla "+this.nome);
+            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+            return true;
+        }
+    }
+
+    public boolean edificarHotel(){
+        float precio= this.valor*0.6f;
+        if(!"Solar".equals(this.tipo) || !grupo.esDuenhoGrupo(duenho) || this.duenho.getFortuna()<precio || this.numCasas<4){
+            System.out.println("Lo siento, no cumples los requisitos para edificar un hotel.");
+            return false;
+        }
+        else{
+            Edificacion hotel=new Edificacion("Hotel", precio);
+            this.numHoteles=this.numHoteles+1;
+            this.numCasas=this.numCasas-4;
+            this.duenho.sumarFortuna(-precio);
+            //QUITAR LAS CASAS DEL ARRAY DE EDIFICACIONES!!
+            edificaciones.add(hotel);
+            System.out.println("Hotel construido en la casilla "+this.nome);
+            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+            return true;
+        }
+    }
+
+    public boolean edificarPiscina(){
+        float precio= this.valor*0.4f;
+        if(!"Solar".equals(this.tipo) || !grupo.esDuenhoGrupo(duenho) || this.duenho.getFortuna()<precio || (this.numCasas<2 && this.numHoteles<1)){
+            System.out.println("Lo siento, no cumples los requisitos para edificar una piscina.");
+            return false;
+        }
+        else{
+            Edificacion piscina=new Edificacion("Piscina", precio);
+            this.numPiscinas=this.numPiscinas+1;
+            this.duenho.sumarFortuna(-precio);
+            edificaciones.add(piscina);
+            System.out.println("Piscina construida en la casilla "+this.nome);
+            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+            return true;
+        }
+    }
+
+    public boolean edificarPista(){
+        float precio= this.valor*1.25f;
+        if(!"Solar".equals(this.tipo) || !grupo.esDuenhoGrupo(duenho) || this.duenho.getFortuna()<precio || this.numHoteles<2){
+            System.out.println("Lo siento, no cumples los requisitos para edificar una casa.");
+            return false;
+        }
+        else{
+            Edificacion pista=new Edificacion("Pista", precio);
+            this.numPistas=this.numPistas+1;
+            this.duenho.sumarFortuna(-precio);
+            edificaciones.add(pista);
+            System.out.println("Pista de deportes construida en la casilla "+this.nome);
+            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+            return true;
         }
     }
 

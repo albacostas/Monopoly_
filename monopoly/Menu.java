@@ -234,6 +234,30 @@ public class Menu {
                         break;
                 }
                 break;
+
+            case "edificar":
+                if (partes.length!=2){
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                switch (partes[1]) {
+                    case "casa":
+                        avatares.get(turno).getLugar().edificarCasa();
+                        break;
+                    case "hotel": 
+                        avatares.get(turno).getLugar().edificarHotel();
+                        break;
+                    case "piscina":
+                        avatares.get(turno).getLugar().edificarPiscina();
+                        break;
+                    case "pista":
+                        avatares.get(turno).getLugar().edificarPista();
+                        break;
+                    default:
+                        System.out.println("Error: Escribe bien el comando.");
+                        break;
+                }
+                break;
                 
             case "describir":
             if (partes.length ==1) {
