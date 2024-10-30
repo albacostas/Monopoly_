@@ -201,6 +201,25 @@ public class Jugador {
         return sb.toString();
     }
 
+    
+    
+//     public void vueltas(Jugador jugador){
+//         jugador.setVueltas(jugador.getVueltas()+1);
+//         if(jugador.getVueltas() % 4 == 0){
+//             if(completarVueltas()){
+//                 tablero.manejarIncremento();
+//             }
+//         }
+//     }
+//     private boolean completarVueltas(){
+//         for(Jugador jugador : jugadores){
+//             if(jugador.getVueltas() < 4){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
     @Override
     // public String toString() {
     //     return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + (avatar != null ? avatar.getId() : "-") + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + listarPropiedades(this.propiedades) + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
