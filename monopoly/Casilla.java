@@ -21,6 +21,7 @@ public class Casilla {
 
     private Mazo mazo;
     private Jugador banca;
+    private Tablero tablero;
 
     public String getNombre(){
         return this.nome;
@@ -243,7 +244,8 @@ public class Casilla {
         else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad") || tipoCasilla.equals("Especial")){
             this.mazo = new Mazo();
             System.out.println("Has caido en una casilla de tipo Suerte, Caja de Comunidad o Especial.");
-            manejarCaidaEnCasilla(actual,mazo);
+            Tablero tablero = Tablero.getInstancia(banca);
+            manejarCaidaEnCasilla(actual,mazo, tablero);
         }
         
         else if(tipoCasilla.equals("Impuestos")){
@@ -424,7 +426,7 @@ public class Casilla {
         }
     }
 
-    public void manejarCaidaEnCasilla(Jugador jugadorActual, Mazo mazo){
+    public void manejarCaidaEnCasilla(Jugador jugadorActual, Mazo mazo, Tablero tablero){
         Scanner scanner = new Scanner(System.in);
         if (tipo.equals("Suerte") || tipo.equals("Comunidad")) {
             mazo.barajar(); // Barajar las cartas
@@ -443,19 +445,18 @@ public class Casilla {
             System.out.println("Has elegido la carta: " + cartaElegida.getDescripcion());
 
             // Realizar acción con la carta elegida en el jugador actual
-            realizarAccion(cartaElegida, jugadorActual);
+            realizarAccion(cartaElegida, jugadorActual, tablero);
         }
     }
     // Método para realizar la acción de la carta en el jugador actual
-    private void realizarAccion(Carta carta, Jugador jugadorActual) {
-        Tablero tablero = Tablero.getInstancia(banca);
+    private void realizarAccion(Carta carta, Jugador jugadorActual, Tablero tablero) {
         switch (carta.getAccion()) {
             case "ir_a_transportes1":
-                moverJugador(jugadorActual, "Trans1", tablero, null);
+                moverJugador(jugadorActual, "Trans1", tablero);
                 break;
                 
             case "avanzar_a_solar15":
-                moverJugador(jugadorActual, "Solar15", tablero, null);
+                moverJugador(jugadorActual, "Solar15", tablero);
                 break;
                 
             case "vender_billete":
@@ -463,7 +464,7 @@ public class Casilla {
                 break;
                 
             case "ir_a_solar3":
-                moverJugador(jugadorActual, "Solar3", tablero, null);
+                moverJugador(jugadorActual, "Solar3", tablero);
                 break;
                 
             case "ir_a_carcel":
@@ -485,7 +486,7 @@ public class Casilla {
                 break;
                 
             case "ir_a_salida":
-                moverJugador(jugadorActual, "Salida", tablero, null);
+                moverJugador(jugadorActual, "Salida", tablero);
                 break;
                 
             case "recibir_beneficio":
@@ -547,7 +548,7 @@ public class Casilla {
         System.out.println(jugadorPagador.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
     }
 
-    public void moverJugador(Jugador jugador, String nombreCasilla, Tablero tablero, ArrayList<ArrayList<Casilla>> casillas) {
+    public void moverJugador(Jugador jugador, String nombreCasilla, Tablero tablero){
         // Obtener la posición actual del avatar del jugador
         int posicionActual = jugador.getAvatar().getLugar().getPosicion();
 
@@ -567,7 +568,7 @@ public class Casilla {
             }
 
             // Mover el avatar del jugador
-            jugador.getAvatar().moverAvatar(casillas, desplazamiento);
+            jugador.getAvatar().moverAvatar(Tablero.getInstancia(banca).getPosiciones(), desplazamiento);
         } else {
             System.out.println("Error. No se encontró la casilla de destino: " + nombreCasilla);
         }
