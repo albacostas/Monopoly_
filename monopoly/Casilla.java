@@ -129,13 +129,20 @@ public class Casilla {
         this.avatares.remove(av);
     }
 
-    public float calcularAlquilerSolar(){
+    public float calcularAlquilerSolar(Jugador jActual){
         if(this.tipo.equals("Solar")){
-            this.impuesto = this.valor * 0.1f;
-            return impuesto;
+            if (this.getGrupo().esDuenhoGrupo(jActual)){
+                this.impuesto = this.valor * 0.2f;          //Si el jugador es dueño de todas las casillas del grupo, el alquiler se duplica.
+                return impuesto;
+            }
+            else{
+                this.impuesto = this.valor * 0.1f;
+                return impuesto;
+            }
         }
         return 0;
     }
+
     public float calcularAlquilerServicio(int sumaDados){
         if(this.tipo.equals("Servicio") && this.isComprada()){
 
@@ -199,7 +206,7 @@ public class Casilla {
             if (duenho != null && !duenho.equals(actual)) {
         
                 if(tipoCasilla.equals("Solar")){
-                    alquiler = this.calcularAlquilerSolar();
+                    alquiler = this.calcularAlquilerSolar(duenho);
                 }else if (tipoCasilla.equals("Servicio")){
                     alquiler = this.calcularAlquilerServicio(tirada);
                 }else if(tipoCasilla.equals("Transporte")){
