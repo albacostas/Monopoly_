@@ -6,6 +6,7 @@ import java.util.ArrayList;
 //import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+//import java.util.Scanner;
 
 
 public class Tablero {
@@ -16,7 +17,9 @@ public class Tablero {
 
     private ArrayList<Casilla> casillas;
     private Casilla impuCasilla;
-    
+
+    private static Tablero instancia;
+
     //Constructor: únicamente le pasamos el jugador banca (que se creará desde el menú).
     public Tablero(Jugador banca) { // Inicializa los campos de instancia de la clase Tablero.
         this.banca = banca; 
@@ -24,6 +27,7 @@ public class Tablero {
         this.grupos = new HashMap<>(); // Grupos es un mapa que asocia claves a valores.
         this.generarCasillas(); // Llamamos a un método para configurar el tablero.
     }
+
 
     //Generamos los getters y setters para los atributos
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
@@ -46,6 +50,13 @@ public class Tablero {
     public void setBanca(Jugador banca) {
         this.banca = banca;
     }
+
+    public static Tablero getInstancia(Jugador banca) {
+        if (instancia == null) {
+            instancia = new Tablero(banca);
+        }
+        return instancia;
+    }
     //Método para crear todas las casillas del tablero. Formado a su vez por cuatro métodos (1/lado).
     private void generarCasillas() {
         this.insertarLadoSur();
@@ -53,7 +64,6 @@ public class Tablero {
         this.insertarLadoNorte();
         this.insertarLadoEste();
     }
-    
 
     //Método para insertar las casillas del lado norte.
     private void insertarLadoSur() {
@@ -111,7 +121,7 @@ public class Tablero {
         Casilla Caja = new Casilla("Caja", "Comunidad", 18, banca);
         Casilla Solar10 = new Casilla("Solar10", "Solar", 19, 878800, banca);
         Casilla Solar11 = new Casilla("Solar11", "Solar", 20, 878800, banca);
-        
+
         Grupo yellow = new Grupo(Solar9, Solar10, Solar11, "Yellow");
         this.grupos.put("Yellow", yellow);
         Solar9.setGrupo(yellow);
@@ -256,18 +266,6 @@ public class Tablero {
         }
     }
 
-    // public void manejarIncremento(){
-    //     for (ArrayList<Casilla> lado : this.posiciones){
-    //         for(Casilla casilla : lado){
-    //             if(casilla.getTipo().equalsIgnoreCase("Solar") && casilla.getDuenho() == null){
-    //                 float nuevoValor = casilla.getValor() * 1.05f;
-    //                 casilla.setValor(nuevoValor);
-    //                 System.out.println(casilla.getNombre() + " precios actualizado: " +  nuevoValor);
-    //             }
-    //         }
-    //     }
-    // }
-    
 
     //Para imprimir el tablero, modificamos el método toString().
     @Override
