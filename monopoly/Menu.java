@@ -640,22 +640,5 @@ public class Menu {
         }
         lanzamientos = 0;
     }
-
-//     public void vueltas(Jugador jugador){
-//         jugador.setVueltas(jugador.getVueltas()+1);
-//         if(jugador.getVueltas() % 4 == 0){
-//             if(completarVueltas()){
-//                 tablero.manejarIncremento();
-//             }
-//         }
-//     }
-//     private boolean completarVueltas(){
-//         for(Jugador jugador : jugadores){
-//             if(jugador.getVueltas() < 4){
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
 }
 
