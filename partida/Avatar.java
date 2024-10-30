@@ -16,7 +16,7 @@ public class Avatar {
     private Jugador jugador; //Un jugador al que pertenece ese avatar.
     private Casilla lugar; //Los avatares se sitúan en casillas del tablero.
 
-    private int vueltas;
+    //private int vueltas;
 
     public String getId() {
         return id;
@@ -46,18 +46,11 @@ public class Avatar {
         this.lugar = lugar;
     }
     
-    public int getVueltas(){
-        return vueltas;
-    }
-    public void setVueltas(int vueltas){
-        this.vueltas = vueltas;
-    }
-    
     //Constructor vacío
     public Avatar() {
         this.jugador = new Jugador();
         this.lugar = new Casilla();
-        this.vueltas = 0; // Iniciamos las vueltas a 0.
+        //this.vueltas = 0; // Iniciamos las vueltas a 0.
     }
 
     /*Constructor principal. Requiere éstos parámetros:
@@ -69,7 +62,7 @@ public class Avatar {
         this.jugador = jugador;
         this.lugar = lugar;
         this.generarId(avCreados);
-        this.vueltas = 0;
+        //this.vueltas = 0;
     }
 
     //A continuación, tenemos otros métodos útiles para el desarrollo del juego.

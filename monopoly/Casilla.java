@@ -2,6 +2,8 @@ package monopoly;
 
 import partida.*;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Casilla {
@@ -21,6 +23,7 @@ public class Casilla {
     private int numHoteles=0;
     private int numPiscinas=0;
     private int numPistas=0;
+    
     
     public String getNombre(){
         return this.nome;
@@ -99,6 +102,8 @@ public class Casilla {
     public boolean isComprada(){
         return duenho != null;
     }
+    
+
     //Constructores:
     public Casilla() {
 
@@ -111,7 +116,6 @@ public class Casilla {
         this.impuesto = 0.0f;
         this.hipoteca = 0.0f;
         this.avatares = new ArrayList<Avatar>();
-        this.edificaciones=new ArrayList<Edificacion>();
 
     }//Parámetros vacíos
 
@@ -151,6 +155,7 @@ public class Casilla {
         this.posicion=posicion;
         this.duenho=duenho;
         this.avatares = new ArrayList<Avatar>();
+        
     }
     //Método utilizado para añadir un avatar al array de avatares en casilla.
     public void anhadirAvatar(Avatar av) {
@@ -161,13 +166,20 @@ public class Casilla {
         this.avatares.remove(av);
     }
 
-    public float calcularAlquilerSolar(){
+    public float calcularAlquilerSolar(Jugador jActual){
         if(this.tipo.equals("Solar")){
-            this.impuesto = this.valor * 0.1f;
-            return impuesto;
+            if (this.getGrupo().esDuenhoGrupo(jActual)){
+                this.impuesto = this.valor * 0.2f;          //Si el jugador es dueño de todas las casillas del grupo, el alquiler se duplica.
+                return impuesto;
+            }
+            else{
+                this.impuesto = this.valor * 0.1f;
+                return impuesto;
+            }
         }
         return 0;
     }
+
     public float calcularAlquilerServicio(int sumaDados){
         if(this.tipo.equals("Servicio") && this.isComprada()){
 
@@ -222,6 +234,7 @@ public class Casilla {
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         String tipoCasilla = this.getTipo(); // Obtener el tipo de casilla
         float alquiler = 0;
+        
         // Si la casilla es una propiedad
         if (tipoCasilla.equals("Solar") || tipoCasilla.equals("Transporte") || tipoCasilla.equals("Servicio")) {
             Jugador duenho = this.getDuenho(); // Obtener el dueño de la propiedad
@@ -230,7 +243,7 @@ public class Casilla {
             if (duenho != null && !duenho.equals(actual)) {
         
                 if(tipoCasilla.equals("Solar")){
-                    alquiler = this.calcularAlquilerSolar();
+                    alquiler = this.calcularAlquilerSolar(duenho);
                 }else if (tipoCasilla.equals("Servicio")){
                     alquiler = this.calcularAlquilerServicio(tirada);
                 }else if(tipoCasilla.equals("Transporte")){
@@ -264,17 +277,19 @@ public class Casilla {
             actual.sumarFortuna(bote);
             this.setValor(0);
         }
-        else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad")){
-            System.out.println("Has caido en una casilla de tipo Suerte o Caja de comunidad.");
+        else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad") || tipoCasilla.equals("Especial")){
+            this.mazo = new Mazo();
+            System.out.println("Has caido en una casilla de tipo Suerte, Caja de Comunidad o Especial.");
+            manejarCaidaEnCasilla(actual,mazo);
         }
-
-        else if(this.tipo.equals("Impuestos")){
+        
+        else if(tipoCasilla.equals("Impuestos")){
 
             if(actual.getFortuna() < this.impuesto){
                 return false;
             }
             System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
-            actual.sumarFortuna(-this.impuesto);
+            //actual.sumarFortuna(-this.impuesto);
             actual.sumarGastos(this.impuesto);
             banca.sumarFortuna(this.impuesto);
         }
@@ -285,7 +300,6 @@ public class Casilla {
         }
         return true; // El jugador sigue siendo solvente
     }
-    
 
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
@@ -447,7 +461,6 @@ public class Casilla {
         }
     }
 
-
     public boolean edificarCasa(){
         float precio= this.valor*0.6f;
         if(!"Solar".equals(this.tipo) || !grupo.esDuenhoGrupo(duenho) || this.duenho.getFortuna()<precio || this.numCasas>=4){
@@ -517,6 +530,7 @@ public class Casilla {
             return true;
         }
     }
+
 
     @Override
 
