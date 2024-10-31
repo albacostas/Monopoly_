@@ -297,7 +297,7 @@ public class Casilla {
                 return false;
             }
             System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
-            actual.sumarFortuna(-this.impuesto);
+            //actual.sumarFortuna(-this.impuesto);
             actual.sumarGastos(this.impuesto);
         }
         else if(this.nome.equals("Carcel")){
