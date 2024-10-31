@@ -11,8 +11,7 @@ public class Menu {
     // Atributos
     private ArrayList<Jugador> jugadores; // Jugadores de la partida.
     private ArrayList<Avatar> avatares; // Avatares en la partida.
-    private int turno = 0; // Índice correspondiente a la posición en el arrayList del jugador (y el
-                           // avatar) que tienen el turno
+    private int turno = 0; // Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
     private int lanzamientos; // Variable para contar el número de lanzamientos de un jugador en un turno.
     private Tablero tablero; // Tablero en el que se juega.
     private Dado dado1; // Dos dados para lanzar y avanzar casillas.
@@ -253,6 +252,7 @@ public class Menu {
                         break;
                 }
                 break;
+
             case "edificar":
                 if (partes.length!=2){
                     System.out.println("Error: Debes introducir el comando completo.");
@@ -276,7 +276,7 @@ public class Menu {
                         break;
                 }
                 break;
-
+                
             case "describir":
                 if (partes.length == 1) {
                     System.out.println("Error: Debes introducir el comando completo");
@@ -512,6 +512,16 @@ public class Menu {
             if (tirado) {
                 lanzamientos = 0;
             }
+
+            if(casActual.getNombre().equals("Ir Cárcel")){
+                System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
+                jActual.encarcelar(tablero.getPosiciones());
+                tirado = true;
+            }
+            else if(casActual.getTipo().equals("Impuestos")){
+                Casilla parking = tablero.encontrar_casilla("Parking");
+                parking.setValor(parking.getValor() + casActual.getImpuesto());
+            }
         }
     }
 
@@ -589,11 +599,10 @@ public class Menu {
                         jActual.setEnCarcel(false);
                         System.out.println(jActual.getNombre() + " paga 500000 y sale de la carcel.");
                         jActual.setTiradasCarcel(0);
-                        this.tirado = true;
-                        acabarTurno();
-                    } else {
-                        System.out.println(
-                                jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
+                        
+                        tirado=false;
+                    }else {
+                        System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
                     }
                     break;
 
