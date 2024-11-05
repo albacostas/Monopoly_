@@ -14,7 +14,7 @@ public class Jugador {
     private float gastos; //Gastos realizados a lo largo del juego.
     private boolean enCarcel; //Será true si el jugador está en la carcel
     private int tiradasCarcel; //Cuando está en la carcel, contará las tiradas sin éxito que ha hecho allí para intentar salir (se usa para limitar el numero de intentos).
-    private int vueltas; //Cuenta las vueltas dadas al tablero.
+    private int vueltas; //Cuenta las vueltas dadas al tablero.                                                                                            //UTIL PARA INCREMENTO SOLARES
     private ArrayList<Casilla> propiedades; //Propiedades que posee el jugador.
 
     private int tiradasDados; // Contador para las tiradas de dados, atributo para estadistica.
@@ -192,6 +192,7 @@ public class Jugador {
         }
         return contador;
     }
+
     public int getCantidadPropiedades(String tipo) {
         int contador = 0;
         for (Casilla propiedad : propiedades) {
@@ -272,6 +273,7 @@ public class Jugador {
         return sb.toString();
     }
 
+
     public void incrementarDineroPropiedades(float monto){
         this.totalInvertidoPropiedades += monto;
     }
@@ -317,6 +319,7 @@ public class Jugador {
 //         }
 //         return true;
 //     }
+
 
     @Override
     // public String toString() {

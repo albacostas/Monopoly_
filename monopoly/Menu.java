@@ -181,7 +181,7 @@ public class Menu {
             String[] j1 = scanner.nextLine().split(" ");
             if (j1.length != 2) {
                 throw new IllegalArgumentException(
-                        "Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+                    "Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
             }
             crearJugador(j1[0], j1[1]);
         }
@@ -243,6 +243,7 @@ public class Menu {
                     break;
                 }
                 this.lanzarDados(Integer.valueOf(partes[2]), Integer.valueOf(partes[3]));
+                contarVueltasJugadores();
                 System.out.println(this.tablero.toString());
                 break;
 
@@ -390,7 +391,7 @@ public class Menu {
         }
     }
 
-    /*
+    /**
      * Método que da de alta a un jugador
      * Parámetros: nombre del jugador y tipo del avatar
      */
@@ -521,7 +522,7 @@ public class Menu {
 
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
-
+            
             if (lanzamientos == 3 && valorDado1 == valorDado2) {
                 System.out.println(
                         "¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
@@ -709,6 +710,25 @@ public class Menu {
         }
     }
 
+    // Método para saber si todos los jugadores han dado un número de vueltas al tablero múltiplo de 4
+    public void contarVueltasJugadores(){
+        boolean incrementar = true;
+
+        for (Jugador jugador : jugadores) {
+            if (jugador.getVueltas()<4) {
+                incrementar = false;
+                break;
+            }
+        }
+
+        if (incrementar) {
+            tablero.incrementarCasillas();
+            for (Jugador jugador : jugadores) {
+                jugador.setVueltas(jugador.getVueltas()-4);
+            }
+        }
+    }
+
     private void acabarTurno() {
         if (jugadores.isEmpty()) {
             System.out.println("No hay jugadores en el juego.");
@@ -788,6 +808,7 @@ public class Menu {
     //             i.setFortuna(i.getFortuna() + cantidad);
     //             System.out.println(i.getNombre() + " ha recibido " + cantidad + "€");
     //         }
+
 
     //         float total = cantidad * (jugadores.size() - 1);
     //         jActual.setFortuna(jActual.getFortuna() - total);
