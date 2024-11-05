@@ -266,6 +266,18 @@ public class Tablero {
         }
     }
 
+    /**
+    * Método para incrementar el valor de las casillas si todos los jugadores han pasado un numero de veces multiplo de 4
+    */
+    public void incrementarCasillas(){
+        for (ArrayList<Casilla> lado : posiciones){
+            for (Casilla casilla : lado){
+                if (casilla.getDuenho().equals(banca) && (casilla.getTipo().equals("Solar"))){
+                    casilla.setValor(casilla.getValor() * 1.05f);
+                }
+            }
+        }
+    }
 
     //Para imprimir el tablero, modificamos el método toString().
     @Override
