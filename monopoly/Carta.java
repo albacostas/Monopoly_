@@ -27,34 +27,6 @@ public class Carta {
 }
     // guardar la casilla de movimeinto y el valor de ganancia o perdida
 /*
-public class Cartas {
-
-    private String descripcion;
-    private ArrayList<String> cartasSuerte;
-    private ArrayList<String> cartasComunidad;
-    private Menu menu; // Referencia al Menu para poder acceder a funciones
-    Scanner scanner = new Scanner(System.in);
-
-    public Cartas(Menu menu){
-        this.menu = menu;
-        cartasSuerte = new ArrayList<>();
-        cartasComunidad = new ArrayList<>();
-
-        cartasSuerte.add("Ve a Transportes1 y coge un avión. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
-        cartasSuerte.add("Decides hacer un viaje de placer. Avanza hasta Solar15.");
-        cartasSuerte.add("Vendes tu billete de avión para Solar17 en una subarta por Internet. Cobra 500000€.");
-        cartasSuerte.add("Ve a Solar3. Si pasas por la casilla de Salida, cobra la cantidad habitual.");
-        cartasSuerte.add("Los acreedores te persiguen por impago. Ve a la Cárcel. Ve directamente sin pasar por la casilla de Salida y sin cobrar la cantidad habitual.");
-        cartasSuerte.add("¡Has ganado el bote de la lotería! Recibe 1000000");
-
-        cartasComunidad.add("Paga 500000 por un fin de semana en un balneario de 5 estrellas.");
-        cartasComunidad.add("Te investigan por fraude de identidad. Ve a la Cárcel. Ve directamente sin pasar por la casillad de Salida y sin cobrar la cantidad habitual.");
-        cartasComunidad.add("Colócate en la casilla de Salida. Cobra la cantidad habitual.");
-        cartasComunidad.add("Tu compañía de Internet obtiene beneficios. Recibe 2000000€.");
-        cartasComunidad.add("Paga 1000000€ por invitar a todos tus amigos a un viaje a Solar14.");
-        cartasComunidad.add("Alquilas a tus compañeros una villa en Solar7 durante una semana. Paga 200000€ a cada jugador.");
-    }
-
     public Cartas (String descripcion){
         this.descripcion = descripcion;
     }
