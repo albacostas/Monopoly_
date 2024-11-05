@@ -1,6 +1,8 @@
 package monopoly;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 //import java.util.Collections;
 import java.util.Scanner;
 
@@ -11,8 +13,7 @@ public class Menu {
     // Atributos
     private ArrayList<Jugador> jugadores; // Jugadores de la partida.
     private ArrayList<Avatar> avatares; // Avatares en la partida.
-    private int turno = 0; // Índice correspondiente a la posición en el arrayList del jugador (y el
-                           // avatar) que tienen el turno
+    private int turno = 0; // Índice correspondiente a la posición en el arrayList del jugador (y el avatar) que tienen el turno
     private int lanzamientos; // Variable para contar el número de lanzamientos de un jugador en un turno.
     private Tablero tablero; // Tablero en el que se juega.
     private Dado dado1; // Dos dados para lanzar y avanzar casillas.
@@ -23,6 +24,13 @@ public class Menu {
                               // decir, si ha pagado sus deudas.
     //private Mazo mazo;
     private Scanner scanner;
+    // Atributos para las estadísticas
+    private Casilla casillaMasRentable;
+    private Grupo grupoMasRentable;
+    private Jugador jugadorMasVecesDados;
+    private Jugador jugadorEnCabeza;
+    private Jugador jugadorMasVueltas; // Para almacenar el jugador que ha dado más vueltas
+    
 
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
@@ -34,6 +42,11 @@ public class Menu {
         this.jugadores = new ArrayList<Jugador>();
         this.avatares = new ArrayList<Avatar>();
         this.tablero = new Tablero(this.banca);
+
+        this.casillaMasRentable = null;
+        this.grupoMasRentable = null;
+        this.jugadorMasVecesDados = null;
+        this.jugadorEnCabeza = null;
         turno = 0;
         //this.mazo = new Mazo();
         this.scanner = new Scanner(System.in);
@@ -62,8 +75,11 @@ public class Menu {
             System.out.println(" 10.  🎭 **Describir avatar**       : describir avatar (avatar)");
             System.out.println(" 11.  🏠 **Describir casilla**      : describir (casilla)");
             System.out.println(" 12.  💸 **Comprar propiedad**      : comprar (casilla)");
-            System.out.println(" 13.  🧮 **Ver tablero**            : ver tablero");
-            System.out.println(" 14.  🚪 **Finalizar partida**      : finalizar");
+            System.out.println(" 13.  📊 **Estadísticas jugador**   : estadisticas (jugador)");
+            System.out.println(" 14.  📊 **Estadísticas globales**  : estadisticas");
+            System.out.println(" 15.  🧮 **Ver tablero**            : ver tablero");
+            System.out.println(" 16.  🚪 **Finalizar partida**      : finalizar");
+
             System.out.println("**************************************");
             System.out.print("  🎮 **Introduce un comando:** ");
 
@@ -253,6 +269,7 @@ public class Menu {
                         break;
                 }
                 break;
+
             case "edificar":
                 if (partes.length!=2){
                     System.out.println("Error: Debes introducir el comando completo.");
@@ -276,7 +293,7 @@ public class Menu {
                         break;
                 }
                 break;
-
+                
             case "describir":
                 if (partes.length == 1) {
                     System.out.println("Error: Debes introducir el comando completo");
@@ -327,6 +344,19 @@ public class Menu {
                     break;
                 }
                 System.out.println(this.tablero.toString());
+                break;
+            
+            case "estadisticas":
+                if(partes.length != 2){
+                    System.out.println("Error: Debes introducir el comando completo y el nombre del jugador.");
+                    break;
+                }
+                if(partes.length == 2){
+                    this.estadisticasJugador(partes[1]);
+                }else{
+                    this.estadisticasGlobales();
+                }
+                
                 break;
 
             case "ayuda":
@@ -476,6 +506,9 @@ public class Menu {
         // mirar si salen nuemro iguales, volver a tirar
 
         Jugador jActual = jugadores.get(turno);
+        jActual.incrementarTiradasDados();
+
+        actualizarJugadorMasTiradas(jActual);
         if (jActual.isEnCarcel()) {
             salirCarcel();
         }
@@ -511,6 +544,17 @@ public class Menu {
             casActual.evaluarCasilla(jActual, banca, sumaDados);
             if (tirado) {
                 lanzamientos = 0;
+            }
+
+            if(casActual.getNombre().equals("Ir Cárcel")){
+                System.out.println("Has caido en la casilla " + casActual.getNombre() + ". Te moverás a la casilla de cárcel.");
+                jActual.encarcelar(tablero.getPosiciones());
+                jActual.incrementarVecesCarcel();
+                tirado = true;
+            }
+            else if(casActual.getTipo().equals("Impuestos")){
+                Casilla parking = tablero.encontrar_casilla("Parking");
+                parking.setValor(parking.getValor() + casActual.getImpuesto());
             }
         }
     }
@@ -589,11 +633,10 @@ public class Menu {
                         jActual.setEnCarcel(false);
                         System.out.println(jActual.getNombre() + " paga 500000 y sale de la carcel.");
                         jActual.setTiradasCarcel(0);
-                        this.tirado = true;
-                        acabarTurno();
-                    } else {
-                        System.out.println(
-                                jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
+                        
+                        tirado=false;
+                    }else {
+                        System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
                     }
                     break;
 
@@ -695,6 +738,49 @@ public class Menu {
         lanzamientos = 0;
     }
 
+    private void estadisticasJugador(String nombreJugador){
+        Jugador jugador = null;
+        for(Jugador j : jugadores){
+            if(j.getNombre().equals(nombreJugador)){
+                jugador = j;
+                break;
+            }
+        }
+        if(jugador != null){
+            System.out.println("{");
+            System.out.println("  dineroInvertido: " + jugador.getTotalInvertidoPropiedades() + ",");
+            System.out.println("  pagoTasasEImpuestos: " + jugador.getTotalPagadoImpuestos() + ",");
+            System.out.println("  pagoDeAlquileres: " + jugador.getTotalPagadoAlquiler() + ",");
+            System.out.println("  cobroDeAlquileres: " + jugador.getTotalRecibidoAlquiler() + ",");
+            System.out.println("  pasarPorCasillaDeSalida: " + jugador.getTotalRecibidoSalida() + ",");
+            System.out.println("  premiosInversionesOBote: " + jugador.getTotalRecibidoParking()+ ",");
+            System.out.println("  vecesEnLaCarcel: " + jugador.getVecesCarcel());
+            System.out.println("}");
+        }else{
+            System.out.println("No se ha encontrado el jugador");
+        }
+    }
+
+    private void actualizarJugadorMasTiradas(Jugador jugador){
+        if(jugadorMasVecesDados == null || jugador.getTiradasDados() > jugadorMasVecesDados.getTiradasDados()){
+            jugadorMasVecesDados = jugador;
+        }
+    }
+
+    
+
+    private void estadisticasGlobales() {
+        System.out.println("{");
+        System.out.println("  casillaMasRentable: " + (casillaMasRentable != null ? casillaMasRentable.getNombre() : "N/A") + ",");
+        System.out.println("  grupoMasRentable: " + (grupoMasRentable != null ? grupoMasRentable.getNombre() : "N/A") + ",");
+        System.out.println("  casillaMasFrecuentada: " + (casillaMasFrecuentada != null ? casillaMasFrecuentada.getNombre() : "N/A") + ",");
+        System.out.println("  jugadorMasVueltas: " + (jugadorMasVueltas != null ? jugadorMasVueltas.getNombre() : "N/A") + ",");
+        System.out.println("  jugadorMasVecesDados: " + (jugadorMasVecesDados != null ? jugadorMasVecesDados.getNombre() : "N/A") + ",");
+        System.out.println("  jugadorEnCabeza: " + (jugadorEnCabeza != null ? jugadorEnCabeza.getNombre() : "N/A"));
+        System.out.println("}");
+    }
+    
+    
     // public void pagarJugadores(float cantidad) {
     //     Jugador jActual = jugadores.get(turno);
     //     for (Jugador i : jugadores) {
