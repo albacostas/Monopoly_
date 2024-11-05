@@ -2,7 +2,9 @@ package monopoly;
 
 import partida.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -21,7 +23,12 @@ public class Casilla {
 
     private Mazo mazo;
     private Jugador banca;
-    private Tablero tablero;
+    //private Tablero tablero;
+
+    private Map<Casilla, Integer> vecesCaidasCasilla = new HashMap<>();
+    private Casilla casillaMasFrecuentada;
+    private Jugador jugadorMasVueltas;
+
 
     private ArrayList<Edificacion> edificaciones; //Edificaciones que contiene la casilla
     private int numCasas=0;
@@ -239,6 +246,7 @@ public class Casilla {
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
     public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
+        jugadorCaerCasilla(actual);
         String tipoCasilla = this.getTipo(); // Obtener el tipo de casilla
         float alquiler = 0;
         
@@ -266,8 +274,10 @@ public class Casilla {
                     } else {
                         // Pagar el alquiler
                         actual.sumarGastos(alquiler);
-                        //actual.sumarFortuna(-alquiler);
+                        actual.incrementarDineroAlquiler(alquiler);
+                       
                         duenho.sumarFortuna(alquiler);
+                        duenho.incrementarRecibidoAlquiler(alquiler);
                         System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
                     }
                 }
@@ -282,6 +292,7 @@ public class Casilla {
             float bote = this.getValor(); // Obtener el bote
             System.out.println("Has caído en 'Parking'. Recibes " + bote + ".");
             actual.sumarFortuna(bote);
+            actual.incrementarDineroParking(bote);
             this.setValor(0);
         }
         else if (tipoCasilla.equals("Suerte") || tipoCasilla.equals("Comunidad")){
@@ -297,8 +308,8 @@ public class Casilla {
                 return false;
             }
             System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
-            //actual.sumarFortuna(-this.impuesto);
             actual.sumarGastos(this.impuesto);
+            actual.incrementarDineroImpuestos(alquiler);
         }
         else if(this.nome.equals("Carcel")){
             if(actual.getFortuna() < 500000){
@@ -318,6 +329,7 @@ public class Casilla {
         banca.eliminarPropiedad(this);
         solicitante.sumarGastos(this.valor);
         solicitante.sumarFortuna(-this.valor);
+        solicitante.incrementarDineroPropiedades(this.valor);
         banca.sumarFortuna(this.valor);
     }
 
@@ -502,7 +514,9 @@ public class Casilla {
                 break;
 
             case "vender_billete":
-                jugadorActual.sumarFortuna(500000);
+                jugadorActual.sumarFortuna(500000f);
+                jugadorActual.incrementarDineroParking(500000f);
+                System.out.println(jugadorActual + " ha ganado 500000€.");
                 break;
 
             case "ir_a_solar3":
@@ -511,38 +525,48 @@ public class Casilla {
 
             case "ir_a_carcel":
                //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
+               moverJugador(jugadorActual, "Cárcel", tablero);
                System.err.println(("Tendría que ir a la carcel."));
                 break;
 
             case "ganar_loteria":
-                jugadorActual.sumarFortuna(1000000);
+                jugadorActual.sumarFortuna(1000000f);
+                jugadorActual.incrementarDineroParking(1000000f);
+                System.out.println(jugadorActual + " ha ganado la lotería: 1000000€.");
                 break;
 
 
             // ACCIONES DE COMUNIDAD
 
             case "pagar_balneario":
-                if (!pagarConFortuna(jugadorActual, 500000)) {
+                if (!pagarConFortuna(jugadorActual, 500000f)) {
                     //hipotecarPropiedad(jugadorActual);
+                    jugadorActual.incrementarDineroPropiedades(500000f);
                 }
+                System.err.println(jugadorActual + " ha pagado 500000€.");
                 break;
 
             case "ir_a_salida":
                 moverJugador(jugadorActual, "Salida", tablero);
+                jugadorPasaPorSalida(jugadorActual);
                 break;
 
             case "recibir_beneficio":
-                jugadorActual.sumarFortuna(2000000);
+                jugadorActual.sumarFortuna(2000000f);
+                jugadorActual.incrementarDineroParking(2000000f);
                 break;
 
             case "pagar_viaje":
-                if (!pagarConFortuna(jugadorActual, 1000000)) {
+                if (!pagarConFortuna(jugadorActual, 1000000f)) {
                     //hipotecarPropiedad(jugadorActual);
+                    jugadorActual.incrementarDineroImpuestos(1000000f);
                 }
+                System.err.println(jugadorActual + " ha pagado 1000000€.");
                 break;
 
             case "pagar_alquiler":
                 //pagarJugadores(jugadorActual, 200000f);
+                jugadorActual.incrementarDineroImpuestos(200000f);
                 break;
 
             default:
@@ -556,6 +580,7 @@ public class Casilla {
         if (jugador.getFortuna() >= cantidad) {
             //jugador.restarFortuna(cantidad);
             jugador.sumarGastos(cantidad);
+            System.err.println(jugador + " ha pagado 1000000.");
             return true;
         } else {
             System.out.println("No tienes suficiente dinero para pagar. Debes hipotecar una propiedad.");
@@ -564,6 +589,7 @@ public class Casilla {
     }
 
     // Método para pagar a otros jugadores
+    // MODIFICAR FUNCION
     public void pagarJugadores(Jugador jugadorPagador, float cantidad, List<Jugador> jugadores) {
         // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
         float total = cantidad * (jugadores.size() - 1);
@@ -684,6 +710,28 @@ public class Casilla {
         }
     }
 
+    private void jugadorCaerCasilla(Jugador jugador) {
+        vecesCaidasCasilla.put(this, vecesCaidasCasilla.getOrDefault(this, 0) + 1);
+        actualizarCasillaMasFrecuentada();
+    }
+
+    private void actualizarCasillaMasFrecuentada() {
+        if (casillaMasFrecuentada == null || vecesCaidasCasilla.get(this) > vecesCaidasCasilla.get(casillaMasFrecuentada)) {
+            casillaMasFrecuentada = this;
+        }
+    }
+
+    private void jugadorPasaPorSalida(Jugador jugador) {
+        // Incrementar vueltas del jugador
+        jugador.incrementarVueltas();
+        actualizarJugadorMasVueltas(jugador);
+    }
+
+    private void actualizarJugadorMasVueltas(Jugador jugador) {
+        if (jugadorMasVueltas == null || jugador.getVueltas() > jugadorMasVueltas.getVueltas()) {
+            jugadorMasVueltas = jugador;
+        }
+    }
 
     @Override
 

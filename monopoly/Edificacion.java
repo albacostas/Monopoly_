@@ -1,7 +1,7 @@
 package monopoly;
 
 import partida.*;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.UUID; //para el identificador único
 
 
