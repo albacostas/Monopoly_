@@ -675,38 +675,6 @@ public class Menu {
             }
         }
     }
-    
-    /*// Método para saber si todos los jugadores han dado un número de vueltas al tablero múltiplo de 4
-    public void contarVueltasjugadores() {
-        int multiplo = 0;
-        int multiplo_inic = jugadores.get(0).getVueltas()/4;
-        boolean igualRango = false;
-        int sum = 0;
-
-        if (multiplo>multiplo_inic) {
-            multiplo_inic = multiplo;
-        }
-
-        for (Jugador jugador : jugadores) {
-            if (jugador.contarVueltas()){
-                multiplo = jugador.getVueltas()/4;
-            }
-
-            if (multiplo != 0 && multiplo == multiplo_inic && sum == 0) {
-                igualRango = true;
-            }
-            else {
-                igualRango = false;
-                break;
-            }
-        }
-
-        if (igualRango) {
-            tablero.incrementarCasillas();
-            sum = 1;
-        }
-    }*/
-
 
     // Método para saber si todos los jugadores han dado un número de vueltas al tablero múltiplo de 4
     public void contarVueltasJugadores(){
@@ -726,52 +694,6 @@ public class Menu {
             }
         }
     }
-
-    /*public void contarVueltasjugadores() {
-        int vueltasComp = jugadores.get(0).getVueltas() / 4;  // Obtener el rango de vueltas del primer jugador
-        boolean todosEnMismoRango = true;
-    
-        // Verificar si todos los jugadores están en el mismo rango de vueltas y cuentan sus vueltas
-        for (Jugador jugador : jugadores) {
-            if (jugador.getVueltas()<4 || jugador.getVueltas() / 4 != vueltasComp) {
-                todosEnMismoRango = false;
-                break;
-            }
-        }
-    
-        // Si todos los jugadores están en el mismo rango, incrementa las casillas del tablero
-        if (todosEnMismoRango) {
-            tablero.incrementarCasillas();
-            for (Jugador jugador : jugadores) {
-                jugador.setVueltas(jugador.getVueltas()-4);
-            }
-        }    
-    }*/
-
-
-    //Añadir comprobador bien hecho
-
-        //ATENEA: HAY QUE EDITAR ESTA FUNCION PORQUE NO CUENTA BIEN EN CIERTOS CASOS, EJECUTA Y PRUBA, PERO TEN EN CUENTA Q LO MAXIMO Q PODRAS
-        //MOVERTE EN UN TURNO SON 35 POSICIONES, LO QUE IMPLICA EN QUE EN UN UNICO TURNO SOLO PUEDES DAR COMO MUCHO 1 VUELTA AL TABLERO 
-        //PERO PUEDE HABER CARTAS O COSAS ASI Q TE HAGAN MOVERTE MAS DE 35 POSICIONES, POR ESO HAY Q TENERLO EN CUENTA
-
-        // int aux = 0, sumado = 0;
-        // int vueltas_comp = jugadores.get(0).getVueltas()/4;
-        // for (Jugador i : jugadores) {
-        //     if (i.contarVueltas() && i.getVueltas()/4 == vueltas_comp) {
-        //         aux++;
-        //     }
-        // }
-        // if (aux == jugadores.size() && sumado == 0) {
-        //     tablero.incrementarCasillas();
-        //     sumado = 1;
-        // }
-        // for (Jugador i : jugadores) {
-        //     if (i.contarVueltas()) {
-        //         i.setVueltas(0);
-        //     }
-        // }
-
 
     private void acabarTurno() {
         if (jugadores.isEmpty()) {
