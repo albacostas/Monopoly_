@@ -273,6 +273,18 @@ public class Jugador {
         return sb.toString();
     }
 
+    public String listarEdificacionesJugador(){
+        StringBuilder resultado=new StringBuilder();
+        
+        //recorremos las propiedades de cada jugador
+        //resultado.append("\t{");
+        for (Casilla casilla:propiedades){
+            resultado.append("\tPropiedad: ").append(casilla.getNombre());
+            resultado.append(String.format("  [Casas: %d | Hoteles: %d | Piscinas: %d | Pistas de Deporte: %d]\n", casilla.getnumCasas(), casilla.getnumHoteles(), casilla.getnumPiscinas(), casilla.getnumPistas()));
+        }
+        //resultado.append("\t}");
+        return resultado.toString();
+    }
 
     public void incrementarDineroPropiedades(float monto){
         this.totalInvertidoPropiedades += monto;
@@ -300,8 +312,7 @@ public class Jugador {
 
     public void incrementarVecesCarcel(){
         vecesCarcel++;
-    }
-    
+    }    
     
 //     public void vueltas(Jugador jugador){
 //         jugador.setVueltas(jugador.getVueltas()+1);
@@ -332,8 +343,8 @@ public class Jugador {
         sb.append("     avatar: ").append(avatar.getId()).append(",\n");
         sb.append("     fortuna: ").append(this.fortuna).append(",\n");
         sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
-        sb.append("     hipotecas: ").append("-\n");                                        //listarHipotecas()
-        sb.append("     edificios: ").append("-\n");                                         //listarEdificios()
+        sb.append("     edificaciones: ").append("\n").append(listarEdificacionesJugador()).append("\n");                                        
+        sb.append("     hipotecas: ").append("-\n");                                         //listarHipotecas()
         sb.append("}");
 
         return sb.toString();
