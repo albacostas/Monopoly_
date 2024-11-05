@@ -461,6 +461,7 @@ public class Casilla {
                 
             case "vender_billete":
                 jugadorActual.sumarFortuna(500000);
+                System.out.println(jugadorActual + " ha ganado 500000€.");
                 break;
                 
             case "ir_a_solar3":
@@ -469,11 +470,13 @@ public class Casilla {
                 
             case "ir_a_carcel":
                //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
+               moverJugador(jugadorActual, "Cárcel", tablero);
                System.err.println(("Tendría que ir a la carcel."));
                 break;
                 
             case "ganar_loteria":
                 jugadorActual.sumarFortuna(1000000);
+                System.out.println(jugadorActual + " ha ganado la lotería: 1000000€.");
                 break;
 
 
@@ -483,6 +486,7 @@ public class Casilla {
                 if (!pagarConFortuna(jugadorActual, 500000)) {
                     //hipotecarPropiedad(jugadorActual);
                 }
+                System.err.println(jugadorActual + " ha pagado 500000€.");
                 break;
                 
             case "ir_a_salida":
@@ -497,6 +501,7 @@ public class Casilla {
                 if (!pagarConFortuna(jugadorActual, 1000000)) {
                     //hipotecarPropiedad(jugadorActual);
                 }
+                System.err.println(jugadorActual + " ha pagado 1000000€.");
                 break;
                 
             case "pagar_alquiler":
@@ -516,6 +521,7 @@ public class Casilla {
         if (jugador.getFortuna() >= cantidad) {
             //jugador.restarFortuna(cantidad);
             jugador.sumarGastos(cantidad);
+            System.err.println(jugador + " ha pagado 1000000.");
             return true;
         } else {
             System.out.println("No tienes suficiente dinero para pagar. Debes hipotecar una propiedad.");
@@ -524,6 +530,7 @@ public class Casilla {
     }
 
     // Método para pagar a otros jugadores
+    // MODIFICAR FUNCION
     public void pagarJugadores(Jugador jugadorPagador, float cantidad, List<Jugador> jugadores) {
         // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
         float total = cantidad * (jugadores.size() - 1);
