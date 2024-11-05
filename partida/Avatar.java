@@ -78,9 +78,9 @@ public class Avatar {
         if (nuevaPosicion >= 40) { //if (nuevaPosicion > 40)
             nuevaPosicion = nuevaPosicion % 40;
             this.jugador.sumarFortuna(Valor.SUMA_VUELTA); 
+
             this.jugador.setVueltas(this.jugador.getVueltas()+1);// Asegúrate de que la posición es válida.
             System.err.println(this.jugador.getNombre() + " ha pasado por la casilla de Salida, recibe " + Valor.SUMA_VUELTA);
-            //this.incrementarVueltas();
         }
     
         // Buscar la nueva casilla basándonos en la nueva posición
