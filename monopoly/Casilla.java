@@ -293,7 +293,7 @@ public class Casilla {
         
         else if(tipoCasilla.equals("Impuestos")){
 
-            if(actual.getFortuna() < this.impuesto){
+            if(actual.getFortuna() < this.impuesto){    //Comprueba si el jugador tiene dinero para pagar el impuesto
                 return false;
             }
             System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
@@ -308,6 +308,7 @@ public class Casilla {
         return true; // El jugador sigue siendo solvente
     }
 
+    //PODRIA SOBRAR
     /*Método usado para comprar una casilla determinada. Parámetros:
     * - Jugador que solicita la compra de la casilla.
     * - Banca del monopoly (es el dueño de las casillas no compradas aún).*/
