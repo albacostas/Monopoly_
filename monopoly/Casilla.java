@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.HashMap;
+//import java.util.HashMap;
 
 
 public class Casilla {
@@ -119,6 +119,9 @@ public class Casilla {
         return duenho != null;
     }
     
+    public float getAlquiler(){
+        return this.impuesto;
+    }
 
     //Constructores:
     public Casilla() {
@@ -319,7 +322,9 @@ public class Casilla {
                         }
                         else{
                             actual.sumarGastos(alquilerT);
+                            actual.incrementarDineroAlquiler(alquilerT);
                             duenho.sumarFortuna(alquilerT);
+                            duenho.incrementarRecibidoAlquiler(alquilerT);
                             System.out.println("Has pagado " + alquilerT + " de alquiler a " + duenho.getNombre() + ".");
                             
                         }
@@ -332,9 +337,12 @@ public class Casilla {
                         } else {
                             // Pagar el alquiler
                             actual.sumarGastos(alquiler);
+                            actual.incrementarDineroAlquiler(alquiler);
                             //actual.sumarFortuna(-alquiler);
                             //duenho.sumarFortuna(alquiler);
                             duenho.sumarFortuna(alquiler);
+                            duenho.incrementarRecibidoAlquiler(alquiler);
+                        
                             System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
                         }
                     }
@@ -386,7 +394,7 @@ public class Casilla {
         solicitante.anhadirPropiedad(this);
         banca.eliminarPropiedad(this);
         solicitante.sumarGastos(this.valor);
-        solicitante.incrementarDineroPropiedades(this.valor);
+        //solicitante.incrementarDineroPropiedades(this.valor);
         banca.sumarFortuna(this.valor);
     }
 
@@ -543,7 +551,7 @@ public class Casilla {
     public void manejarCaidaEnCasilla(Jugador jugadorActual, Mazo mazo, Tablero tablero){
         Scanner scanner = new Scanner(System.in);
         if (tipo.equals("Suerte") || tipo.equals("Comunidad")) {
-            mazo.barajar(); // Barajar las cartas
+            //mazo.barajar(); // Barajar las cartas
 
             System.out.println("Elige una carta (1-6): ");
             int eleccion = scanner.nextInt(); // Leer la elección del jugador
@@ -586,7 +594,7 @@ public class Casilla {
 
             case "ir_a_carcel":
                //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
-               moverJugador(jugadorActual, "Cárcel", tablero);
+               jugadorActual.encarcelar(tablero.getPosiciones());
                System.err.println(("Tendría que ir a la carcel."));
                 break;
 
@@ -633,8 +641,8 @@ public class Casilla {
             default:
                 System.out.println("Acción no implementada.");
                 break;
-            }
         }
+    }
 
     // Método para verificar si el jugador puede pagar y realizar la hipoteca si no tiene suficiente
     private boolean pagarConFortuna(Jugador jugador, float cantidad) {
