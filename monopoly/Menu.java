@@ -893,6 +893,7 @@ public class Menu {
             System.out.println("No se ha encontrado el jugador");
         }
     }
+    }
 
     /*
     private void actualizarJugadorMasTiradas(Jugador jugador){
