@@ -18,6 +18,15 @@ public class Jugador {
     private int vueltas; //Cuenta las vueltas dadas al tablero.                                                                                            //UTIL PARA INCREMENTO SOLARES
     private ArrayList<Casilla> propiedades; //Propiedades que posee el jugador.
 
+    private int tiradasDados; // Contador para las tiradas de dados, atributo para estadistica.
+
+    private float totalInvertidoPropiedades;
+    private float totalPagadoImpuestos;
+    private float totalRecibidoAlquiler;
+    private float totalPagadoAlquiler;
+    private float totalRecibidoSalida;
+    private float totalRecibidoParking;
+    private int vecesCarcel;
     // Setters y Getters de los atributos
 
     public String getNombre(){
@@ -68,6 +77,9 @@ public class Jugador {
     public void setVueltas(int vueltas) {
         this.vueltas = vueltas;
     }
+    public void incrementarVueltas(){
+        this.vueltas++;
+    }
 
     public ArrayList<Casilla> getPropiedades() {
         return propiedades;
@@ -75,8 +87,63 @@ public class Jugador {
     public void setPropiedades(ArrayList<Casilla> propiedades) {
         this.propiedades = propiedades;
     }
+
+    public float getTotalInvertidoPropiedades(){
+        return totalInvertidoPropiedades;
+    }
+    public void setTotalInvertidoPropiedades(float totalInvertidoPropiedades) {
+        this.totalInvertidoPropiedades = totalInvertidoPropiedades;
+    }
+
+    public float getTotalPagadoImpuestos(){
+        return totalPagadoImpuestos;
+    }
+    public void setTotalPagadoImpuestos(float totalPagadoImpuestos) {
+        this.totalPagadoImpuestos = totalPagadoImpuestos;
+    }
+
+    public float getTotalRecibidoAlquiler(){
+        return totalRecibidoAlquiler;
+    }
+    public void setTotalRecibidoAlquiler(float totalRecibidoAlquiler) {
+        this.totalRecibidoAlquiler = totalRecibidoAlquiler;
+    }
+
+    public float getTotalPagadoAlquiler(){
+        return totalPagadoAlquiler;
+    }
+    public void setTotalPagadoAlquiler(float totalPagadoAlquiler) {
+        this.totalPagadoAlquiler = totalPagadoAlquiler;
+    }
+
+    public float getTotalRecibidoSalida(){
+        return totalRecibidoSalida;
+    }
+    public void setTotalRecibidoSalida(float totalRecibidoSalida) {
+        this.totalRecibidoSalida = totalRecibidoSalida;
+    }
+
+    public float getTotalRecibidoParking(){
+        return totalRecibidoParking;
+    }
+    public void setTotalRecibidoParking(float totalRecibidoParking) {
+        this.totalRecibidoParking = totalRecibidoParking;
+    }
+
+    public int getVecesCarcel(){
+        return vecesCarcel;
+    }
+    public void  setVecesCarcel(int vecesCarcel) {
+        this.vecesCarcel = vecesCarcel;
+    }
     
-    
+    public void incrementarTiradasDados() {
+        this.tiradasDados++;
+    }
+    public int getTiradasDados() {
+        return this.tiradasDados;
+    }
+
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
         this.nombre = "Banca";
@@ -86,8 +153,11 @@ public class Jugador {
         this.enCarcel = false;
         this.tiradasCarcel = 0;
         this.vueltas = 0;
+        this.tiradasDados = 0;
     }
 
+
+    
     /*Constructor principal. Requiere parámetros:
     * Nombre del jugador, tipo del avatar que tendrá, casilla en la que empezará y ArrayList de
     * avatares creados (usado para dos propósitos: evitar que dos jugadores tengan el mismo nombre y
@@ -108,6 +178,7 @@ public class Jugador {
         this.tiradasCarcel=0;
         this.vueltas=0;
         this.propiedades= new ArrayList<>();
+        this.tiradasDados = 0; // Inicializamos el contador de tiradas de dados
 
     }
 
@@ -203,6 +274,68 @@ public class Jugador {
         return sb.toString();
     }
 
+    public String listarEdificacionesJugador(){
+        StringBuilder resultado=new StringBuilder();
+        
+        //recorremos las propiedades de cada jugador
+        //resultado.append("\t{");
+        for (Casilla casilla:propiedades){
+            resultado.append("\tPropiedad: ").append(casilla.getNombre());
+            resultado.append(String.format("  [Casas: %d | Hoteles: %d | Piscinas: %d | Pistas de Deporte: %d]\n", casilla.getnumCasas(), casilla.getnumHoteles(), casilla.getnumPiscinas(), casilla.getnumPistas()));
+        }
+        //resultado.append("\t}");
+        return resultado.toString();
+    }
+
+    // public void incrementarDineroPropiedades(float monto){
+    //     this.setTotalInvertidoPropiedades(monto);
+    // }
+    public void incrementarDineroPropiedades(float monto){
+        this.setTotalInvertidoPropiedades(this.getTotalInvertidoPropiedades()+monto);
+    }
+
+    public void incrementarDineroImpuestos(float monto){
+        this.totalPagadoImpuestos += monto;
+    }
+    
+    public void incrementarDineroAlquiler(float monto){
+        this.totalPagadoAlquiler += monto;
+    }
+    
+    public void incrementarRecibidoAlquiler(float monto){
+        this.totalRecibidoAlquiler += monto;
+    }
+
+    public void incrementarDineroSalida(float monto){
+        this.totalRecibidoSalida += monto;
+    }
+    
+    public void incrementarDineroParking(float monto){
+        this.totalRecibidoParking += monto;
+    }
+
+    public void incrementarVecesCarcel(){
+        vecesCarcel++;
+    }    
+    
+//     public void vueltas(Jugador jugador){
+//         jugador.setVueltas(jugador.getVueltas()+1);
+//         if(jugador.getVueltas() % 4 == 0){
+//             if(completarVueltas()){
+//                 tablero.manejarIncremento();
+//             }
+//         }
+//     }
+//     private boolean completarVueltas(){
+//         for(Jugador jugador : jugadores){
+//             if(jugador.getVueltas() < 4){
+//                 return false;
+//             }
+//         }
+//         return true;
+//     }
+
+
     @Override
 
     public String toString() {
@@ -212,8 +345,8 @@ public class Jugador {
         sb.append("     avatar: ").append(avatar.getId()).append(",\n");
         sb.append("     fortuna: ").append(this.fortuna).append(",\n");
         sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
-        sb.append("     hipotecas: ").append("-\n");                                        //listarHipotecas()
-        sb.append("     edificios: ").append("-\n");                                         //listarEdificios()
+        sb.append("     edificaciones: ").append("\n").append(listarEdificacionesJugador()).append("\n");                                        
+        sb.append("     hipotecas: ").append("-\n");                                         //listarHipotecas()
         sb.append("}");
 
         return sb.toString();

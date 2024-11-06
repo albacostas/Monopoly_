@@ -29,6 +29,13 @@ public class Tablero {
     }
 
 
+    public ArrayList<Casilla> getCasillas() {
+        ArrayList<Casilla> todasCasillas = new ArrayList<>();
+        for (ArrayList<Casilla> lado : posiciones) {
+            todasCasillas.addAll(lado);
+        }
+        return todasCasillas;
+    }
     //Generamos los getters y setters para los atributos
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
