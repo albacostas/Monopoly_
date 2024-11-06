@@ -83,6 +83,10 @@ class Grupo {
         
         return bool;
     }
+
+    public String getNombre(){
+        return colorGrupo;
+    }
 }
 
 
