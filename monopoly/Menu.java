@@ -353,14 +353,11 @@ public class Menu {
                 break;
             
             case "estadisticas":
-                if(partes.length != 2){
-                    System.out.println("Error: Debes introducir el comando completo y el nombre del jugador.");
-                    break;
-                }
+                
                 if(partes.length == 2){
                     this.estadisticasJugador(partes[1]);
                 }else{
-                    //this.estadisticasGlobales();
+                    estadisticas.mostrarEstadisticas();
                 }
                 
                 break;
@@ -380,7 +377,7 @@ public class Menu {
                 System.out.println("  7.  🎲 **Lanzar dados**           : lanzar dados");
                 System.out.println("  8.  ⏳ **Acabar turno**           : acabar turno");
                 System.out.println("  9.  🚔 **Salir de la cárcel**     : salir carcel");
-                System.out.println("  10.  🧑 **Describir jugador**      : describir jugador (jugador)");
+                System.out.println(" 10.  🧑 **Describir jugador**      : describir jugador (jugador)");
                 System.out.println(" 11.  🎭 **Describir avatar**       : describir avatar (avatar)");
                 System.out.println(" 12.  🏠 **Describir casilla**      : describir (casilla)");
                 System.out.println(" 13.  💸 **Comprar propiedad**      : comprar (casilla)");
@@ -555,7 +552,7 @@ public class Menu {
             jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
             Casilla casActual = jActual.getAvatar().getLugar();
             casActual.registrarCaida(jActual);
-            casActual.evaluarCasilla(jActual, banca, sumaDados);
+            casActual.evaluarCasilla(jActual, banca, sumaDados, jugadores);
             if (tirado) {
                 lanzamientos = 0;
             }
