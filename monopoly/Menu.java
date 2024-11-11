@@ -57,23 +57,17 @@ public class Menu {
             System.out.println("  2.  👀 **Jugador actual**         : jugador");
             System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
             System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
-            System.out.println("  5.  🏘️ **Listar edificios**        : listar edificios");
-            System.out.println("  6.  🏘️ **Listar en venta**         : listar enventa");
-            System.out.println("  7.  🎲 **Lanzar dados**           : lanzar dados");
-            System.out.println("  8.  ⏳ **Acabar turno**           : acabar turno");
-            System.out.println("  9.  🚔 **Salir de la cárcel**     : salir carcel");
-            System.out.println("  10.  🧑 **Describir jugador**     : describir jugador (jugador)");
-            System.out.println(" 11.  🎭 **Describir avatar**       : describir avatar (avatar)");
-            System.out.println(" 12.  🏠 **Describir casilla**      : describir (casilla)");
-            System.out.println(" 13.  💸 **Comprar propiedad**      : comprar (casilla)");
-            System.out.println(" 14.  💸 **Edificar casa**          : edificar casa");
-            System.out.println(" 15.  💸 **Edificar hotel**         : edificar hotel");
-            System.out.println(" 16.  💸 **Edificar piscina**       : edificar piscina");
-            System.out.println(" 17.  💸 **Edificar pista**         : edificar pista de deporte");
-            System.out.println(" 18.  📊 **Estadistica jugador**    : estadisticas (jugador)");
-            System.out.println(" 19.  📊 **Estadistica juego**      : estadisticas");
-            System.out.println(" 20.  🧮 **Ver tablero**            : ver tablero");
-            System.out.println(" 21.  🚪 **Finalizar partida**      : finalizar");
+            System.out.println("  5.  🏘️ **Listar en venta**         : listar enventa");
+            System.out.println("  6.  🎲 **Lanzar dados**           : lanzar dados");
+            System.out.println("  7.  ⏳ **Acabar turno**           : acabar turno");
+            System.out.println("  8.  🚔 **Salir de la cárcel**     : salir carcel");
+            System.out.println("  9.  🧑 **Describir jugador**      : describir jugador (jugador)");
+            System.out.println(" 10.  🎭 **Describir avatar**       : describir avatar (avatar)");
+            System.out.println(" 11.  🏠 **Describir casilla**      : describir (casilla)");
+            System.out.println(" 12.  💸 **Comprar propiedad**      : comprar (casilla)");
+            System.out.println(" 13.  🧮 **Ver tablero**            : ver tablero");
+            System.out.println(" 14.  📉 **Bancarrota**             : bancarrota");
+            System.out.println(" 15.  🚪 **Finalizar partida**      : finalizar");
             System.out.println("**************************************");
             System.out.print("  🎮 **Introduce un comando:** ");
 
@@ -90,9 +84,9 @@ public class Menu {
     public ArrayList<Jugador> getJugadores() {
         return jugadores;
     }
-    // public void setJugadores(ArrayList<Jugador> jugadores) {
-    // this.jugadores = jugadores;
-    // }
+    public void setJugadores(ArrayList<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
 
     public ArrayList<Avatar> getAvatares() {
         return avatares;
@@ -363,33 +357,30 @@ public class Menu {
                 break;
 
             case "ayuda":
-                System.out.println("\n**************************************");
-                System.out.println("      ** Bienvenido al Menú de Monopoly **");
-                System.out.println("**************************************");
-                System.out.println("        ** Opciones Disponibles **");
-                System.out.println("**************************************");
-                System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
-                System.out.println("  2.  👀 **Jugador actual**         : jugador");
-                System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
-                System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
-                System.out.println("  5.  🏘️ **Listar edificios**         : listar edificios");
-                System.out.println("  6.  🏘️ **Listar en venta**         : listar enventa");
-                System.out.println("  7.  🎲 **Lanzar dados**           : lanzar dados");
-                System.out.println("  8.  ⏳ **Acabar turno**           : acabar turno");
-                System.out.println("  9.  🚔 **Salir de la cárcel**     : salir carcel");
-                System.out.println(" 10.  🧑 **Describir jugador**      : describir jugador (jugador)");
-                System.out.println(" 11.  🎭 **Describir avatar**       : describir avatar (avatar)");
-                System.out.println(" 12.  🏠 **Describir casilla**      : describir (casilla)");
-                System.out.println(" 13.  💸 **Comprar propiedad**      : comprar (casilla)");
-                System.out.println(" 14.  💸 **Edificar casa**          : edificar casa");
-                System.out.println(" 15.  💸 **Edificar hotel**         : edificar hotel");
-                System.out.println(" 16.  💸 **Edificar piscina**       : edificar piscina");
-                System.out.println(" 17.  💸 **Edificar pista**         : edificar pista de deporte");
-                System.out.println(" 18.  📊 **Estadistica jugador**    : estadisticas (jugador)");
-                System.out.println(" 19.  📊 **Estadistica juego**      : estadisticas");
-                System.out.println(" 20.  🧮 **Ver tablero**            : ver tablero");
-                System.out.println(" 21.  🚪 **Finalizar partida**      : finalizar");
-                System.out.println("**************************************");
+            System.out.println("\n**************************************");
+            System.out.println("      ** Bienvenido al Menú de Monopoly **");
+            System.out.println("**************************************");
+            System.out.println("        ** Opciones Disponibles **");
+            System.out.println("**************************************");
+            System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
+            System.out.println("  2.  👀 **Jugador actual**         : jugador");
+            System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
+            System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
+            System.out.println("  5.  🏘️ **Listar en venta**         : listar enventa");
+            System.out.println("  6.  🎲 **Lanzar dados**           : lanzar dados");
+            System.out.println("  7.  ⏳ **Acabar turno**           : acabar turno");
+            System.out.println("  8.  🚔 **Salir de la cárcel**     : salir carcel");
+            System.out.println("  9.  🧑 **Describir jugador**      : describir jugador (jugador)");
+            System.out.println(" 10.  🎭 **Describir avatar**       : describir avatar (avatar)");
+            System.out.println(" 11.  🏠 **Describir casilla**      : describir (casilla)");
+            System.out.println(" 12.  💸 **Comprar propiedad**      : comprar (casilla)");
+            System.out.println(" 13.  🧮 **Ver tablero**            : ver tablero");
+            System.out.println(" 14.  📉 **Bancarrota**             : bancarrota");
+            System.out.println(" 15.  🚪 **Finalizar partida**      : finalizar");
+            System.out.println("**************************************");
+                break;
+            case "bancarrota":
+                bancarrota(banca);
                 break;
             case "finalizar":
                 System.out.println("Finalizando partida...");
@@ -426,18 +417,16 @@ public class Menu {
             avatares.add(jugador.getAvatar());
             this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
             System.out.println(
-                    "{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); // El
-                                                                                                                    // avatar
-                                                                                                                    // debe
-                                                                                                                    // ser
-                                                                                                                    // una
-                                                                                                                    // letra
-                                                                                                                    // generada
-                                                                                                                    // automaticamente
+                    "{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); // El avatar debe ser una letra generada automáticamente
         }
     }
 
-    /*
+    //Método para eliminar un jugador del arraylist de jugadores.
+    public void eliminarJugador(Jugador jugador) {
+        this.jugadores.remove(jugador);
+    }
+
+    /**
      * Método que realiza las acciones asociadas al comando 'describir jugador'.
      * Parámetro: comando introducido
      */
@@ -462,7 +451,7 @@ public class Menu {
 
     }
 
-    /*
+    /**
      * Método que realiza las acciones asociadas al comando 'describir avatar'.
      * Parámetro: id del avatar a describir.
      */
@@ -482,7 +471,7 @@ public class Menu {
         }
     }
 
-    /*
+    /**
      * Método que realiza las acciones asociadas al comando 'describir
      * nombre_casilla'.
      * Parámetros: nombre de la casilla a describir.
@@ -551,8 +540,10 @@ public class Menu {
 
             jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
             Casilla casActual = jActual.getAvatar().getLugar();
-            casActual.registrarCaida(jActual);
-            casActual.evaluarCasilla(jActual, banca, sumaDados, jugadores);
+            this.setSolvente(casActual.evaluarCasilla(jActual, banca, sumaDados, jugadores));
+            if (!solvente) {
+                noSolvente(jActual.getAvatar().getLugar().getDuenho());
+            }
             if (tirado) {
                 lanzamientos = 0;
             }
@@ -570,7 +561,7 @@ public class Menu {
         }
     }
 
-    /*
+    /**
      * Método que ejecuta todas las acciones realizadas con el comando 'comprar
      * nombre_casilla'.
      * Parámetro: cadena de caracteres con el nombre de la casilla.
@@ -625,8 +616,9 @@ public class Menu {
         return jugador.getAvatar().getLugar().equals(casilla);
     }
 
-    // Método que ejecuta todas las acciones relacionadas con el comando 'salir
-    // carcel'.
+    /**
+     * Método que ejecuta todas las acciones relacionadas con el comando 'salir carcel'.
+     */
     private void salirCarcel() {
 
         Jugador jActual = jugadores.get(turno);
@@ -649,6 +641,25 @@ public class Menu {
                         tirado=false;
                     }else {
                         System.out.println(jActual.getNombre() + " no tiene suficiente dinero para pagar la multa de 500000.");
+                        String respuesta = scanner.nextLine();  //REVISAR (ATENEA)
+                        while (respuesta != "a" && respuesta != "b") {
+                            System.out.println("¿Quieres (a) declararte en bancarrota/hipotecar propiedades o (b) volver atrás?");
+                        switch (respuesta) {
+                            case "a":
+                                noSolvente(banca);                            
+                                break;
+                            //ACABAR
+                            case "b":
+                                salirCarcel();
+                                break;
+
+                            default:
+                                System.out.println("Comando no válido.\n");
+                                break;
+                        }
+
+                        }
+                        
                     }
                     break;
 
@@ -686,6 +697,30 @@ public class Menu {
             System.out.println(jActual.getNombre() + " no está en la carcel.");
         }
 
+    }
+
+    /**
+     * Método para actuar en caso de que un jugador no sea solvente.
+     */
+    public void noSolvente(Jugador destinatario) {
+        String opcion;
+        System.out.println("Para declararte en bancarrota introduce el comando 'bancarrota'. Para hipotecar introduce el comando 'hipotecar':");
+        Scanner scanner = new Scanner(System.in);
+        opcion = scanner.next();
+        switch (opcion) {
+            case "bancarrota":
+                bancarrota(destinatario);      //NO SE SI FUNCIONA (ATENEA)
+                break;
+                
+            case "hipotecar":
+                //FALTA AÑADIR EL CODIGO PARA HIPOTECAR (AINHOA)
+                System.out.println("Todavia no esta implementado 👷‍♀️🔧");
+                break;
+
+            default:
+                System.out.println("Comando no válida.");
+                break;
+        }
     }
 
     // Método que realiza las acciones asociadas al comando 'listar enventa'.
@@ -840,19 +875,26 @@ public class Menu {
     */
     
     
-    // public void pagarJugadores(float cantidad) {
-    //     Jugador jActual = jugadores.get(turno);
-    //     for (Jugador i : jugadores) {
-    //         if (!i.equals(jActual)) {
-    //             i.setFortuna(i.getFortuna() + cantidad);
-    //             System.out.println(i.getNombre() + " ha recibido " + cantidad + "€");
-    //         }
-
-
-    //         float total = cantidad * (jugadores.size() - 1);
-    //         jActual.setFortuna(jActual.getFortuna() - total);
-    //         System.out.println(jActual.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
-    //     }
-    // }
-
+    //Acsbar con edificios(ATENEA)
+    //PEndiente ver si los edificios se heredan o se destruyen (ATENEA)
+    //Edificios bancarrota (ATENEA)
+    /**
+     * Método que permite a un jugador declararse en bancarrota.
+     */
+    public void bancarrota(Jugador destinatario){
+        Jugador jugador = jugadores.get(turno);
+        int i = 0;
+        System.out.println("El jugador " + jugador.getNombre() + " se ha declarado en bancarrota.");
+        while (!jugador.getPropiedades().isEmpty()) {
+            Casilla casilla = jugador.getPropiedades().get(0);
+            casilla.setDuenho(destinatario);
+            destinatario.anhadirPropiedad(casilla);
+            jugador.eliminarPropiedad(casilla);
+            i++;
+        }
+        destinatario.sumarFortuna(jugador.getFortuna());
+        jugador.setFortuna(0);
+        jugador.getAvatar().getLugar().eliminarAvatar(jugador.getAvatar());
+        eliminarJugador(jugador);
+    }
 }
