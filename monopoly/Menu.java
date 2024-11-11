@@ -357,30 +357,31 @@ public class Menu {
                 break;
 
             case "ayuda":
-            System.out.println("\n**************************************");
-            System.out.println("      ** Bienvenido al Menú de Monopoly **");
-            System.out.println("**************************************");
-            System.out.println("        ** Opciones Disponibles **");
-            System.out.println("**************************************");
-            System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
-            System.out.println("  2.  👀 **Jugador actual**         : jugador");
-            System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
-            System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
-            System.out.println("  5.  🏘️ **Listar en venta**         : listar enventa");
-            System.out.println("  6.  🎲 **Lanzar dados**           : lanzar dados");
-            System.out.println("  7.  ⏳ **Acabar turno**           : acabar turno");
-            System.out.println("  8.  🚔 **Salir de la cárcel**     : salir carcel");
-            System.out.println("  9.  🧑 **Describir jugador**      : describir jugador (jugador)");
-            System.out.println(" 10.  🎭 **Describir avatar**       : describir avatar (avatar)");
-            System.out.println(" 11.  🏠 **Describir casilla**      : describir (casilla)");
-            System.out.println(" 12.  💸 **Comprar propiedad**      : comprar (casilla)");
-            System.out.println(" 13.  🧮 **Ver tablero**            : ver tablero");
-            System.out.println(" 14.  📉 **Bancarrota**             : bancarrota");
-            System.out.println(" 15.  🚪 **Finalizar partida**      : finalizar");
-            System.out.println("**************************************");
-                break;
-            case "bancarrota":
-                bancarrota(banca);
+                System.out.println("**********************************************************************");
+                System.out.println("                      ** Opciones Disponibles **                      ");
+                System.out.println("**********************************************************************");
+                System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
+                System.out.println("  2.  👀 **Jugador actual**         : jugador");
+                System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
+                System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
+                System.out.println("  5.  🏘️ **Listar en venta**        : listar enventa");
+                System.out.println("  6.  🏘️ **Listar edificios**       : listar edificios");
+                System.out.println("  7.  🎲 **Lanzar dados**           : lanzar dados");
+                System.out.println("  8.  ⏳ **Acabar turno**           : acabar turno");
+                System.out.println("  9.  🚔 **Salir de la cárcel**     : salir carcel");
+                System.out.println(" 10.  🧑 **Describir jugador**      : describir jugador (jugador)");
+                System.out.println(" 11.  🎭 **Describir avatar**       : describir avatar (avatar)");
+                System.out.println(" 12.  🏠 **Describir casilla**      : describir (casilla)");
+                System.out.println(" 13.  💸 **Comprar propiedad**      : comprar (casilla)");
+                System.out.println(" 14.  💸 **Edificar casa**          : edificar casa");
+                System.out.println(" 15.  💸 **Edificar hotel**         : edificar hotel");
+                System.out.println(" 16.  💸 **Edificar piscina**       : edificar piscina");
+                System.out.println(" 17.  💸 **Edificar pista**         : edificar pista de deporte");
+                System.out.println(" 18.  📊 **Estadistica jugador**    : estadisticas (jugador)");
+                System.out.println(" 19.  📊 **Estadistica juego**      : estadisticas");
+                System.out.println(" 20.  🧮 **Ver tablero**            : ver tablero");
+                System.out.println(" 21.  🚪 **Finalizar partida**      : finalizar");
+                System.out.println("**************************************");
                 break;
             case "finalizar":
                 System.out.println("Finalizando partida...");
@@ -544,6 +545,8 @@ public class Menu {
             if (!solvente) {
                 noSolvente(jActual.getAvatar().getLugar().getDuenho());
             }
+            casActual.registrarCaida(jActual);
+            casActual.evaluarCasilla(jActual, banca, sumaDados, jugadores);
             if (tirado) {
                 lanzamientos = 0;
             }
@@ -852,7 +855,7 @@ public class Menu {
             System.out.println("No se ha encontrado el jugador");
         }
     }
-    }
+
 
     /*
     private void actualizarJugadorMasTiradas(Jugador jugador){
