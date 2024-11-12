@@ -914,14 +914,16 @@ public class Menu {
      */
     public void bancarrota(Jugador destinatario){
         Jugador jugador = jugadores.get(turno);
-        int i = 0;                                              //ATENEA: REVISAR Y OMITIR
         System.out.println("El jugador " + jugador.getNombre() + " se ha declarado en bancarrota.");
         while (!jugador.getPropiedades().isEmpty()) {
             Casilla casilla = jugador.getPropiedades().get(0);
+            /*while (!casilla.getEdificaciones().isEmpty()) {
+                Edificacion edificacion = casilla.getEdificaciones().get(0);
+                //ELIMINAR EDIFICADIONES ATENEA 
+            }*/
             casilla.setDuenho(destinatario);
             destinatario.anhadirPropiedad(casilla);
             jugador.eliminarPropiedad(casilla);
-            i++;
         }
         destinatario.sumarFortuna(jugador.getFortuna());
         jugador.setFortuna(0);
