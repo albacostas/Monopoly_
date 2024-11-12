@@ -309,7 +309,7 @@ public class Casilla {
     * - El valor de la tirada: para determinar impuesto a pagar en casillas de servicios.
     * Valor devuelto: true en caso de ser solvente (es decir, de cumplir las deudas), y false
     * en caso de no cumplirlas.*/
-    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada, ArrayList<Jugador> jugadores) {
+    public boolean evaluarCasilla(Jugador actual, Jugador banca, int tirada) {
         jugadorCaerCasilla(actual);
         String tipoCasilla = this.getTipo(); // Obtener el tipo de casilla
         float alquiler = 0;

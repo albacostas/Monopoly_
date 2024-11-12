@@ -1076,7 +1076,7 @@ public class Menu {
 
             case "pagar_viaje":
                 // Comprobar solvente Alba
-                    //hipotecarPropiedad(jugadorActual);
+                //hipotecarPropiedad(jugadorActual);
 
                 jugadores.get(turno).incrementarDineroImpuestos(1000000f);
                 casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado()+ 1000000f);
