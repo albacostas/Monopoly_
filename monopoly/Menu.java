@@ -102,10 +102,7 @@ public class Menu {
     public ArrayList<Avatar> getAvatares() {
         return avatares;
     }
-    // public void setAvatares(ArrayList<Avatar> avatares) {
-    // this.avatares = avatares;
-    // }
-
+    
     public int getTurno() {
         return turno;
     }
@@ -583,6 +580,16 @@ public class Menu {
                 System.out.println(jActual.getNombre() + " no ha sacado dobles.");
                 tirado = true;
             }
+
+            jActual.getAvatar().moverAvatar(tablero.getPosiciones(), sumaDados);
+            Casilla casActual = jActual.getAvatar().getLugar();
+            casActual.registrarCaida(jActual);
+            this.setSolvente(casActual.evaluarCasilla(jActual, banca, sumaDados, jugadores));
+            if (!solvente) {
+                noSolvente(casActual.getDuenho());
+            }
+
+
             if (tirado) {
                 lanzamientos = 0;
             }
@@ -625,6 +632,7 @@ public class Menu {
     }
 
     /**
+
      * Método privado para continuar moviendo el avatar después de haber caído en movimientos especiales
      */
     private void continuar(Jugador jActual, int Suma_dados){
@@ -645,6 +653,7 @@ public class Menu {
 
 
     /**
+
      * Método que ejecuta todas las acciones realizadas con el comando 'comprar
      * nombre_casilla'.
      * Parámetro: cadena de caracteres con el nombre de la casilla.
@@ -959,7 +968,9 @@ public class Menu {
             System.out.println("No se ha encontrado el jugador");
         }
     }
-    }
+
+}
+
 
     /*
     private void actualizarJugadorMasTiradas(Jugador jugador){

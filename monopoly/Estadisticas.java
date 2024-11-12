@@ -16,7 +16,7 @@ public class Estadisticas {
     }
 
     public void mostrarEstadisticas() {
-        String casillaMasRentable = calcularCasillaMasRentable();
+        Casilla casillaMasRentable = calcularCasillaMasRentable();
         String grupoMasRentable = calcularGrupoMasRentable();
         String casillaMasFrecuentada = calcularCasillaMasFrecuentada();
         Jugador jugadorMasVueltas = calcularJugadorMasVueltas();
@@ -31,17 +31,19 @@ public class Estadisticas {
         System.out.println("Jugador con mayor fortuna: " + jugadorEnCabeza.getNombre());
     }
 
-    private String calcularCasillaMasRentable() {
-        Map<String, Float> rentabilidad = new HashMap<>();
+    public Casilla calcularCasillaMasRentable() {
+        Casilla casillaMasRentable = null;
+        float maxIngresos = 0;
+
         for (Casilla propiedad : propiedades) {
-            if (propiedad.getTipo().equals("Solar")) { // Solo consideramos solares para la rentabilidad
-                rentabilidad.put(propiedad.getNombre(), propiedad.getAlquiler());
+
+            float ingresosCasilla = propiedad.getTotalAlquilerRecaudado();
+            if(ingresosCasilla > maxIngresos){
+                maxIngresos = ingresosCasilla;
+                casillaMasRentable = propiedad;
             }
         }
-        return rentabilidad.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("N/A");
+        return casillaMasRentable;
     }
 
     private String calcularGrupoMasRentable() {
