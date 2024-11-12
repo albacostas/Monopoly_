@@ -123,6 +123,10 @@ public class Casilla {
         return this.impuesto;
     }
 
+    public Jugador getBanca() {
+        return banca;
+    }
+
     //Constructores:
     public Casilla() {
 
@@ -377,7 +381,7 @@ public class Casilla {
             actual.sumarGastos(this.impuesto);
             actual.incrementarDineroImpuestos(alquiler);
         }
-        else if(this.nome.equals("Carcel")){
+        else if(this.nome.equals("Carcel")){        //REVISAR: Creo que el codigo nunca llega aqui
             if(actual.getFortuna() < 500000){
                 return false;
             }
@@ -704,7 +708,7 @@ public class Casilla {
             }
 
             // Mover el avatar del jugador
-            jugador.getAvatar().moverAvatar(Tablero.getInstancia(banca).getPosiciones(), desplazamiento);
+            jugador.getAvatar().moverAvatar(Tablero.getInstancia(banca).getPosiciones(), desplazamiento);   //ATENEA: Posible cambio, preguntar a alba
         } else {
             System.out.println("Error. No se encontró la casilla de destino: " + nombreCasilla);
         }
