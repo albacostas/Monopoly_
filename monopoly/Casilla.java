@@ -901,7 +901,6 @@ public class Casilla {
                 System.out.println("No tienes fortuna suficiente para edificar una piscina.");
                 return false;
             }
-
         }
         else{
             System.out.println("Solo se puede edificar en las casillas de tipo Solar.");
@@ -933,7 +932,6 @@ public class Casilla {
                         System.out.println("Ya se ha alcanzado el número máximo de pistas en el grupo");
                         return false;
                     }
-
                 }
                 else{
                     System.out.println("No cumples las condiciones necesarias para edificar. Asegúrate de ser el dueño del grupo o de haber caído dos veces en la casilla");
