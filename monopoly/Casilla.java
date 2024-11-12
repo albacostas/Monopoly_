@@ -698,31 +698,35 @@ public class Casilla {
         System.out.println(jugadorPagador.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
     }
 
-    public void moverJugador(Jugador jugador, String nombreCasilla, Tablero tablero){
+    public void moverJugador(Jugador jugador, String nombreCasilla, Tablero tablero) {
         // Obtener la posición actual del avatar del jugador
         int posicionActual = jugador.getAvatar().getLugar().getPosicion();
-
+        System.out.println("Posición actual del jugador: " + posicionActual);
+    
         // Buscar la casilla destino utilizando el tablero
         Casilla casDestino = tablero.encontrar_casilla(nombreCasilla);
-
+    
         // Verificar si la casilla de destino existe
         if (casDestino != null) {
             int posicionDestino = casDestino.getPosicion();
             int desplazamiento;
-
+    
             // Calcular el desplazamiento
-            if (posicionDestino >= posicionActual) {
-                desplazamiento = posicionDestino - posicionActual;
-            } else {
-                desplazamiento = (40 - posicionActual) + posicionDestino; // Volver al inicio
-            }
-
+            desplazamiento = (posicionDestino - posicionActual + 40) % 40; // Asegura que el desplazamiento sea positivo
+    
             // Mover el avatar del jugador
-            jugador.getAvatar().moverAvatar(Tablero.getInstancia(banca).getPosiciones(), desplazamiento);
+            jugador.getAvatar().moverAvatar(tablero.getPosiciones(), desplazamiento);
+    
+            // Verificar si el jugador pasa por la casilla de salida
+            if (posicionActual < 8 && posicionDestino >= 8) { // Suponiendo que 8 es la posición de la salida
+                jugador.sumarFortuna(Valor.SUMA_VUELTA);
+                System.out.println(jugador.getNombre() + " ha pasado por la casilla de Salida, recibe " + Valor.SUMA_VUELTA);
+            }
         } else {
             System.out.println("Error. No se encontró la casilla de destino: " + nombreCasilla);
         }
     }
+    
 
     public void registrarCaida(Jugador jugador){
         //verificamos si el jugador ya está registrado
