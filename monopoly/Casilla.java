@@ -123,9 +123,16 @@ public class Casilla {
         return this.impuesto;
     }
 
+<<<<<<< HEAD
     public float getTotalAlquilerRecaudado(){
         return  this.totalAlquilerRecaudado;
     }
+=======
+    public Jugador getBanca() {
+        return banca;
+    }
+
+>>>>>>> bf3d414 (Movimiento especial Pelota)
     //Constructores:
     public Casilla() {
 
@@ -385,7 +392,7 @@ public class Casilla {
             actual.sumarGastos(this.impuesto);
             actual.incrementarDineroImpuestos(alquiler);
         }
-        else if(this.nome.equals("Carcel")){
+        else if(this.nome.equals("Carcel")){        //REVISAR: Creo que el codigo nunca llega aqui
             if(actual.getFortuna() < 500000){
                 return false;
             }
@@ -715,6 +722,7 @@ public class Casilla {
             desplazamiento = (posicionDestino - posicionActual + 40) % 40; // Asegura que el desplazamiento sea positivo
     
             // Mover el avatar del jugador
+<<<<<<< HEAD
             jugador.getAvatar().moverAvatar(tablero.getPosiciones(), desplazamiento);
     
             // Verificar si el jugador pasa por la casilla de salida
@@ -722,6 +730,9 @@ public class Casilla {
                 jugador.sumarFortuna(Valor.SUMA_VUELTA);
                 System.out.println(jugador.getNombre() + " ha pasado por la casilla de Salida, recibe " + Valor.SUMA_VUELTA);
             }
+=======
+            jugador.getAvatar().moverAvatar(Tablero.getInstancia(banca).getPosiciones(), desplazamiento);   //ATENEA: Posible cambio, preguntar a alba
+>>>>>>> bf3d414 (Movimiento especial Pelota)
         } else {
             System.out.println("Error. No se encontró la casilla de destino: " + nombreCasilla);
         }
