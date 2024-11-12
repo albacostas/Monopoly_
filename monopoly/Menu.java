@@ -869,7 +869,6 @@ public class Menu {
                 }
             }
         }
-    
         return resultado.toString(); 
     }
 
@@ -970,25 +969,28 @@ public class Menu {
     }
 
 
-    /*
-    private void actualizarJugadorMasTiradas(Jugador jugador){
-        if(jugadorMasVecesDados == null || jugador.getTiradasDados() > jugadorMasVecesDados.getTiradasDados()){
+    
+    private void actualizarJugadorMasTiradas(Jugador jugador) {
+        if (jugador == null) {
+            System.out.println("El jugador no puede ser nulo.");
+            return;
+        }
+        if (jugadorMasVecesDados == null || jugador.getTiradasDados() > jugadorMasVecesDados.getTiradasDados()) {
             jugadorMasVecesDados = jugador;
         }
     }
     
-    
 
     private void estadisticasGlobales() {
         System.out.println("{");
-        System.out.println("  casillaMasRentable: " + (casillaMasRentable != null ? casillaMasRentable.getNombre() : "N/A") + ",");
-        System.out.println("  grupoMasRentable: " + (grupoMasRentable != null ? grupoMasRentable.getNombre() : "N/A") + ",");
-        System.out.println("  casillaMasFrecuentada: " + (casillaMasFrecuentada != null ? casillaMasFrecuentada.getNombre() : "N/A") + ",");
-        System.out.println("  jugadorMasVueltas: " + (jugadorMasVueltas != null ? jugadorMasVueltas.getNombre() : "N/A") + ",");
-        System.out.println("  jugadorMasVecesDados: " + (jugadorMasVecesDados != null ? jugadorMasVecesDados.getNombre() : "N/A") + ",");
-        System.out.println("  jugadorEnCabeza: " + (jugadorEnCabeza != null ? jugadorEnCabeza.getNombre() : "N/A"));
+        System.out.println("  \"casillaMasRentable\": \"" + (casillaMasRentable != null ? casillaMasRentable.getNombre() : "N/A") + "\",");
+        System.out.println("  \"grupoMasRentable\": \"" + (grupoMasRentable != null ? grupoMasRentable.getNombre() : "N/A") + "\",");
+        System.out.println("  \"casillaMasFrecuentada\": \"" + (casillaMasFrecuentada != null ? casillaMasFrecuentada.getNombre() : "N/A") + "\",");
+        System.out.println("  \"jugadorMasVueltas\": \"" + (jugadorMasVueltas != null ? jugadorMasVueltas.getNombre() : "N/A") + "\",");
+        System.out.println("  \"jugadorMasVecesDados\": \"" + (jugadorMasVecesDados != null ? jugadorMasVecesDados.getNombre() : "N/A") + "\",");
+        System.out.println("  \"jugadorEnCabeza\": \"" + (jugadorEnCabeza != null ? jugadorEnCabeza.getNombre() : "N/A") + "\"");
         System.out.println("}");
-    }*/
+    }
     
 // Método para pagar a otros jugadores
     // MODIFICAR FUNCION
