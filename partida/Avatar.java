@@ -16,6 +16,8 @@ public class Avatar {
     private Jugador jugador; //Un jugador al que pertenece ese avatar.
     private Casilla lugar; //Los avatares se sitúan en casillas del tablero.
 
+    private boolean movimientoEspecial;
+    private int contador_especial;
     //private int vueltas;
 
     public String getId() {
@@ -46,6 +48,22 @@ public class Avatar {
         this.lugar = lugar;
     }
     
+    public boolean getMovimientoEspecial(){
+        return movimientoEspecial;
+    }
+
+    public void setMovimientoEspecial(boolean movimientoEspecial) {
+        this.movimientoEspecial = movimientoEspecial;
+    }
+
+    public int getContador_especial() {
+        return contador_especial;
+    }
+
+    public void setContador_especial(int contador_especial) {
+        this.contador_especial = contador_especial;
+    }
+
     //Constructor vacío
     public Avatar() {
         this.jugador = new Jugador();
@@ -62,6 +80,8 @@ public class Avatar {
         this.jugador = jugador;
         this.lugar = lugar;
         this.generarId(avCreados);
+        this.movimientoEspecial = false;
+        this.contador_especial = 5;
         //this.vueltas = 0;
     }
 
@@ -73,6 +93,9 @@ public class Avatar {
      */
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
+        if (valorTirada<0) {
+            nuevaPosicion = 40 + nuevaPosicion;
+        }
         this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
         if (nuevaPosicion >= 40) { //if (nuevaPosicion > 40)
@@ -105,6 +128,69 @@ public class Avatar {
         }else {
             System.out.println("Error: la nueva casilla no se encontró.");
         }
+    }
+
+    /**Método para cambiar el modo de movimiento de los avatares
+     * 
+     */
+    public boolean cambiarModo(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
+        String tipoAvatar = this.tipo;
+        boolean solvente = true;
+        switch (tipoAvatar) {
+            case "Pelota":
+                if (valorTirada>4) {
+                    //int posicionInicial = this.lugar.getPosicion();
+                    ///int nuevaPosicion;
+
+                    if (contador_especial <= valorTirada) {
+                        //nuevaPosicion = posicionInicial + contador_especial;
+                        // if (nuevaPosicion >= 40) {              //Comprobar que no se pase de las 40 casillas
+                        //     nuevaPosicion = nuevaPosicion % 40;     //AÑADIR SALIDA ATENEA
+                        // }
+                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
+                        
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);        //Cambiar valor tirada en funcion de lo q se tenga q pagar REVISAR ATENEA
+                        contador_especial += 2;
+                    }
+                    else if (valorTirada%2==0) {
+                        // nuevaPosicion = posicionInicial + contador_especial;
+                        // if (nuevaPosicion >= 40) {              //Comprobar que no se pase de las 40 casillas
+                        //     nuevaPosicion = nuevaPosicion % 40;     //AÑADIR SALIDA ATENEA
+                        // }
+                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : contador_especial-5);             //Solo cambia al avatar de casilla
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), contador_especial == 5 ? contador_especial : contador_especial-5);
+                    }
+                    // else {
+                    //     System.out.println("El avatar Pelota ya se ha movido el número de posiciones correspondiente");
+                    //     break;
+                    // }
+                }
+                else{
+                    valorTirada=valorTirada*(-1);
+                    moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
+                    solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
+                }
+                break;
+            case "Coche":
+                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                moverAvatar(casillas, valorTirada);
+                solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
+                break;
+            case "Esfinge":
+                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                moverAvatar(casillas, valorTirada);
+                solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
+                break;
+            case "Sombrero":
+                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                moverAvatar(casillas, valorTirada);
+                solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
+                break;
+            default:
+                System.out.println("Error: el avatar no tiene un tipo válido.");
+                break;
+        }
+        return solvente;
     }
 
     /*Método que permite generar un ID para un avatar. Sólo lo usamos en esta clase (por ello es privado).
