@@ -93,8 +93,12 @@ public class Avatar {
      */
     public void moverAvatar(ArrayList<ArrayList<Casilla>> casillas, int valorTirada) {
         int nuevaPosicion = this.lugar.getPosicion() + valorTirada; // Obtener la nueva posición
-        if (valorTirada<0) {
+        //if (valorTirada<0) {
+        if (nuevaPosicion<1){
             nuevaPosicion = 40 + nuevaPosicion;
+            this.jugador.sumarGastos(Valor.SUMA_VUELTA); 
+            this.jugador.setVueltas(this.jugador.getVueltas()-1);// Asegúrate de que la posición es válida.
+            System.err.println(this.jugador.getNombre() + " ha pasado por la casilla de Salida al retroceder, pierde " + Valor.SUMA_VUELTA);
         }
         this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
@@ -157,8 +161,8 @@ public class Avatar {
                         // if (nuevaPosicion >= 40) {              //Comprobar que no se pase de las 40 casillas
                         //     nuevaPosicion = nuevaPosicion % 40;     //AÑADIR SALIDA ATENEA
                         // }
-                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : contador_especial-5);             //Solo cambia al avatar de casilla
-                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), contador_especial == 5 ? contador_especial : contador_especial-5);
+                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
                     }
                     // else {
                     //     System.out.println("El avatar Pelota ya se ha movido el número de posiciones correspondiente");
