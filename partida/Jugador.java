@@ -1,6 +1,7 @@
 package partida;
 
 import java.util.ArrayList;
+//import java.util.Scanner;
 
 import monopoly.*;
 
@@ -297,10 +298,13 @@ public class Jugador {
         return resultado.toString();
     }
 
+    // public void incrementarDineroPropiedades(float monto){
+    //     this.setTotalInvertidoPropiedades(monto);
+    // }
     public void incrementarDineroPropiedades(float monto){
-        this.totalInvertidoPropiedades += monto;
+        this.setTotalInvertidoPropiedades(this.getTotalInvertidoPropiedades()+monto);
     }
-    
+
     public void incrementarDineroImpuestos(float monto){
         this.totalPagadoImpuestos += monto;
     }
@@ -344,9 +348,7 @@ public class Jugador {
 
 
     @Override
-    // public String toString() {
-    //     return "{\n\tnombre: " + this.getNombre() + ",\n\tavatar: " + (avatar != null ? avatar.getId() : "-") + ",\n\tfortuna: " + this.getFortuna() + ",\n\tpropiedades: " + listarPropiedades(this.propiedades) + ",\n\thipotecas: -" + ",\n\tedificios: -" + "\n}";
-    // }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("{\n");
@@ -361,5 +363,3 @@ public class Jugador {
         return sb.toString();
     }
 }
-  
-    

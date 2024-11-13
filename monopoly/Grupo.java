@@ -16,10 +16,19 @@ class Grupo {
     private int numPiscinasGrupo=0;
     private int numPistasGrupo=0;
 
-
+    private float totalAlquilerRecaudado;
     //Constructor vacío.
     public Grupo() {
         this.miembros = new ArrayList<>();
+        this.totalAlquilerRecaudado = 0;
+    }
+
+    public float getTotalAlquilerRecaudado() {
+        return totalAlquilerRecaudado;
+    }
+
+    public void agregarAlquiler(float cantidad){
+        this.totalAlquilerRecaudado += cantidad;
     }
 
     /*Constructor para cuando el grupo está formado por DOS CASILLAS:
@@ -115,6 +124,10 @@ class Grupo {
         }
         
         return bool;
+    }
+
+    public String getNombre(){
+        return colorGrupo;
     }
 }
 

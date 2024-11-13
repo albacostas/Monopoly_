@@ -29,6 +29,13 @@ public class Tablero {
     }
 
 
+    public ArrayList<Casilla> getCasillas() {
+        ArrayList<Casilla> todasCasillas = new ArrayList<>();
+        for (ArrayList<Casilla> lado : posiciones) {
+            todasCasillas.addAll(lado);
+        }
+        return todasCasillas;
+    }
     //Generamos los getters y setters para los atributos
     public ArrayList<ArrayList<Casilla>> getPosiciones() {
         return posiciones;
@@ -69,7 +76,6 @@ public class Tablero {
     //Método para insertar las casillas del lado norte.
     private void insertarLadoSur() {
         ArrayList<Casilla> ladoSur = new ArrayList<>();
-        
         Casilla Salida = new Casilla("Salida", "Especial", 1, banca);
         Casilla Solar1 = new Casilla("Solar1", "Solar", 2, 600000, banca);
         Casilla Caja = new Casilla("Caja", "Comunidad", 3, banca);
