@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.HashMap;
-
 
 public class Casilla {
 
@@ -39,6 +37,8 @@ public class Casilla {
     private int numHoteles=0;
     private int numPiscinas=0;
     private int numPistas=0;
+
+    private boolean hipotecada=false; //Determina si la propiedad está hipotecada o no
     
     
     public String getNombre(){
@@ -59,6 +59,13 @@ public class Casilla {
     }
     public void setValor(float valor){
         this.valor = valor;
+    }
+
+    public float getValorinicial(){
+        return this.valorinicial;
+    }
+    public void setValorinicial(float valorinicial){
+        this.valorinicial = valorinicial;
     }
     public Grupo getGrupo() {
         return grupo;
@@ -91,6 +98,20 @@ public class Casilla {
     }
     public void setnumCasas(int numCasas){
         this.numCasas=numCasas;
+    }
+
+    public float getHipoteca(){
+        return this.hipoteca;
+    }
+    public void setHipoteca(float hipoteca){
+        this.hipoteca=hipoteca;
+    }
+
+    public boolean getHipotecada(){
+        return this.hipotecada;
+    }
+    public void setHipotecada(boolean hipotecada){
+        this.hipotecada=hipotecada;
     }
 
     public int getnumHoteles(){
@@ -149,7 +170,8 @@ public class Casilla {
         this.avatares = new ArrayList<Avatar>();
         this.edificaciones=new ArrayList<Edificacion>();
         this.caidasJugador=new HashMap<>();
-        this.impuesto = 0.1f*valor;
+        this.impuesto = 0.1f*valorinicial;
+        this.hipoteca=0.5f*this.valorinicial;
     }
 
     /*Constructor utilizado para inicializar las casillas de tipo IMPUESTOS.
@@ -248,7 +270,9 @@ public class Casilla {
         return this.impuesto;
     }
 
-    public float calcularAlquilerEdificaciones(float alquiler){
+    public float calcularAlquilerEdificaciones(){
+        float alquiler=this.valor*0.1f;
+        float alquilercongrupo=this.getImpuesto();
         float alquilerCasas=0.0f, alquilerHoteles=0.0f, alquilerPiscinas=0.0f, alquilerPistas=0.0f, alquilerTotal=0.0f;
         System.out.println("Además esta casilla tiene edificaciones.Tendrás que pagar su alquiler también.");
             if(numCasas!=0){
@@ -279,7 +303,39 @@ public class Casilla {
                 alquilerPistas=numPistas*25*alquiler;
                 System.out.println("Hay "+getnumPistas()+" pistas edificadas. Debes pagar "+alquilerPistas);
             }
-            alquilerTotal=alquiler+alquilerCasas+alquilerHoteles+alquilerPiscinas+alquilerPistas;
+            alquilerTotal=alquilercongrupo+alquilerCasas+alquilerHoteles+alquilerPiscinas+alquilerPistas;
+            return alquilerTotal;
+    }
+
+    public float calcularAlquilerEdificacionessinMensajes(){
+        float alquiler=this.valorinicial*0.1f;
+        float alquilercongrupo = this.calcularAlquilerSolar(this.duenho);
+        float alquilerCasas=0.0f, alquilerHoteles=0.0f, alquilerPiscinas=0.0f, alquilerPistas=0.0f, alquilerTotal=0.0f;
+            if(numCasas!=0){
+                if(numCasas==1){
+                    alquilerCasas=5*alquiler;
+                }
+                else if(numCasas==2){
+                    alquilerCasas=15*alquiler;
+                }
+                else if(numCasas==3){
+                    alquilerCasas=35*alquiler;
+                }
+                else{
+                    alquilerCasas=50*alquiler;
+                }
+                
+            }
+            if (numHoteles!=0){
+                alquilerHoteles=numHoteles*70*alquiler;
+            }
+            if (numPiscinas!=0){
+                alquilerPiscinas=numPiscinas*25*alquiler;
+            }
+            if (numPistas!=0){
+                alquilerPistas=numPistas*25*alquiler;
+            }
+            alquilerTotal=alquilercongrupo+alquilerCasas+alquilerHoteles+alquilerPiscinas+alquilerPistas;
             return alquilerTotal;
     }
     
@@ -300,19 +356,20 @@ public class Casilla {
     
             // Comprobar si la propiedad pertenece a otro jugador
             if (duenho != null && !duenho.equals(actual)) {
-        
-                if(tipoCasilla.equals("Solar")){
-                    alquiler = this.calcularAlquilerSolar(duenho);
-                }else if (tipoCasilla.equals("Servicio")){
-                    alquiler = this.calcularAlquilerServicio(tirada);
-                }else if(tipoCasilla.equals("Transporte")){
-                    alquiler = this.calcularAlquilerTransporte(actual);
-                }
-                if (!duenho.equals(banca)){    
+
+                if (!duenho.equals(banca)){
+                    if(tipoCasilla.equals("Solar")){
+                        alquiler = this.calcularAlquilerSolar(duenho);
+                    }else if (tipoCasilla.equals("Servicio")){
+                        alquiler = this.calcularAlquilerServicio(tirada);
+                    }else if(tipoCasilla.equals("Transporte")){
+                        alquiler = this.calcularAlquilerTransporte(actual);
+                    }
+
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
                     if (!edificaciones.isEmpty()){
                         //aquí iría el contenido de la función
-                        float alquilerT=calcularAlquilerEdificaciones(alquiler);
+                        float alquilerT=calcularAlquilerEdificaciones();
                         if (actual.getFortuna()<alquilerT){
                             System.out.println("El jugador " + actual.getNombre() + " no tiene suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
                             return false; 
@@ -325,18 +382,27 @@ public class Casilla {
                         }
                     }
                     else{
-                        // Verificar si el jugador tiene suficiente dinero
-                        if (actual.getFortuna() < alquiler) {
-                            System.out.println("El jugador " + actual.getNombre() + " no tiene suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
-                            return false; // Jugador no es solvente
-                        } else {
-                            // Pagar el alquiler
-                            actual.sumarGastos(alquiler);
-                            //actual.sumarFortuna(-alquiler);
-                            //duenho.sumarFortuna(alquiler);
-                            duenho.sumarFortuna(alquiler);
-                            System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
+                        //mirar si la casilla está hipotecada
+                        if(this.hipotecada){
+                            System.out.println("La casilla pertenece a "+this.getDuenho().getNombre()+",pero como está hipotecada no pagas alquiler");
+                            return true;
                         }
+                        else{
+                            // Verificar si el jugador tiene suficiente dinero
+                            if (actual.getFortuna() < alquiler) {
+                                System.out.println("El jugador " + actual.getNombre() + " no tiene suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
+                                return false; // Jugador no es solvente
+                            } else {
+                                // Pagar el alquiler
+                                actual.sumarGastos(alquiler);
+                                //actual.sumarFortuna(-alquiler);
+                                //duenho.sumarFortuna(alquiler);
+                                duenho.sumarFortuna(alquiler);
+                                System.out.println("Has pagado " + alquiler + " de alquiler a " + duenho.getNombre() + ".");
+                            }
+
+                        }
+                        
                     }
                 }
                 else{
@@ -424,7 +490,7 @@ public class Casilla {
                 alquiler piscina: %f,
                 alquiler pista de deportes: %f
             } 
-            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.duenho.getNombre(), this.valorinicial, this.impuesto, this.numCasas, this.numHoteles, this.numPiscinas, this.numPistas, 0.6f*this.valor, 0.6f*this.valor, 0.4f*this.valor, 1.25f*this.valor, 5*this.impuesto, 15*this.impuesto, 35*this.impuesto, 50*this.impuesto, 70*this.impuesto, 25*this.impuesto, 25*this.impuesto));
+            """.formatted(this.tipo, this.grupo.getColorGrupo(), this.duenho.getNombre(), this.valorinicial, this.impuesto, this.numCasas, this.numHoteles, this.numPiscinas, this.numPistas, 0.6f*this.valorinicial, 0.6f*this.valorinicial, 0.4f*this.valorinicial, 1.25f*this.valorinicial, 5*this.valorinicial*0.10f, 15*this.valorinicial*0.10f, 35*this.valorinicial*0.10f, 50*this.valorinicial*0.10f, 70*this.valorinicial*0.10f, 25*this.valorinicial*0.10f, 25*this.valorinicial*0.10f));
         }
         if(this.tipo.equals("Impuesto")){
             return ("""
@@ -730,39 +796,48 @@ public class Casilla {
 
     public boolean edificarCasa(){
         float precio= this.valorinicial*0.6f;
-        if(this.tipo.equals("Solar")){
+        if(this.tipo.equals("Solar")){ 
             if(this.duenho.getFortuna()>=precio){
                 if(grupo.esDuenhoGrupo(duenho) || caidasJugador.get(duenho)>2){
-                    if(numHoteles<grupo.getNumCasillas()){
-                        if(numCasas<4){
-                            Edificacion casa=new Edificacion("Casa", precio);
-                            this.numCasas=this.numCasas+1;
-                            this.duenho.sumarGastos(precio);
-                            edificaciones.add(casa);
-                            System.out.println("Casa construida en la casilla "+this.nome);
-                            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
-                            return true;
-                        }
-                        else{
-                            System.out.println("Ya se han edificado cuatro casas en esta casilla. Puedes construir un hotel.");
-                            return false;
-                        }
+                    if(this.getHipotecada()){
+                        System.out.println("No puedes edificar en esta casilla porque está hipotecada.");
+                        return false;
                     }
                     else{
-                        if(numCasas<grupo.getNumCasillas()){
-                            Edificacion casa=new Edificacion("Casa", precio);
-                            this.numCasas=this.numCasas+1;
-                            this.duenho.sumarGastos(precio);
-                            edificaciones.add(casa);
-                            System.out.println("Casa construida en la casilla "+this.nome);
-                            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
-                            return true;
-
+                        if(grupo.getNumHotelesGrupo()<grupo.getNumCasillas()){
+                            if(numCasas<4){
+                                Edificacion casa=new Edificacion("Casa", precio);
+                                this.numCasas=this.numCasas+1;
+                                grupo.setNumCasasGrupo(grupo.getNumCasasGrupo()+1);
+                                this.duenho.sumarGastos(precio);
+                                edificaciones.add(casa);
+                                System.out.println("Casa construida en la casilla "+this.nome);
+                                System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                return true;
+                            }
+                            else{
+                                System.out.println("Ya se han edificado cuatro casas en esta casilla. Puedes construir un hotel.");
+                                return false;
+                            }
                         }
                         else{
-                            System.out.println("Ya se ha alcanzado el número máximo de casas en el grupo");
-                            return false;
-                        }
+                            if(grupo.getNumCasasGrupo()<grupo.getNumCasillas()){
+                                Edificacion casa=new Edificacion("Casa", precio);
+                                this.numCasas=this.numCasas+1;
+                                grupo.setNumCasasGrupo(grupo.getNumCasasGrupo()+1);
+                                this.duenho.sumarGastos(precio);
+                                edificaciones.add(casa);
+                                System.out.println("Casa construida en la casilla "+this.nome);
+                                System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                return true;
+    
+                            }
+                            else{
+                                System.out.println("Ya se ha alcanzado el número máximo de casas en el grupo");
+                                return false;
+                            }
+                        }   
+                    
                     }
 
                 }
@@ -790,36 +865,49 @@ public class Casilla {
         if(this.tipo.equals("Solar")){
             if(this.duenho.getFortuna()>=precio){
                 if(grupo.esDuenhoGrupo(duenho) || caidasJugador.get(duenho)>2){
-                    if(numHoteles<grupo.getNumCasillas()){
-                        if(numCasas>=4){
-                            Edificacion hotel=new Edificacion("Hotel", precio);
-                            this.numHoteles=this.numHoteles+1;
-                            this.numCasas=this.numCasas-4;
-                            this.duenho.sumarGastos(precio);
-                            //Quitamos las casas por las que se sustituye el hotal del array
-                            Iterator<Edificacion> iterator = edificaciones.iterator();
-                            while (iterator.hasNext()) {
-                                Edificacion edificacion = iterator.next();
-                                if (edificacion.getTipo().equals("Casa")){
-                                    iterator.remove();
-                                }
-                             }
-                            edificaciones.add(hotel);
-                            System.out.println("Hotel construido en la casilla "+this.nome);
-                            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
-                            return true;
-                        }
-                        else{
-                            System.out.println("No cumples las condiciones necesarias para edificar un hotel.");
-                            return false;
-                        }
-                        
-                    }
-                    else{
-                        System.out.println("Ya se ha alcanzado el número máximo de hoteles en el grupo");
+                    if(this.getHipotecada()){
+                        System.out.println("No puedes edificar en esta casilla porque está hipotecada.");
                         return false;
                     }
-
+                    else{
+                        if(grupo.getNumHotelesGrupo()<grupo.getNumCasillas()){
+                            if(numCasas>=4){
+                                if(grupo.getNumHotelesGrupo()==grupo.getNumCasillas()-1){
+                                    if(grupo.getNumCasasGrupo()-4>grupo.getNumCasillas()){
+                                        System.out.println("Se excede el número máximo de edificaciones del grupo. Debes vender casas.");
+                                        return false;
+                                    }
+                                }
+                                Edificacion hotel=new Edificacion("Hotel", precio);
+                                this.numHoteles=this.numHoteles+1;
+                                this.numCasas=this.numCasas-4;
+                                grupo.setNumHotelesGrupo(grupo.getNumHotelesGrupo()+1);
+                                grupo.setNumCasasGrupo(grupo.getNumCasasGrupo()-4);
+                                this.duenho.sumarGastos(precio);
+                                //Quitamos las casas por las que se sustituye el hotal del array
+                                Iterator<Edificacion> iterator = edificaciones.iterator();
+                                while (iterator.hasNext()) {
+                                    Edificacion edificacion = iterator.next();
+                                    if (edificacion.getTipo().equals("Casa")){
+                                        iterator.remove();
+                                    }
+                                 }
+                                edificaciones.add(hotel);
+                                System.out.println("Hotel construido en la casilla "+this.nome);
+                                System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                return true;
+                            }
+                            else{
+                                System.out.println("No cumples las condiciones necesarias para edificar un hotel.");
+                                return false;
+                            }
+                            
+                        }
+                        else{
+                            System.out.println("Ya se ha alcanzado el número máximo de hoteles en el grupo");
+                            return false;
+                        }
+                    }
                 }
                 else{
                     System.out.println("No cumples las condiciones necesarias para edificar. Asegúrate de ser el dueño del grupo o de haber caído dos veces en la casilla");
@@ -843,27 +931,33 @@ public class Casilla {
         if(this.tipo.equals("Solar")){
             if(this.duenho.getFortuna()>=precio){
                 if(grupo.esDuenhoGrupo(duenho) || caidasJugador.get(duenho)>2){
-                    if(numPiscinas<grupo.getNumCasillas()){
-                        if(numHoteles>=1 && numCasas>=2){
-                            Edificacion piscina=new Edificacion("Piscina", precio);
-                            this.numPiscinas=this.numPiscinas+1;
-                            this.duenho.sumarGastos(precio);
-                            edificaciones.add(piscina);
-                            System.out.println("Piscina construida en la casilla "+this.nome);
-                            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
-                            return true;
-                        }
-                        else{
-                            System.out.println("No cumples las condiciones para edificar una piscina.");
-                            return false;
-                        }
-    
-                    }
-                    else{
-                        System.out.println("Ya se ha alcanzado el número máximo de piscinas en el grupo");
+                    if(this.getHipotecada()){
+                        System.out.println("No puedes edificar en esta casilla porque está hipotecada.");
                         return false;
                     }
-
+                    else{
+                        if(grupo.getNumPiscinasGrupo()<grupo.getNumCasillas()){
+                            if(numHoteles>=1 && numCasas>=2){
+                                Edificacion piscina=new Edificacion("Piscina", precio);
+                                this.numPiscinas=this.numPiscinas+1;
+                                grupo.setNumPiscinasGrupo(grupo.getNumPiscinasGrupo()+1);
+                                this.duenho.sumarGastos(precio);
+                                edificaciones.add(piscina);
+                                System.out.println("Piscina construida en la casilla "+this.nome);
+                                System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                return true;
+                            }
+                            else{
+                                System.out.println("No cumples las condiciones para edificar una piscina.");
+                                return false;
+                            }
+        
+                        }
+                        else{
+                            System.out.println("Ya se ha alcanzado el número máximo de piscinas en el grupo");
+                            return false;
+                        }
+                    }
                 }
                 else{
                     System.out.println("No cumples las condiciones necesarias para edificar. Asegúrate de ser el dueño del grupo o de haber caído dos veces en la casilla");
@@ -887,26 +981,33 @@ public class Casilla {
         if(this.tipo.equals("Solar")){
             if(this.duenho.getFortuna()>=precio){
                 if(grupo.esDuenhoGrupo(duenho) || caidasJugador.get(duenho)>2){
-                    if(numPistas<grupo.getNumCasillas()){
-                        if(numHoteles>=2){
-                            Edificacion pista=new Edificacion("Pista", precio);
-                            this.numPistas=this.numPistas+1;
-                            this.duenho.sumarGastos(precio);
-                            edificaciones.add(pista);
-                            System.out.println("Pista construida en la casilla "+this.nome);
-                            System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
-                            return true;
-                        }
-                        else{
-                            System.out.println("No cumples las condiciones necesarias para edificar una pista de deporte.");
-                            return false;
-                        }
-                    }
-                    else{
-                        System.out.println("Ya se ha alcanzado el número máximo de pistas en el grupo");
+                    if(this.getHipotecada()){
+                        System.out.println("No puedes edificar en esta casilla porque está hipotecada.");
                         return false;
                     }
-
+                    else{
+                        if(grupo.getNumPistasGrupo()<grupo.getNumCasillas()){
+                            if(numHoteles>=2){
+                                Edificacion pista=new Edificacion("Pista", precio);
+                                this.numPistas=this.numPistas+1;
+                                grupo.setNumPistasGrupo(grupo.getNumPistasGrupo()+1);
+                                this.duenho.sumarGastos(precio);
+                                edificaciones.add(pista);
+                                System.out.println("Pista construida en la casilla "+this.nome);
+                                System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                return true;
+                            }
+                            else{
+                                System.out.println("No cumples las condiciones necesarias para edificar una pista de deporte.");
+                                return false;
+                            }
+                        }
+                        else{
+                            System.out.println("Ya se ha alcanzado el número máximo de pistas en el grupo");
+                            return false;
+                        }    
+                    }
+                    
                 }
                 else{
                     System.out.println("No cumples las condiciones necesarias para edificar. Asegúrate de ser el dueño del grupo o de haber caído dos veces en la casilla");

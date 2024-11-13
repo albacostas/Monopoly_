@@ -11,6 +11,12 @@ class Grupo {
     private String colorGrupo; //Color del grupo
     private int numCasillas; //Número de casillas del grupo.
 
+    private int numCasasGrupo=0;
+    private int numHotelesGrupo=0;
+    private int numPiscinasGrupo=0;
+    private int numPistasGrupo=0;
+
+
     //Constructor vacío.
     public Grupo() {
         this.miembros = new ArrayList<>();
@@ -53,6 +59,33 @@ class Grupo {
     }
     public void setColorGrupo(String colorGrupo) {
         this.colorGrupo = colorGrupo;
+    }
+
+    public int getNumCasasGrupo() {
+        return numCasasGrupo;
+    }
+    public void setNumCasasGrupo(int numCasasGrupo){
+        this.numCasasGrupo = numCasasGrupo;
+    }
+    public int getNumHotelesGrupo() {
+        return numHotelesGrupo;
+    }
+    public void setNumHotelesGrupo(int numHotelesGrupo){
+        this.numHotelesGrupo = numHotelesGrupo;
+    }
+
+    public int getNumPiscinasGrupo() {
+        return  numPiscinasGrupo;
+    }
+    public void setNumPiscinasGrupo(int numPiscinasGrupo){
+        this.numPiscinasGrupo = numPiscinasGrupo;
+    }
+
+    public int getNumPistasGrupo() {
+        return numPistasGrupo;
+    }
+    public void setNumPistasGrupo(int numPistasGrupo){
+        this.numPistasGrupo = numPistasGrupo;
     }
 
     public int getNumCasillas() {

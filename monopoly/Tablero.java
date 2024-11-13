@@ -40,6 +40,7 @@ public class Tablero {
     public HashMap<String, Grupo> getGrupos() {
         return grupos;
     }
+    
     public void setGrupos(HashMap<String, Grupo> grupos) {
         this.grupos = grupos;
     }
