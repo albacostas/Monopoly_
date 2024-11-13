@@ -668,6 +668,81 @@ public class Casilla {
             cartaElegida = mazo.elegirCarta(eleccion);
             System.out.println("Has elegido la carta: " + cartaElegida.getDescripcion());
 
+            // Realizar acción con la carta elegida en el jugador actual
+            realizarAccion(cartaElegida, jugadorActual, tablero);
+        }
+    }
+
+    // Método para realizar la acción de la carta en el jugador actual
+    private void realizarAccion(Carta carta, Jugador jugadorActual, Tablero tablero) {
+        switch (carta.getAccion()) {
+            case "ir_a_transportes1":
+                moverJugador(jugadorActual, "Trans1", tablero);
+                break;
+
+            case "avanzar_a_solar15":
+                moverJugador(jugadorActual, "Solar15", tablero);
+                break;
+
+            case "vender_billete":
+                jugadorActual.sumarFortuna(500000f);
+                jugadorActual.incrementarDineroParking(500000f);
+                System.out.println(jugadorActual + " ha ganado 500000€.");
+                break;
+
+            case "ir_a_solar3":
+                moverJugador(jugadorActual, "Solar3", tablero);
+                break;
+
+            case "ir_a_carcel":
+               //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
+               jugadorActual.encarcelar(tablero.getPosiciones());
+               System.err.println(("Tendría que ir a la carcel."));
+                break;
+
+            case "ganar_loteria":
+                jugadorActual.sumarFortuna(1000000f);
+                jugadorActual.incrementarDineroParking(1000000f);
+                System.out.println(jugadorActual.getNombre() + " ha ganado la lotería: 1000000€.");
+                break;
+
+
+            // ACCIONES DE COMUNIDAD
+
+            case "pagar_balneario":
+                if (!pagarConFortuna(jugadorActual, 500000f)) {
+                    //hipotecarPropiedad(jugadorActual);
+                    jugadorActual.incrementarDineroPropiedades(500000f);
+                }
+                System.err.println(jugadorActual + " ha pagado 500000€.");
+                break;
+
+            case "ir_a_salida":
+                moverJugador(jugadorActual, "Salida", tablero);
+                jugadorPasaPorSalida(jugadorActual);
+                break;
+
+            case "recibir_beneficio":
+                jugadorActual.sumarFortuna(2000000f);
+                jugadorActual.incrementarDineroParking(2000000f);
+                break;
+
+            case "pagar_viaje":
+                if (!pagarConFortuna(jugadorActual, 1000000f)) {
+                    //hipotecarPropiedad(jugadorActual);
+                    jugadorActual.incrementarDineroImpuestos(1000000f);
+                }
+                System.err.println(jugadorActual + " ha pagado 1000000€.");
+                break;
+
+            case "pagar_alquiler":
+                //pagarJugadores(jugadorActual, 200000f);
+                jugadorActual.incrementarDineroImpuestos(200000f);
+                break;
+
+            default:
+                System.out.println("Acción no implementada.");
+                break;
         }
     }
 
