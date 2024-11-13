@@ -1435,3 +1435,49 @@ public class Menu{
         System.out.println("}");
     }
     */
+```java
+// Método que realiza las acciones asociadas al comando 'describir jugador'.
+private void descJugador(String[] partes) {
+    // Nombre del jugador a describir
+    String nombreJugador = partes[2];
+
+    // Buscamos al jugador
+    Jugador jugadorBuscado = jugadores.stream()
+            .filter(jugador -> jugador.getNombre().equalsIgnoreCase(nombreJugador))
+            .findFirst()
+            .orElse(null);
+
+    // si encontramos al jugador, imprimimos su información
+    if (jugadorBuscado != null) {
+        System.out.println(jugadorBuscado.toString());
+    } else {
+        System.out.println("El jugador no ha sido encontrado. Compruebe el nombre");
+    }
+}
+
+// Método que realiza las acciones asociadas al comando 'describir avatar'.
+private void descAvatar(String ID) {
+    Avatar avatarBuscado = avatares.stream()
+            .filter(avatar -> avatar.getId().equals(ID))
+            .findFirst()
+            .orElse(null);
+
+    if (avatarBuscado != null) {
+        System.out.println(avatarBuscado.toString());
+    } else {
+        System.out.println("No se ha encontrado ningún avatar con ese ID.");
+    }
+}
+
+// Método que realiza las acciones asociadas al comando 'describir nombre_casilla'.
+private void descCasilla(String nombre) {
+    // hay que tener en cuenta qué tipo de casilla es. Caja de Comunidad, Suerte e
+    // IrACárcel no tiene sentido describirlas.
+    // Buscamos la Casilla
+    Casilla casilla = tablero.encontrar_casilla(nombre);
+    if (casilla != null) {
+        System.out.println(casilla.infoCasilla());
+    } else {
+        System.out.println("La casilla " + nombre + " no existe en el tablero.");
+    }
+}
