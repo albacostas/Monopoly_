@@ -183,12 +183,10 @@ public class Menu {
     // Método para inciar una partida: crea los jugadores y avatares.
     private void iniciarPartida(Scanner scanner) {
         while (jugadores.size() < 2) {
-            System.out.println(
-                    "Introduce los datos de un jugador (nombre y tipo de avatar(Esfinge, Sombrero, Coche o Pelota)):");
+            System.out.println("Introduce los datos de un jugador (nombre y tipo de avatar(Esfinge, Sombrero, Coche o Pelota)):");
             String[] j1 = scanner.nextLine().split(" ");
             if (j1.length != 2) {
-                throw new IllegalArgumentException(
-                    "Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
+                throw new IllegalArgumentException("Error: Debes introducir exactamente 2 datos separados por un espacio (nombre y tipo de avatar).");
             }
             crearJugador(j1[0], j1[1]);
         }
@@ -463,8 +461,7 @@ public class Menu {
             jugadores.add(jugador);
             avatares.add(jugador.getAvatar());
             this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
-            System.out.println(
-                    "{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); // El avatar debe ser una letra generada automáticamente
+            System.out.println("{\n\tnombre: " + jugador.getNombre() + ",\n\tavatar: " + jugador.getAvatar().getId() + "\n}"); // El avatar debe ser una letra generada automáticamente
         }
     }
 
@@ -751,8 +748,7 @@ public class Menu {
                     int valorDado2 = dado2.hacerTirada();
                     int sumaDados = valorDado1 + valorDado2;
                     if (jActual.getTiradasCarcel() <= 2) {
-                        System.out.println(
-                                "Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
+                        System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
                         if (valorDado1 == valorDado2) {
                             jActual.setEnCarcel(false);
                             System.out.println("¡Eres libre!");
@@ -904,8 +900,7 @@ public class Menu {
         turno = (turno + 1) % jugadores.size(); // movemso el turno al siguiente jugador
         Jugador jSiguiente = jugadores.get(turno);
 
-        System.out.println(
-                "El turno de " + jActual.getNombre() + " ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
+        System.out.println("El turno de " + jActual.getNombre() + " ha terminado. Ahora es el turno de " + jSiguiente.getNombre());
         tirado = false;
         if (jugadores.size() == 1 && !jSiguiente.isEnCarcel()) {
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
@@ -921,14 +916,16 @@ public class Menu {
      */
     public void bancarrota(Jugador destinatario){
         Jugador jugador = jugadores.get(turno);
-        int i = 0;                                              //ATENEA: REVISAR Y OMITIR
         System.out.println("El jugador " + jugador.getNombre() + " se ha declarado en bancarrota.");
         while (!jugador.getPropiedades().isEmpty()) {
             Casilla casilla = jugador.getPropiedades().get(0);
+            /*while (!casilla.getEdificaciones().isEmpty()) {
+                Edificacion edificacion = casilla.getEdificaciones().get(0);
+                //ELIMINAR EDIFICADIONES ATENEA 
+            }*/
             casilla.setDuenho(destinatario);
             destinatario.anhadirPropiedad(casilla);
             jugador.eliminarPropiedad(casilla);
-            i++;
         }
         destinatario.sumarFortuna(jugador.getFortuna());
         jugador.setFortuna(0);
