@@ -18,6 +18,7 @@ public class Avatar {
 
     private boolean movimientoEspecial;
     private int contador_especial;
+    private boolean saltarTurno;
     //private int vueltas;
 
     public String getId() {
@@ -64,6 +65,14 @@ public class Avatar {
         this.contador_especial = contador_especial;
     }
 
+    public boolean getSaltarTurno(){
+        return saltarTurno;
+    }
+
+    public void setSaltarTurno(boolean saltarTurno) {
+        this.saltarTurno = saltarTurno;
+    }
+
     //Constructor vacío
     public Avatar() {
         this.jugador = new Jugador();
@@ -82,6 +91,7 @@ public class Avatar {
         this.generarId(avCreados);
         this.movimientoEspecial = false;
         this.contador_especial = 5;
+        this.saltarTurno = false;
         //this.vueltas = 0;
     }
 
@@ -185,9 +195,17 @@ public class Avatar {
                 }
                 break;
             case "Coche":
-                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
-                moverAvatar(casillas, valorTirada);
-                solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
+                if (valorTirada>4) {
+                    System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                    moverAvatar(casillas, valorTirada);
+                    solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA  
+                }
+                else{
+                    valorTirada=valorTirada*(-1);
+                    moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
+                    solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
+                    this.setSaltarTurno(true);
+                }
                 break;
             case "Esfinge":
                 System.out.println("El avatar coche no tiene un modo de movimiento especial.");

@@ -26,6 +26,7 @@ public class Menu{
     // Atributos para las estadísticas
     private Estadisticas estadisticas;
     private int tiradaActual;
+    private int turnosSaltados;
     
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
@@ -47,6 +48,7 @@ public class Menu{
         System.out.println(this.tablero.toString());
         this.estadisticas = new Estadisticas(jugadores, tablero.getCasillas(), this.tablero);
         this.tiradaActual = 0;
+        this.turnosSaltados = 0;
 
         String comando;
         do {
@@ -176,6 +178,14 @@ public class Menu{
 
     public void setTiradaActual(int tiradaActual) {
         this.tiradaActual = tiradaActual;
+    }
+
+    public int getTurnosSaltados() {
+        return turnosSaltados;
+    }
+
+    public void setTurnosSaltados(int turnosSaltados) {
+        this.turnosSaltados = turnosSaltados;
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -437,9 +447,11 @@ public class Menu{
                     System.out.println("Error: Este comando no tiene argumentos.");
                     break;
                 }
-                continuar(jugadores.get(turno), tiradaActual);
-                contarVueltasJugadores();
-                System.out.println(this.tablero.toString());
+                else if (jugadores.get(turno).getAvatar().getTipo().equals("Pelota")){
+                    continuar(jugadores.get(turno), tiradaActual);
+                    contarVueltasJugadores();
+                    System.out.println(this.tablero.toString());
+                }
                 break;
             case "finalizar":
                 System.out.println("Finalizando partida...");
@@ -541,16 +553,37 @@ public class Menu{
         System.out.println(this.tablero.encontrar_casilla(nombre).infoCasilla());
     }
 
+    // Método para verificar y manejar si el jugador debe saltar el turno
+    private boolean debeSaltarTurno() {
+        if (jugadores.get(turno).getAvatar().getSaltarTurno()) {
+            if (this.getTurnosSaltados() < 2) {
+                this.setTurnosSaltados(this.getTurnosSaltados() + 1);
+                System.out.println("Turno saltado por penalización. Turnos saltados hasta ahora: " + this.getTurnosSaltados());
+                tirado = true;
+                return true;
+            } else {
+                this.setTurnosSaltados(0);
+                jugadores.get(turno).getAvatar().setSaltarTurno(false);
+            }
+        }
+        return false;
+    }
+
     /**
      * Método que realiza las acciones asociadas al comando 'describir
      * nombre_casilla'.
      * Parámetros: nombre de la casilla a describir.
      */
     private void lanzarDados(int d1, int d2) {
-
         if (tirado) { // Comprobamos que el jugador no haya tirado antes o si haya tirado, pero haya
                       // sacado dobles
             System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
+            return;
+        }
+
+        // Verifica si el jugador debe saltar su turno y finaliza si es así
+        if (debeSaltarTurno()) {
+            this.acabarTurno();
             return;
         }
 
@@ -600,14 +633,14 @@ public class Menu{
 
             Casilla casActual;
             //Casilla casActual = jActual.getAvatar().getLugar();
-            if (jActual.getAvatar().getMovimientoEspecial() && jActual.getAvatar().getTipo().equals("Pelota")) { 
+            if (jActual.getAvatar().getMovimientoEspecial() /*&& jActual.getAvatar().getTipo().equals("Pelota")*/) { 
                 this.solvente = jActual.getAvatar().cambiarModo(tablero.getPosiciones(), sumaDados);
                 casActual = jActual.getAvatar().getLugar();
                 casActual.registrarCaida(jActual);
                 if (!solvente) {
                     noSolvente(casActual.getDuenho());                                      //ATENEA: TENER EN CUENTA / REVISAR
                 }
-                if (sumaDados>4){
+                if (sumaDados>4 && jugadores.get(turno).getAvatar().getTipo().equals("Pelota")) {
                     System.out.println("Introduce el comando 'continuar' cuando quieras seguir moviendo el avatar.");
                     tirado = false;
                     return;
@@ -631,6 +664,9 @@ public class Menu{
             else if(casActual.getTipo().equals("Impuestos")){
                 Casilla parking = tablero.encontrar_casilla("Parking");
                 parking.setValor(parking.getValor() + casActual.getImpuesto());
+            }
+            if (jugadores.get(turno).getAvatar().getTipo().equals("Coche") && sumaDados<=4) {
+                tirado = true;      //acabarTurno();              //ATENEA: SI AL FINAL SE PIDE REALIZAR ACCIONES CAMBIAR ESTO POR TIRADO = TRUE
             }
         }
     }
@@ -1057,12 +1093,13 @@ public class Menu{
                 break;
 
             case "pagar_viaje":
-                if (/*!pagarConFortuna(jugadores.get(turno), 1000000f)*/) {
+                /*if (!pagarConFortuna(jugadores.get(turno), 1000000f)) {
                     //hipotecarPropiedad(jugadores.get(turno));
 
                     jugadores.get(turno).incrementarDineroImpuestos(1000000f);
                     casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado() + 1000000f);
                 }
+                */
                 System.err.println(jugadores.get(turno) + " ha pagado 1000000€.");
                 break;
 

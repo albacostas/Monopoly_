@@ -331,7 +331,7 @@ public class Casilla {
         
                 if(tipoCasilla.equals("Solar")){
                     alquiler = this.calcularAlquilerSolar(duenho);
-                    this.grupo.agregarAlquiler(alquiler);
+                    this.grupo.agregarAlquiler(alquiler);                   //REVISAR
                 }else if (tipoCasilla.equals("Servicio")){
                     alquiler = this.calcularAlquilerServicio(tirada);
                     this.grupo.agregarAlquiler(alquiler);
