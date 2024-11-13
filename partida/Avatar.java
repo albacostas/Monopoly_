@@ -151,10 +151,19 @@ public class Avatar {
                         // if (nuevaPosicion >= 40) {              //Comprobar que no se pase de las 40 casillas
                         //     nuevaPosicion = nuevaPosicion % 40;     //AÑADIR SALIDA ATENEA
                         // }
-                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
-                        
+                        if (contador_especial%2==1){
+                            moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
+                        }
+                        else{                                                                                   //ATENEA REVISAR XQ SEGURO Q HAY COSAS DE MAS AQUI Y EN CONTINUAR
+                            moverAvatar(casillas, contador_especial == 5 ? contador_especial : 1);             //Solo cambia al avatar de casilla
+                        }
                         solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);        //Cambiar valor tirada en funcion de lo q se tenga q pagar REVISAR ATENEA
-                        contador_especial += 2;
+                        if (contador_especial == valorTirada-1 && valorTirada%2==0) {                               //Si es par y está en el último movimiento solo sumar 1
+                            contador_especial++;
+                        }
+                        else{
+                            contador_especial += 2;
+                        }
                     }
                     else if (valorTirada%2==0) {
                         // nuevaPosicion = posicionInicial + contador_especial;

@@ -606,7 +606,7 @@ public class Casilla {
             case "ganar_loteria":
                 jugadorActual.sumarFortuna(1000000f);
                 jugadorActual.incrementarDineroParking(1000000f);
-                System.out.println(jugadorActual + " ha ganado la lotería: 1000000€.");
+                System.out.println(jugadorActual.getNombre() + " ha ganado la lotería: 1000000€.");
                 break;
 
 

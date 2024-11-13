@@ -405,9 +405,17 @@ public class Menu {
                 System.out.println("**********************************************************************************");
                 break;
             case "bancarrota":
+                if (partes.length != 1) {
+                    System.out.println("Error: Este comando no tiene argumentos.");
+                    break;
+                }
                 bancarrota(banca);      //ATENEA: METER QUITAR EDIFICIOS
                 break;
             case "especial":            //ATENEA: Tener en cuenta el caso de lanzar y sacar dobles
+                if (partes.length != 1) {
+                    System.out.println("Error: Este comando no tiene argumentos.");
+                    break;
+                }
                 if (tirado) {
                     System.out.println("El jugador ya ha lanzado los dados en este turno, por lo que no puede cambiar al modo de movimiento especial.\n");
                 }
@@ -417,6 +425,10 @@ public class Menu {
                 }
                 break;
             case "fin_especial":            //ATENEA: Tener en cuenta el caso de lanzar y sacar dobles
+                if (partes.length != 1) {
+                    System.out.println("Error: Este comando no tiene argumentos.");
+                    break;
+                }
                 if (tirado) {
                     System.out.println("El jugador ya ha lanzado los dados en este turno, por lo que no puede cambiar al modo de movimiento normal.\n");
                 }
@@ -426,7 +438,13 @@ public class Menu {
                 }
                 break;
             case "continuar":
+                if (partes.length != 1) {
+                    System.out.println("Error: Este comando no tiene argumentos.");
+                    break;
+                }
                 continuar(jugadores.get(turno), tiradaActual);
+                contarVueltasJugadores();
+                System.out.println(this.tablero.toString());
                 break;
             case "finalizar":
                 System.out.println("Finalizando partida...");
@@ -629,7 +647,7 @@ public class Menu {
             jActual.getAvatar().cambiarModo(tablero.getPosiciones(), Suma_dados);
             System.out.println("Introduce el comando 'continuar' para seguir moviendo el avatar.");
         }
-        else if (Suma_dados%2==0 && jActual.getAvatar().getContador_especial() == Suma_dados) {      //ATENEA: FALTA IMPARES
+        else if (Suma_dados%2==0 && jActual.getAvatar().getContador_especial() == Suma_dados) {
             System.out.println("El avatar ya se ha movido el número de posiciones correspondiente");
             tirado = true;
         }
