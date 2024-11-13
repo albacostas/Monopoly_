@@ -391,10 +391,10 @@ public class Casilla {
                         this.grupo.agregarAlquiler(alquiler);
                     }else if (tipoCasilla.equals("Servicio")){
                         alquiler = this.calcularAlquilerServicio(tirada);
-                        this.grupo.agregarAlquiler(alquiler);
+                        //this.grupo.agregarAlquiler(alquiler);
                     }else if(tipoCasilla.equals("Transporte")){
                         alquiler = this.calcularAlquilerTransporte(actual);
-                        this.grupo.agregarAlquiler(alquiler);
+                        //this.grupo.agregarAlquiler(alquiler);
                     }
                     
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
@@ -431,7 +431,7 @@ public class Casilla {
                             } else {
                                 // Pagar el alquiler
                                 actual.sumarGastos(alquiler);
-                                this.grupo.agregarAlquiler(alquiler);
+                                //this.grupo.agregarAlquiler(alquiler);
                                 actual.incrementarDineroAlquiler(alquiler);
                                 //actual.sumarFortuna(-alquiler);
                                 //duenho.sumarFortuna(alquiler);
