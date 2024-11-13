@@ -396,7 +396,7 @@ public class Casilla {
                         alquiler = this.calcularAlquilerTransporte(actual);
                         this.grupo.agregarAlquiler(alquiler);
                     }
-
+                    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
                     if (!edificaciones.isEmpty()){
                         //aquí iría el contenido de la función
