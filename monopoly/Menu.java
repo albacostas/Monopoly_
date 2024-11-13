@@ -28,6 +28,7 @@ public class Menu{
     private Estadisticas estadisticas;
     private int tiradaActual;
     private int turnosSaltados;
+    private int tiradasCoche;
     
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
@@ -50,6 +51,7 @@ public class Menu{
         this.estadisticas = new Estadisticas(jugadores, tablero.getCasillas(), this.tablero);
         this.tiradaActual = 0;
         this.turnosSaltados = 0;
+        this.tiradasCoche = 0;
 
         String comando;
         do {
@@ -91,6 +93,7 @@ public class Menu{
             System.out.print("  🎮 **Introduce un comando:** ");
 
             comando = scanner.nextLine(); // Leer el comando del usuario
+            //METER COMPROBACION SOLO QUEDA UN JUGADOR GANADOR ATENEA
             analizarComando(comando); // Llama a tu método para procesar el comando
 
         } while (!comando.equalsIgnoreCase("finalizar")); // Utiliza equalsIgnoreCase para más flexibilidad
@@ -192,6 +195,14 @@ public class Menu{
 
     public void setTurnosSaltados(int turnosSaltados) {
         this.turnosSaltados = turnosSaltados;
+    }
+
+    public Estadisticas getEstadisticas() {
+        return estadisticas;
+    }
+
+    public void setTiradasCoche(int tiradasCoche) {
+        this.tiradasCoche = tiradasCoche;
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -650,10 +661,12 @@ public class Menu{
             lanzamientos++;
             tiradaActual = sumaDados;
 
+
+
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
             
-            if (lanzamientos == 3 && valorDado1 == valorDado2) {
+            if (lanzamientos == 3 && valorDado1 == valorDado2 && tiradasCoche==0) {
                 System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
                 lanzamientos = 0;
                 jActual.encarcelar(tablero.getPosiciones());
@@ -685,6 +698,21 @@ public class Menu{
                     System.out.println("Introduce el comando 'continuar' cuando quieras seguir moviendo el avatar.");
                     tirado = false;
                     return;
+                }
+                if (sumaDados>4 && jugadores.get(turno).getAvatar().getTipo().equals("Coche") && tiradasCoche<3) {
+                   tirado = false;
+                   tiradasCoche++;
+                   System.out.println("El jugador ha sacado más de un 4, puede volver a tirar");
+                }
+                else if (sumaDados<=4 && jugadores.get(turno).getAvatar().getTipo().equals("Coche")) {
+                    tirado = true;
+                    tiradasCoche = 0;
+                    System.out.println("El jugador ha sacado menos de 4, tras este turno ya no vuelve a tirar");
+                }
+                else if (tiradasCoche == 4) {
+                    tirado = true;
+                    tiradasCoche = 0;
+                    System.out.println("El jugador ya ha vuelto a lanzar los dados 3 veces seguidas, ahora termian el turno.");
                 }
             }
             else{
@@ -1269,10 +1297,10 @@ public class Menu{
         System.out.println("El jugador " + jugador.getNombre() + " se ha declarado en bancarrota.");
         while (!jugador.getPropiedades().isEmpty()) {
             Casilla casilla = jugador.getPropiedades().get(0);
-            /*while (!casilla.getEdificaciones().isEmpty()) {
+            while (!casilla.getEdificaciones().isEmpty()) {
                 Edificacion edificacion = casilla.getEdificaciones().get(0);
-                //ELIMINAR EDIFICADIONES ATENEA 
-            }*/
+                venderEdificaciones(edificacion.getTipo(), casilla.getNombre(), lanzamientos);      //En lugar de eliminar directamente las casillas las vendemos
+            }
             casilla.setDuenho(destinatario);
             destinatario.anhadirPropiedad(casilla);
             jugador.eliminarPropiedad(casilla);
