@@ -75,7 +75,6 @@ public class Tablero {
     //Método para insertar las casillas del lado norte.
     private void insertarLadoSur() {
         ArrayList<Casilla> ladoSur = new ArrayList<>();
-        
         Casilla Salida = new Casilla("Salida", "Especial", 1, banca);
         Casilla Solar1 = new Casilla("Solar1", "Solar", 2, 600000, banca);
         Casilla Caja = new Casilla("Caja", "Comunidad", 3, banca);
