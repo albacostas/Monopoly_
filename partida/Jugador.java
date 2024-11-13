@@ -329,23 +329,80 @@ public class Jugador {
         vecesCarcel++;
     }    
     
-//     public void vueltas(Jugador jugador){
-//         jugador.setVueltas(jugador.getVueltas()+1);
-//         if(jugador.getVueltas() % 4 == 0){
-//             if(completarVueltas()){
-//                 tablero.manejarIncremento();
-//             }
-//         }
-//     }
-//     private boolean completarVueltas(){
-//         for(Jugador jugador : jugadores){
-//             if(jugador.getVueltas() < 4){
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
+    public boolean realizarAccion(Carta carta, Tablero tablero) {
+        Boolean solvente = true;
+        switch (carta.getAccion()) {
+            case "ir_a_transportes1":
+                avatar.getLugar().moverJugador(this, "Trans1", tablero);
+                break;
 
+            case "avanzar_a_solar15":
+                avatar.getLugar().moverJugador(this, "Solar15", tablero);
+                break;
+
+            case "vender_billete":
+                sumarFortuna(500000f);
+                incrementarDineroParking(500000f);
+                System.out.println(nombre + " ha ganado 500000€.");
+                break;
+
+            case "ir_a_solar3":
+                avatar.getLugar().moverJugador(this, "Solar3", tablero);
+                break;
+
+            case "ir_a_carcel":
+               //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
+               encarcelar(tablero.getPosiciones());
+               System.err.println(("Tendría que ir a la carcel."));
+                break;
+
+            case "ganar_loteria":
+                sumarFortuna(1000000f);
+                incrementarDineroParking(1000000f);
+                System.out.println(nombre + " ha ganado la lotería: 1000000€.");
+                break;
+
+
+            // ACCIONES DE COMUNIDAD
+
+            case "pagar_balneario":
+                if (!avatar.getLugar().pagarConFortuna(this, 500000f)) {
+                    solvente = false;
+                    //jugadorActual.incrementarDineroPropiedades(500000f);
+                }
+                System.err.println(nombre + " ha pagado 500000€.");
+                return solvente;
+
+            case "ir_a_salida":
+                avatar.getLugar().moverJugador(this, "Salida", tablero);
+                avatar.getLugar().jugadorPasaPorSalida(this);
+                break;
+
+            case "recibir_beneficio":
+                sumarFortuna(2000000f);
+                incrementarDineroParking(2000000f);
+                break;
+
+            case "pagar_viaje":
+                if (!avatar.getLugar().pagarConFortuna(this, 1000000f)) {
+                    //hipotecarPropiedad(jugadorActual);
+                    solvente = false;
+                    //jugadorActual.incrementarDineroImpuestos(1000000f);
+                }
+                System.err.println(nombre+ " ha pagado 1000000€.");
+                break;
+
+            case "pagar_alquiler":
+                avatar.getLugar().pagarJugadores(this, 200000f);
+                incrementarDineroImpuestos(200000f);
+                break;
+
+            default:
+                System.out.println("Acción no implementada.");
+                break;
+        }
+        return solvente;
+    }
 
     @Override
 
