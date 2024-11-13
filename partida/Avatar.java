@@ -161,8 +161,8 @@ public class Avatar {
                         // if (nuevaPosicion >= 40) {              //Comprobar que no se pase de las 40 casillas
                         //     nuevaPosicion = nuevaPosicion % 40;     //AÑADIR SALIDA ATENEA
                         // }
-                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : contador_especial-5);             //Solo cambia al avatar de casilla
-                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), contador_especial == 5 ? contador_especial : contador_especial-5);
+                        moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
                     }
                     // else {
                     //     System.out.println("El avatar Pelota ya se ha movido el número de posiciones correspondiente");
