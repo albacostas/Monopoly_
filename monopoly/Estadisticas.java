@@ -48,18 +48,23 @@ public class Estadisticas {
     }
     private String calcularGrupoMasRentable() {
         HashMap<String, Float> rentabilidadGrupo = new HashMap<>();
-
-        for (Grupo grupo : tablero.getGrupos().values()) { // Accede a los grupos desde el tablero
-            float total = grupo.getTotalAlquilerRecaudado();
-            rentabilidadGrupo.put(grupo.getColorGrupo(), rentabilidadGrupo.getOrDefault(grupo.getColorGrupo(), 0.0f) + total);
+    
+        // Iterar sobre todos los grupos en el tablero
+        for (Grupo grupo : tablero.getGrupos().values()) {
+            // Obtener el total de alquiler recaudado por este grupo
+            float totalAlquiler = grupo.getTotalAlquilerRecaudado();
+            
+            // Sumar al total de alquileres del grupo
+            rentabilidadGrupo.put(grupo.getColorGrupo(), rentabilidadGrupo.getOrDefault(grupo.getColorGrupo(), 0.0f) + totalAlquiler);
         }
-
+    
+        // Encontrar el grupo con la mayor rentabilidad
         return rentabilidadGrupo.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("N/A");
+                .max(Map.Entry.comparingByValue()) // Compara por el valor total de alquiler
+                .map(Map.Entry::getKey) // Obtiene el nombre del grupo
+                .orElse("N/A"); // Si no hay grupos, devuelve "N/A"
     }
-
+    
     private String calcularCasillaMasFrecuentada() {
         Casilla casillaMasFrecuentada = null;
         int maxCaidas = 0;
