@@ -10,10 +10,19 @@ class Grupo {
     private ArrayList<Casilla> miembros; //Casillas miembros del grupo.
     private String colorGrupo; //Color del grupo
     private int numCasillas; //Número de casillas del grupo.
-
+    private float totalAlquilerRecaudado;
     //Constructor vacío.
     public Grupo() {
         this.miembros = new ArrayList<>();
+        this.totalAlquilerRecaudado = 0;
+    }
+
+    public float getTotalAlquilerRecaudado() {
+        return totalAlquilerRecaudado;
+    }
+
+    public void agregarAlquiler(float cantidad){
+        this.totalAlquilerRecaudado += cantidad;
     }
 
     /*Constructor para cuando el grupo está formado por DOS CASILLAS:
