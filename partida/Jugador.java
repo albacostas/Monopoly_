@@ -287,6 +287,17 @@ public class Jugador {
         return resultado.toString();
     }
 
+    public String listarHipotecas(){
+        StringBuilder resultado=new StringBuilder();
+        for (Casilla casilla:this.getPropiedades()){
+            if(casilla.getHipotecada()){
+                resultado.append(casilla.getNombre());
+                resultado.append(", ");
+            }
+        }
+        return resultado.toString();
+    }
+
     // public void incrementarDineroPropiedades(float monto){
     //     this.setTotalInvertidoPropiedades(monto);
     // }
@@ -346,7 +357,7 @@ public class Jugador {
         sb.append("     fortuna: ").append(this.fortuna).append(",\n");
         sb.append("     propiedades: ").append(listarPropiedades()).append(",\n");
         sb.append("     edificaciones: ").append("\n").append(listarEdificacionesJugador()).append("\n");                                        
-        sb.append("     hipotecas: ").append("-\n");                                         //listarHipotecas()
+        sb.append("     hipotecas: ").append(listarHipotecas()).append("\n");                                         //listarHipotecas()
         sb.append("}");
 
         return sb.toString();

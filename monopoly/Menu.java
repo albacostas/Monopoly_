@@ -5,6 +5,7 @@ import java.util.ArrayList;
 //import java.util.Map;
 //import java.util.Collections;
 import java.util.Scanner;
+import java.util.Iterator;
 
 import partida.*;
 
@@ -50,29 +51,33 @@ public class Menu{
 
         String comando;
         do {
-            System.out.println("**********************************************************************************");
-            System.out.println("                            ** Opciones Disponibles **                            ");
-            System.out.println("**********************************************************************************");
-            System.out.println("  1.  👤 **Crear jugador**                      : crear jugador (nombre) (avatar)");
-            System.out.println("  2.  👀 **Jugador actual**                     : jugador");
-            System.out.println("  3.  📜 **Listar jugadores**                   : listar jugadores");
-            System.out.println("  4.  🎭 **Listar avatares**                    : listar avatares");
-            System.out.println("  5.  🏘️ **Listar en venta**                     : listar enventa");
-            System.out.println("  6.  🏘️ **Listar edificios**                    : listar edificios");
-            System.out.println("  7.  🎲 **Lanzar dados**                       : lanzar dados");
-            System.out.println("  8.  ⏳ **Acabar turno**                       : acabar turno");
-            System.out.println("  9.  🚔 **Salir de la cárcel**                 : salir carcel");
-            System.out.println("  10. 🧑 **Describir jugador**                  : describir jugador (jugador)");
-            System.out.println("  11. 🎭 **Describir avatar**                   : describir avatar (avatar)");
-            System.out.println("  12. 🏠 **Describir casilla**                  : describir (casilla)");
-            System.out.println("  13. 💸 **Comprar propiedad**                  : comprar (casilla)");
-            System.out.println("  14. 💸 **Edificar casa**                      : edificar casa");
-            System.out.println("  15. 💸 **Edificar hotel**                     : edificar hotel");
-            System.out.println("  16. 💸 **Edificar piscina**                   : edificar piscina");
-            System.out.println("  17. 💸 **Edificar pista**                     : edificar pista de deporte");
-            System.out.println("  18. 📊 **Estadistica jugador**                : estadisticas (jugador)");
-            System.out.println("  19. 📊 **Estadistica juego**                  : estadisticas");
-            System.out.println("  20. 🧮 **Ver tablero**                        : ver tablero");
+            System.out.println("\n**************************************");
+            System.out.println("      ** Bienvenido al Menú de Monopoly **");
+            System.out.println("**************************************");
+            System.out.println("        ** Opciones Disponibles **");
+            System.out.println("**************************************");
+            System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
+            System.out.println("  2.  👀 **Jugador actual**         : jugador");
+            System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
+            System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
+            System.out.println("  5.  🏘️ **Listar edificios**         : listar edificios");
+            System.out.println("  6.  🏘️ **Listar edificios grupo**         : listar edificios (grupo)");
+            System.out.println("  7.  🏘️ **Listar en venta**         : listar enventa");
+            System.out.println("  8.  🎲 **Lanzar dados**           : lanzar dados");
+            System.out.println("  9.  ⏳ **Acabar turno**           : acabar turno");
+            System.out.println("  10.  🚔 **Salir de la cárcel**     : salir carcel");
+            System.out.println("  11.  🧑 **Describir jugador**      : describir jugador (jugador)");
+            System.out.println(" 12.  🎭 **Describir avatar**       : describir avatar (avatar)");
+            System.out.println(" 13.  🏠 **Describir casilla**      : describir (casilla)");
+            System.out.println(" 14.  💸 **Comprar propiedad**      : comprar (casilla)");
+            System.out.println(" 15.  💸 **Edificar casa**          : edificar casa");
+            System.out.println(" 16.  💸 **Edificar hotel**         : edificar hotel");
+            System.out.println(" 17.  💸 **Edificar piscina**       : edificar piscina");
+            System.out.println(" 18.  💸 **Edificar pista**         : edificar pista de deporte");
+            System.out.println(" 19.  💸 **Hipotecar propiedad**         :hipotecar casilla");
+            System.out.println(" 20.  💸 **Deshipotecar propiedad**         :deshipotecar casilla");
+            System.out.println(" 21.  💸 **Vender edificios**         :vender (tipo) (casilla) (cantidad)");
+            System.out.println(" 22.  🧮 **Ver tablero**            : ver tablero");
             System.out.println("  21. 📉 **Bancarrota**                         : bancarrota");
             System.out.println("  22. ✨ **Movimiento especial**                : especial");
             System.out.println("  23. 👣 **Finalizar movimiento especial**      : fin_especial");
@@ -80,6 +85,7 @@ public class Menu{
             System.out.println("  25. ❓ **Ayuda**                              : ayuda");
             System.out.println("  26. 🚪 **Finalizar partida**                  : finalizar");
             System.out.println("**********************************************************************************");
+            System.out.println("**************************************");
             System.out.print("  🎮 **Introduce un comando:** ");
 
             comando = scanner.nextLine(); // Leer el comando del usuario
@@ -217,7 +223,7 @@ public class Menu{
                 break;
 
             case "listar":
-                if (partes.length != 2) {
+                if (partes.length <2) {
                     System.out.println("Error: Debes introducir el comando completo.");
                     break;
                 }
@@ -235,8 +241,14 @@ public class Menu{
                         break;
 
                     case "edificios":
-                        System.out.println(this.listarEdificaciones());
-                        break;
+                        if(partes.length>2){
+                            listarEdificacionesGrupo(partes[2]);
+                            break;
+                        }
+                        else{
+                            System.out.println(this.listarEdificaciones());
+                            break;
+                        }
 
                     default:
                         break;
@@ -307,6 +319,30 @@ public class Menu{
                     }
                     break;
                 }
+            case "hipotecar":
+                if(partes.length!=2){
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                hipotecar(partes[1]);
+                break;
+
+            case "deshipotecar":
+                if(partes.length!=2){
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                deshipotecar(partes[1]);
+                break;
+
+            case "vender":
+                if(partes.length!=4){
+                    System.out.println("Error: Debes introducir el comando completo.");
+                    break;
+                }
+                venderEdificaciones(partes[1], partes[2], Integer.valueOf(partes[3]));
+                break;
+
             
             case "describir":
                 if (partes.length == 1) {
@@ -368,29 +404,33 @@ public class Menu{
                 break;
 
             case "ayuda":
-                System.out.println("**********************************************************************************");
-                System.out.println("                            ** Opciones Disponibles **                            ");
-                System.out.println("**********************************************************************************");
-                System.out.println("  1.  👤 **Crear jugador**                      : crear jugador (nombre) (avatar)");
-                System.out.println("  2.  👀 **Jugador actual**                     : jugador");
-                System.out.println("  3.  📜 **Listar jugadores**                   : listar jugadores");
-                System.out.println("  4.  🎭 **Listar avatares**                    : listar avatares");
-                System.out.println("  5.  🏘️ **Listar en venta**                     : listar enventa");
-                System.out.println("  6.  🏘️ **Listar edificios**                    : listar edificios");
-                System.out.println("  7.  🎲 **Lanzar dados**                       : lanzar dados");
-                System.out.println("  8.  ⏳ **Acabar turno**                       : acabar turno");
-                System.out.println("  9.  🚔 **Salir de la cárcel**                 : salir carcel");
-                System.out.println("  10. 🧑 **Describir jugador**                  : describir jugador (jugador)");
-                System.out.println("  11. 🎭 **Describir avatar**                   : describir avatar (avatar)");
-                System.out.println("  12. 🏠 **Describir casilla**                  : describir (casilla)");
-                System.out.println("  13. 💸 **Comprar propiedad**                  : comprar (casilla)");
-                System.out.println("  14. 💸 **Edificar casa**                      : edificar casa");
-                System.out.println("  15. 💸 **Edificar hotel**                     : edificar hotel");
-                System.out.println("  16. 💸 **Edificar piscina**                   : edificar piscina");
-                System.out.println("  17. 💸 **Edificar pista**                     : edificar pista de deporte");
-                System.out.println("  18. 📊 **Estadistica jugador**                : estadisticas (jugador)");
-                System.out.println("  19. 📊 **Estadistica juego**                  : estadisticas");
-                System.out.println("  20. 🧮 **Ver tablero**                        : ver tablero");
+                System.out.println("\n**************************************");
+                System.out.println("      ** Bienvenido al Menú de Monopoly **");
+                System.out.println("**************************************");
+                System.out.println("        ** Opciones Disponibles **");
+                System.out.println("**************************************");
+                System.out.println("  1.  👤 **Crear jugador**          : crear jugador (nombre) (avatar)");
+                System.out.println("  2.  👀 **Jugador actual**         : jugador");
+                System.out.println("  3.  📜 **Listar jugadores**       : listar jugadores");
+                System.out.println("  4.  🎭 **Listar avatares**        : listar avatares");
+                System.out.println("  5.  🏘️ **Listar edificios**        : listar edificios");
+                System.out.println("  6.  🏘️ **Listar edificios grupo**         : listar edificios (grupo)");
+                System.out.println("  7.  🏘️ **Listar en venta**        : listar enventa");
+                System.out.println("  8.  🎲 **Lanzar dados**           : lanzar dados");
+                System.out.println("  9.  ⏳ **Acabar turno**           : acabar turno");
+                System.out.println("  10.  🚔 **Salir de la cárcel**     : salir carcel");
+                System.out.println("  11.  🧑 **Describir jugador**      : describir jugador (jugador)");
+                System.out.println(" 12.  🎭 **Describir avatar**       : describir avatar (avatar)");
+                System.out.println(" 13.  🏠 **Describir casilla**      : describir (casilla)");
+                System.out.println(" 14.  💸 **Comprar propiedad**      : comprar (casilla)");
+                System.out.println(" 15.  💸 **Edificar casa**          : edificar casa");
+                System.out.println(" 16.  💸 **Edificar hotel**         : edificar hotel");
+                System.out.println(" 17.  💸 **Edificar piscina**       : edificar piscina");
+                System.out.println(" 18.  💸 **Edificar pista**         : edificar pista de deporte");
+                System.out.println(" 19.  💸 **Hipotecar propiedad**         :hipotecar casilla");
+                System.out.println(" 20.  💸 **Deshipotecar propiedad**         :deshipotecar casilla");
+                System.out.println(" 21.  💸 **Vender edificios**         :vender (tipo) (casilla) (cantidad)");
+                System.out.println(" 22.  🧮 **Ver tablero**            : ver tablero");
                 System.out.println("  21. 📉 **Bancarrota**                         : bancarrota");
                 System.out.println("  22. ✨ **Movimiento especial**                : especial");
                 System.out.println("  23. 👣 **Finalizar movimiento especial**      : fin_especial");
@@ -399,7 +439,7 @@ public class Menu{
                 System.out.println("  26. 🚪 **Finalizar partida**                  : finalizar");
                 System.out.println("**********************************************************************************");
                 break;
-            case "bancarrota":
+                case "bancarrota":
                 bancarrota(banca);      //ATENEA: METER QUITAR EDIFICIOS
                 break;
             case "especial":            //ATENEA: Tener en cuenta el caso de lanzar y sacar dobles
@@ -856,6 +896,66 @@ public class Menu{
         return resultado.toString(); 
     }
 
+    public void imprimirArray(ArrayList<Edificacion> a){
+        if(!a.isEmpty()){
+            System.out.print("[");
+            for (Edificacion i:a){
+                System.out.print(i.getTipo()+"-"+i.getId()+", ");
+            }
+            System.out.print("]\n");
+        }
+        else{
+            System.out.print("-\n");
+        }
+    }
+    
+    public void listarEdificacionesGrupo(String grupo){
+        ArrayList casas=new ArrayList<Edificacion>();
+        ArrayList hoteles=new ArrayList<Edificacion>();  
+        ArrayList piscinas=new ArrayList<Edificacion>(); 
+        ArrayList pistas=new ArrayList<Edificacion>(); 
+
+        Grupo color = tablero.getGrupos().get(grupo);
+         
+        if(color==null){
+            System.out.println("Ese grupo no ha sido encontrado");
+            return; 
+        }
+
+        for(Casilla casilla:color.getMiembros()){
+            if (!casilla.getEdificaciones().isEmpty()) {
+                System.out.println("propiedad: " + casilla.getNombre());  
+                for (Edificacion e : casilla.getEdificaciones()) {
+                    if (e.getTipo().equals("Casa")){
+                        casas.add(e);
+                    }
+                    else if (e.getTipo().equals("Hotel")){
+                        hoteles.add(e);
+                    }
+                    else if (e.getTipo().equals("Piscina")){
+                        piscinas.add(e);
+                    }
+                    else {
+                        pistas.add(e);
+                    } 
+                }
+                System.out.print("Hoteles: ");
+                imprimirArray(hoteles);
+                System.out.print("Casas: ");
+                imprimirArray(casas);
+                System.out.print("Piscinas: ");
+                imprimirArray(piscinas);
+                System.out.print("Pistas de deporte: ");
+                imprimirArray(pistas);
+                
+                System.out.println("alquiler: "+casilla.calcularAlquilerEdificacionessinMensajes());
+                
+            }
+        }
+    }
+
+
+
    
     // Método para saber si todos los jugadores han dado un número de vueltas al tablero múltiplo de 4
     public void contarVueltasJugadores(){
@@ -904,6 +1004,205 @@ public class Menu{
         lanzamientos = 0;
     }
 
+    public boolean hipotecar(String nombre){
+        Casilla casilla = this.tablero.encontrar_casilla(nombre);
+        Jugador jugactual = jugadores.get(turno);
+        if(casilla.getTipo().equals("Solar") || casilla.getTipo().equals("Servicio") || casilla.getTipo().equals("Transporte")){
+            if(!jugactual.equals(casilla.getDuenho())){
+                System.out.println("Tienes que ser el dueño de la casilla para poder hipotecarla.");
+                return false;
+            }
+            else{
+                if(casilla.getHipotecada()){
+                    System.out.println("No se puede hipotecar "+casilla.getNombre()+". Ya está hipotecada.");
+                    return false;
+                }
+                else{
+                    if(!casilla.getEdificaciones().isEmpty()){
+                        System.out.println("Esta propiedad tiene edificios. Antes de hipotecarla debes venderlos todos.");
+                        return false;
+                    }
+                    else{
+                        casilla.setHipotecada(true); 
+                        jugactual.sumarFortuna(casilla.getHipoteca());
+                        System.out.println("La casilla "+casilla.getNombre()+" ha sido hipotecada. El jugador "+jugactual.getNombre()+" ha recibido "+ casilla.getHipoteca());
+                        return true;
+                    }
+                }
+            }
+        }
+        else{
+            System.out.println("Solo puedes hipotecar las casillas de tipo Solar, Servicio o Transporte.");
+            return false;
+        }
+    }
+
+
+    public boolean deshipotecar(String nombre){
+        Casilla casilla = this.tablero.encontrar_casilla(nombre);
+        Jugador jugactual = jugadores.get(turno);
+        if(casilla.getTipo().equals("Solar") || casilla.getTipo().equals("Servicio") || casilla.getTipo().equals("Transporte")){
+            if(!jugactual.equals(casilla.getDuenho())){
+                System.out.println("Tienes que ser el dueño de la casilla para poder deshipotecarla.");
+                return false;
+            }
+            else{
+                if(!casilla.getHipotecada()){
+                    System.out.println("La casilla no está hipotecada, por lo que no la pudes deshipotecar.");
+                    return false;
+                }
+                else{
+                    casilla.setHipotecada(false);
+                    float deshipoteca=casilla.getHipoteca()+0.10f*casilla.getHipoteca();
+                    jugactual.sumarGastos(deshipoteca);
+                    System.out.println("La casilla "+casilla.getNombre()+" ha sido deshipotecada. El jugador "+jugactual.getNombre()+" ha pagado "+ deshipoteca);
+                    return true;
+
+                }
+
+            }
+        }
+        else{
+            System.out.println("No se puede deshipotecar una casilla que no sea de tipo Solar, Servicios o Transporte.");
+            return false;
+        }
+
+    }
+
+    public boolean venderEdificaciones(String tipo, String solar, int cantidad){
+        Casilla casilla = this.tablero.encontrar_casilla(solar);
+        Jugador jugactual = jugadores.get(turno);
+        if(casilla.getTipo().equals("Solar")){
+            if(jugactual.equals(casilla.getDuenho())){
+                if(casilla.getEdificaciones().isEmpty()){
+                    System.out.println("No hay edificaciones para vender en esta casilla.");
+                    return false;
+                }
+                else{
+                    float dinero=0.0f;
+                    switch (tipo) {
+                        case "Casa":
+                            dinero= (casilla.getValorinicial()*0.6f)*0.5f*cantidad;
+                            if(cantidad>casilla.getnumCasas()){
+                                System.out.println("Solamente se pueden vender "+casilla.getnumCasas()+" casas, recibiendo "+dinero); 
+                                return false;
+                            }
+                            else{
+                                Iterator<Edificacion> iterator = casilla.getEdificaciones().iterator();
+                                casilla.setnumCasas(casilla.getnumCasas()-cantidad);
+                                int contador=0;
+                                while(iterator.hasNext()){
+                                    Edificacion e = iterator.next();
+                                    if(e.getTipo().equals("Casa")){
+                                        iterator.remove();
+                                        contador++;
+                                        if(contador == cantidad){
+                                            break;
+                                        }
+                                    }
+                                }
+                                jugactual.sumarFortuna(dinero);
+                                System.out.println("Casas vendidas. "+jugactual.getNombre()+" recibe "+ dinero);
+                                return true;
+                            }
+
+                        case "Hotel":
+                            dinero= (casilla.getValorinicial()*0.6f)*0.5f*cantidad;
+                            if(cantidad>casilla.getnumHoteles()){
+                                System.out.println("Solamente se pueden vender "+casilla.getnumHoteles()+" hoteles, recibiendo "+dinero);
+                                return false;
+
+                            }
+                            else{
+                                Iterator<Edificacion> iterator = casilla.getEdificaciones().iterator();
+                                casilla.setnumHoteles(casilla.getnumHoteles()-cantidad);
+                                int contador=0;
+                                while(iterator.hasNext()){
+                                    Edificacion e = iterator.next();
+                                    if(e.getTipo().equals("Hotel")){
+                                        iterator.remove();
+                                        contador++;
+                                        if(contador == cantidad){
+                                            break;
+                                        }
+                                    }
+                                }
+                                jugactual.sumarFortuna(dinero);
+                                System.out.println("Hoteles vendidos. "+jugactual.getNombre()+" recibe "+ dinero);
+                                return true;
+                            }
+                            
+                        case "Piscina":
+                            dinero= (casilla.getValorinicial()*0.4f)*0.5f*cantidad;
+                            if(cantidad>casilla.getnumPiscinas()){
+                                System.out.println("Solamente se pueden vender "+casilla.getnumPiscinas()+" piscinas, recibiendo "+dinero); 
+                                return false;
+
+                            }
+                            else{
+                                Iterator<Edificacion> iterator = casilla.getEdificaciones().iterator();
+                                casilla.setnumPiscinas(casilla.getnumPiscinas()-cantidad);
+                                int contador=0;
+                                while(iterator.hasNext()){
+                                    Edificacion e = iterator.next();
+                                    if(e.getTipo().equals("Piscina")){
+                                        iterator.remove();
+                                        contador++;
+                                        if(contador == cantidad){
+                                            break;
+                                        }
+                                    }
+                                }
+                                jugactual.sumarFortuna(dinero);
+                                System.out.println("Piscinas vendidas. "+jugactual.getNombre()+" recibe "+ dinero);
+                                return true;
+                            }
+                            
+                        case "Pista":
+                            dinero= (casilla.getValorinicial()*1.25f)*0.5f*cantidad;
+                            if(cantidad>casilla.getnumPistas()){
+                                System.out.println("Solamente se pueden vender "+casilla.getnumPistas()+" pistas, recibiendo "+dinero); 
+                                return false;
+
+                            }
+                            else{
+                                Iterator<Edificacion> iterator = casilla.getEdificaciones().iterator();
+                                casilla.setnumPistas(casilla.getnumPistas()-cantidad);
+                                int contador=0;
+                                while(iterator.hasNext()){
+                                    Edificacion e = iterator.next();
+                                    if(e.getTipo().equals("Pista")){
+                                        iterator.remove();
+                                        contador++;
+                                        if(contador == cantidad){
+                                            break;
+                                        }
+                                    }
+                                }
+                                jugactual.sumarFortuna(dinero);
+                                System.out.println("Pistas vendidas. "+jugactual.getNombre()+" recibe "+ dinero);
+                                return true;
+                            }
+                            
+                    
+                        default:
+                            System.out.println("El tipo de edificio introducido no existe");
+                            return false;
+                    }
+
+                } 
+            }
+            else{
+                System.out.println("Solo puede vender edificaciones de una casilla que sea tuya.");
+                return false;
+            }
+        }
+        else{
+            System.out.println("Solo las casillas de tipo Solar tienen edificaciones.");
+            return false;
+        }
+    }
+    
     //Acsbar con edificios(ATENEA)
     //PEndiente ver si los edificios se heredan o se destruyen (ATENEA)
     //Edificios bancarrota (ATENEA)
