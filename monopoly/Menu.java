@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import partida.*;
 
-public class Menu {
+public class Menu{
 
     // Atributos
     private ArrayList<Jugador> jugadores; // Jugadores de la partida.
@@ -26,7 +26,7 @@ public class Menu {
     // Atributos para las estadísticas
     private Estadisticas estadisticas;
     private int tiradaActual;
-
+    
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu() {
@@ -45,7 +45,7 @@ public class Menu {
         this.tablero.toString();
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
-        this.estadisticas = new Estadisticas(jugadores, tablero.getCasillas());
+        this.estadisticas = new Estadisticas(jugadores, tablero.getCasillas(), this.tablero);
         this.tiradaActual = 0;
 
         String comando;
@@ -358,19 +358,11 @@ public class Menu {
                 break;
             
             case "estadisticas":
-                if(partes.length != 2){
-                    System.out.println("Error: Debes introducir el comando completo y el nombre del jugador.");
-                    break;
-                }
-                if(partes.length != 2){
-                    System.out.println("Error: Debes introducir el comando completo y el nombre del jugador.");
-                    break;
-                }
                 if(partes.length == 2){
                     this.estadisticasJugador(partes[1]);
                 }else{
                     //this.estadisticasGlobales();
-                    //this.estadisticasGlobales();
+                    estadisticas.mostrarEstadisticas();
                 }
                 
                 break;
@@ -717,6 +709,7 @@ public class Menu {
                 case "pagar_fianza":
                     if (jActual.getFortuna() >= 500000.0f) {
                         jActual.sumarGastos(500000.0f);
+                        jActual.setTotalPagadoImpuestos(jActual.getTotalPagadoImpuestos() + 500000.0f );
                         //jActual.sumarFortuna(-500000.0f);
                         jActual.setEnCarcel(false);
                         System.out.println(jActual.getNombre() + " paga 500000 y sale de la carcel.");
@@ -931,6 +924,7 @@ public class Menu {
             jugador.eliminarPropiedad(casilla);
         }
         destinatario.sumarFortuna(jugador.getFortuna());
+        destinatario.setTotalRecibidoParking(destinatario.getTotalRecibidoParking() + jugador.getFortuna());
         jugador.setFortuna(0);
         jugador.getAvatar().getLugar().eliminarAvatar(jugador.getAvatar());
         eliminarJugador(jugador);
@@ -961,8 +955,36 @@ public class Menu {
     }
 
 
-    // Método para realizar la acción de la carta en el jugador actual
-    private void realizarAccion(Carta carta) {
+    // Método para pagar a otros jugadores
+    public void pagarJugadores(Jugador jugadorPagador, float cantidad) {
+        // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
+        float total = cantidad * (jugadores.size() - 1);
+        Casilla casActual = jugadorPagador.getAvatar().getLugar();
+        // Verificamos si el jugador tiene suficiente fortuna para realizar el pago
+        if (jugadorPagador.getFortuna() < total) {
+            System.out.println(jugadorPagador.getNombre() + " no tiene suficiente dinero para pagar a todos los jugadores.");
+            // Puedes implementar la lógica de hipoteca o endeudamiento aquí si el jugador no tiene suficiente fortuna
+            return;
+        }
+
+        // Transferimos la cantidad a cada jugador excepto al jugador que está pagando
+        for (Jugador jugador : jugadores) {
+            if (!jugador.equals(jugadorPagador)) {
+                jugador.setFortuna(jugador.getFortuna() + cantidad);
+                jugador.incrementarRecibidoAlquiler(cantidad);
+                jugadorPagador.incrementarDineroImpuestos(total);
+                System.out.println(jugador.getNombre() + " ha recibido " + cantidad + "€ de " + jugadorPagador.getNombre());
+            }
+        }
+
+        // Descontamos el total de la fortuna del jugador que está pagando
+        jugadorPagador.setFortuna(jugadorPagador.getFortuna() - total);
+        casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado() + total);
+        System.out.println(jugadorPagador.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
+    }
+
+
+    public void realizarAccion(Carta carta) {
         Casilla casActual = jugadores.get(turno).getAvatar().getLugar();
         switch (casActual.getCartaElegida().getAccion()) {
             case "ir_a_transportes1":
@@ -1007,7 +1029,7 @@ public class Menu {
 
             case "ir_a_salida":
                 casActual.moverJugador(jugadores.get(turno), "Salida", tablero);
-                casActual.jugadorPasaPorSalida(jugadores.get(turno).);
+                casActual.jugadorPasaPorSalida(jugadores.get(turno));
                 break;
 
             case "recibir_beneficio":
@@ -1017,7 +1039,7 @@ public class Menu {
                 break;
 
             case "pagar_viaje":
-                if (!pagarConFortuna(jugadores.get(turno), 1000000f)) {
+                if (/*!pagarConFortuna(jugadores.get(turno), 1000000f)*/) {
                     //hipotecarPropiedad(jugadores.get(turno));
 
                     jugadores.get(turno).incrementarDineroImpuestos(1000000f);
@@ -1036,34 +1058,6 @@ public class Menu {
                 System.out.println("Acción no implementada.");
                 break;
         }
-    }
-
-    // Método para pagar a otros jugadores
-    public void pagarJugadores(Jugador jugadorPagador, float cantidad) {
-        // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
-        float total = cantidad * (jugadores.size() - 1);
-        Casilla casActual = jugadorPagador.getAvatar().getLugar();
-        // Verificamos si el jugador tiene suficiente fortuna para realizar el pago
-        if (jugadorPagador.getFortuna() < total) {
-            System.out.println(jugadorPagador.getNombre() + " no tiene suficiente dinero para pagar a todos los jugadores.");
-            // Puedes implementar la lógica de hipoteca o endeudamiento aquí si el jugador no tiene suficiente fortuna
-            return;
-        }
-
-        // Transferimos la cantidad a cada jugador excepto al jugador que está pagando
-        for (Jugador jugador : jugadores) {
-            if (!jugador.equals(jugadorPagador)) {
-                jugador.setFortuna(jugador.getFortuna() + cantidad);
-                jugador.incrementarRecibidoAlquiler(cantidad);
-                jugadorPagador.incrementarDineroImpuestos(total);
-                System.out.println(jugador.getNombre() + " ha recibido " + cantidad + "€ de " + jugadorPagador.getNombre());
-            }
-        }
-
-        // Descontamos el total de la fortuna del jugador que está pagando
-        jugadorPagador.setFortuna(jugadorPagador.getFortuna() - total);
-        casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado() + total);
-        System.out.println(jugadorPagador.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
     }
 }
 

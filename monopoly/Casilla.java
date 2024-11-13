@@ -3,7 +3,7 @@ package monopoly;
 import partida.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -24,6 +24,7 @@ public class Casilla {
     private float hipoteca; //Valor otorgado por hipotecar una casilla
     private ArrayList<Avatar> avatares; //Avatares que están situados en la casilla.
     private HashMap<Jugador, Integer> caidasJugador;
+
 
     private Mazo mazo;
     private Jugador banca;
@@ -127,7 +128,10 @@ public class Casilla {
         return  this.totalAlquilerRecaudado;
     }
     public void setTotalAlquilerRecaudado(float totalAlquilerRecaudado) {
-        this.totalAlquilerRecaudado = totalAlquilerRecaudado;
+        this.totalAlquilerRecaudado += totalAlquilerRecaudado;
+    }
+    public void agregarAlquiler(float cantidad){
+        this.totalAlquilerRecaudado += cantidad;
     }
     public Jugador getBanca() {
         return banca;
@@ -135,6 +139,12 @@ public class Casilla {
     public Carta getCartaElegida() {
         return cartaElegida;
     }
+
+    public HashMap<Jugador, Integer> getCaidasJugador() {
+        return caidasJugador;
+    }
+
+
     //Constructores:
     public Casilla() {
 
@@ -321,26 +331,31 @@ public class Casilla {
         
                 if(tipoCasilla.equals("Solar")){
                     alquiler = this.calcularAlquilerSolar(duenho);
+                    this.grupo.agregarAlquiler(alquiler);
                 }else if (tipoCasilla.equals("Servicio")){
                     alquiler = this.calcularAlquilerServicio(tirada);
+                    this.grupo.agregarAlquiler(alquiler);
                 }else if(tipoCasilla.equals("Transporte")){
                     alquiler = this.calcularAlquilerTransporte(actual);
+                    this.grupo.agregarAlquiler(alquiler);
                 }
                 if (!duenho.equals(banca)){    
                     System.out.println("La casilla es propiedad de " + duenho.getNombre() + ". Debes pagar " + alquiler + " de alquiler.");
                     if (!edificaciones.isEmpty()){
                         //aquí iría el contenido de la función
                         float alquilerT=calcularAlquilerEdificaciones(alquiler);
+                        this.grupo.agregarAlquiler(alquilerT);
                         if (actual.getFortuna()<alquilerT){
                             System.out.println("El jugador " + actual.getNombre() + " no tiene suficiente dinero para pagar el alquiler. Debes hipotecar propiedades o declararte en bancarrota.");
                             return false; 
                         }
                         else{
                             actual.sumarGastos(alquilerT);
+                            this.agregarAlquiler(alquilerT);
                             actual.incrementarDineroAlquiler(alquilerT);
                             duenho.sumarFortuna(alquilerT);
                             duenho.incrementarRecibidoAlquiler(alquilerT);
-                            totalAlquilerRecaudado += alquiler;
+                            
                             System.out.println("Has pagado " + alquilerT + " de alquiler a " + duenho.getNombre() + ".");
                             
                         }
@@ -353,6 +368,7 @@ public class Casilla {
                         } else {
                             // Pagar el alquiler
                             actual.sumarGastos(alquiler);
+                            this.grupo.agregarAlquiler(alquiler);
                             actual.incrementarDineroAlquiler(alquiler);
                             //actual.sumarFortuna(-alquiler);
                             //duenho.sumarFortuna(alquiler);
@@ -374,6 +390,8 @@ public class Casilla {
             float bote = this.getValor(); // Obtener el bote
             System.out.println("Has caído en 'Parking'. Recibes " + bote + ".");
             actual.sumarFortuna(bote);
+            this.grupo.agregarAlquiler(bote);
+            this.agregarAlquiler(bote);
             actual.incrementarDineroParking(bote);
             totalAlquilerRecaudado += alquiler;
             this.setValor(0);
@@ -584,8 +602,6 @@ public class Casilla {
             cartaElegida = mazo.elegirCarta(eleccion);
             System.out.println("Has elegido la carta: " + cartaElegida.getDescripcion());
 
-            // Realizar acción con la carta elegida en el jugador actual
-           // realizarAccion(cartaElegida, jugadorActual);
         }
     }
 
@@ -663,6 +679,8 @@ public class Casilla {
                             Edificacion casa=new Edificacion("Casa", precio);
                             this.numCasas=this.numCasas+1;
                             this.duenho.sumarGastos(precio);
+                            this.grupo.agregarAlquiler(precio);
+                            this.agregarAlquiler(precio);
                             edificaciones.add(casa);
                             System.out.println("Casa construida en la casilla "+this.nome);
                             System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
@@ -678,6 +696,8 @@ public class Casilla {
                             Edificacion casa=new Edificacion("Casa", precio);
                             this.numCasas=this.numCasas+1;
                             this.duenho.sumarGastos(precio);
+                            this.grupo.agregarAlquiler(precio);
+                            this.agregarAlquiler(precio);
                             edificaciones.add(casa);
                             System.out.println("Casa construida en la casilla "+this.nome);
                             System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
@@ -721,6 +741,8 @@ public class Casilla {
                             this.numHoteles=this.numHoteles+1;
                             this.numCasas=this.numCasas-4;
                             this.duenho.sumarGastos(precio);
+                            this.grupo.agregarAlquiler(precio);
+                            this.agregarAlquiler(precio);
                             //Quitamos las casas por las que se sustituye el hotal del array
                             Iterator<Edificacion> iterator = edificaciones.iterator();
                             while (iterator.hasNext()) {
@@ -773,6 +795,8 @@ public class Casilla {
                             Edificacion piscina=new Edificacion("Piscina", precio);
                             this.numPiscinas=this.numPiscinas+1;
                             this.duenho.sumarGastos(precio);
+                            this.grupo.agregarAlquiler(precio);
+                            this.agregarAlquiler(precio);
                             edificaciones.add(piscina);
                             System.out.println("Piscina construida en la casilla "+this.nome);
                             System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
@@ -816,6 +840,8 @@ public class Casilla {
                             Edificacion pista=new Edificacion("Pista", precio);
                             this.numPistas=this.numPistas+1;
                             this.duenho.sumarGastos(precio);
+                            this.grupo.agregarAlquiler(precio);
+                            this.agregarAlquiler(precio);
                             edificaciones.add(pista);
                             System.out.println("Pista construida en la casilla "+this.nome);
                             System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);

@@ -9,10 +9,12 @@ import partida.Jugador;
 public class Estadisticas {
     private ArrayList<Jugador> jugadores;
     private ArrayList<Casilla> propiedades;
+    private Tablero tablero;
 
-    public Estadisticas(ArrayList<Jugador> jugadores, ArrayList<Casilla> propiedades) {
+    public Estadisticas(ArrayList<Jugador> jugadores, ArrayList<Casilla> propiedades, Tablero tablero) {
         this.jugadores = jugadores;
         this.propiedades = propiedades;
+        this.tablero = tablero;
     }
 
     public void mostrarEstadisticas() {
@@ -31,30 +33,27 @@ public class Estadisticas {
         System.out.println("Jugador con mayor fortuna: " + jugadorEnCabeza.getNombre());
     }
 
-    public Casilla calcularCasillaMasRentable() {
+    private Casilla calcularCasillaMasRentable() {
         Casilla casillaMasRentable = null;
         float maxIngresos = 0;
-
+    
         for (Casilla propiedad : propiedades) {
-
             float ingresosCasilla = propiedad.getTotalAlquilerRecaudado();
-            if(ingresosCasilla > maxIngresos){
+            if (ingresosCasilla > maxIngresos) {
                 maxIngresos = ingresosCasilla;
                 casillaMasRentable = propiedad;
             }
         }
-        return casillaMasRentable;
+        return casillaMasRentable; // Devuelve la casilla más rentable
     }
-
     private String calcularGrupoMasRentable() {
-        Map<String, Float> rentabilidadGrupo = new HashMap<>();
-        for (Casilla propiedad : propiedades) {
-            if (propiedad.getTipo().equals("Solar")) {
-                // Asegúrate de que getGrupo() devuelva un objeto Grupo
-                String grupoNombre = propiedad.getGrupo() != null ? propiedad.getGrupo().getNombre() : "Sin grupo";
-                rentabilidadGrupo.put(grupoNombre, rentabilidadGrupo.getOrDefault(grupoNombre, 0.0f) + propiedad.getAlquiler());
-            }
+        HashMap<String, Float> rentabilidadGrupo = new HashMap<>();
+
+        for (Grupo grupo : tablero.getGrupos().values()) { // Accede a los grupos desde el tablero
+            float total = grupo.getTotalAlquilerRecaudado();
+            rentabilidadGrupo.put(grupo.getColorGrupo(), rentabilidadGrupo.getOrDefault(grupo.getColorGrupo(), 0.0f) + total);
         }
+
         return rentabilidadGrupo.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
@@ -62,16 +61,21 @@ public class Estadisticas {
     }
 
     private String calcularCasillaMasFrecuentada() {
-        Map<String, Integer> frecuencia = new HashMap<>();
-        for (Jugador jugador : jugadores) {
-            for (Casilla propiedad : jugador.getPropiedades()) {
-                frecuencia.put(propiedad.getNombre(), frecuencia.getOrDefault(propiedad.getNombre(), 0) + 1);
+        Casilla casillaMasFrecuentada = null;
+        int maxCaidas = 0;
+    
+        for (Casilla propiedad : propiedades) {
+            // Obtener el total de caídas de la casilla
+            int totalCaidas = propiedad.getCaidasJugador().values().stream()
+                .mapToInt(Integer::intValue)
+                .sum(); // Sumar todas las caídas de los jugadores en esta casilla
+    
+            if (totalCaidas > maxCaidas) {
+                maxCaidas = totalCaidas;
+                casillaMasFrecuentada = propiedad;
             }
         }
-        return frecuencia.entrySet().stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("N/A");
+        return casillaMasFrecuentada != null ? casillaMasFrecuentada.getNombre() : "N/A";
     }
 
     private Jugador calcularJugadorMasVueltas() {
