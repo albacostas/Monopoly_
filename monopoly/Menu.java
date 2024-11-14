@@ -1000,7 +1000,7 @@ public class Menu{
         Grupo color = tablero.getGrupos().get(grupo);
          
         if(color==null){
-            System.out.println("Ese grupo no ha sido encontrado");
+            System.out.println("Ese grupo no ha sido encontrado");e
             return; 
         }
 
@@ -1413,8 +1413,10 @@ public class Menu{
                 break;
         }
     }
+
     */
 }
+
 
     /*
     private void actualizarJugadorMasTiradas(Jugador jugador){
@@ -1435,3 +1437,7 @@ public class Menu{
         System.out.println("}");
     }
     */
+
+
+
+
