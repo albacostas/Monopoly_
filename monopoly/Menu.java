@@ -933,7 +933,6 @@ public class Menu{
                 }
             }
         }
-
     }
 
     // Método que realiza las acciones asociadas al comando 'listar jugadores'.
