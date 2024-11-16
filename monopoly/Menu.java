@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 import partida.*;
 
-public class Menu{
+public class Menu implements Hipotecable{
 
     // Atributos
     private ArrayList<Jugador> jugadores; // Jugadores de la partida.
@@ -29,7 +29,7 @@ public class Menu{
     private int tiradaActual;
     private int turnosSaltados;
     private int tiradasCoche;
-    
+    private Carta cartaElegida;
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
     public Menu() {
@@ -534,7 +534,7 @@ public class Menu{
 
         if (!error) {
             Jugador jugador = new Jugador(nombrejugador, avatar_j, this.getTablero().getPosiciones().get(0).get(0),
-                    avatares);
+                    avatares, this);
             jugadores.add(jugador);
             avatares.add(jugador.getAvatar());
             this.getTablero().getPosiciones().get(0).get(0).anhadirAvatar(jugador.getAvatar());
@@ -913,6 +913,18 @@ public class Menu{
                 
             case "hipotecar":
                 //FALTA AÑADIR EL CODIGO PARA HIPOTECAR (AINHOA)
+                cartaElegida = destinatario.getCartaElegida();
+                if( cartaElegida != null){
+                    boolean resultado = destinatario.realizarAccion(cartaElegida, tablero);
+                    if(resultado){ 
+                        System.out.println("Accion realizada con éxito usando la carta elegida.");
+                    } else{
+                        System.out.println("No se ha podido realizar la accion.");
+                    }
+
+                } else{
+                    System.out.println("No tienes carta elegida.");
+                }
                 System.out.println("Todavia no esta implementado 👷‍♀️🔧");
                 break;
 
@@ -1000,7 +1012,7 @@ public class Menu{
         Grupo color = tablero.getGrupos().get(grupo);
          
         if(color==null){
-            System.out.println("Ese grupo no ha sido encontrado");e
+            System.out.println("Ese grupo no ha sido encontrado");
             return; 
         }
 
@@ -1085,7 +1097,7 @@ public class Menu{
         }
         lanzamientos = 0;
     }
-
+    /*
     public boolean hipotecar(String nombre){
         Casilla casilla = this.tablero.encontrar_casilla(nombre);
         Jugador jugactual = jugadores.get(turno);
@@ -1117,7 +1129,7 @@ public class Menu{
             System.out.println("Solo puedes hipotecar las casillas de tipo Solar, Servicio o Transporte.");
             return false;
         }
-    }
+    }*/
 
 
     public boolean deshipotecar(String nombre){
@@ -1335,108 +1347,42 @@ public class Menu{
         }
     }
 
+    @Override
 
-    /*
-    public void realizarAccion(Carta carta) {
-        Casilla casActual = jugadores.get(turno).getAvatar().getLugar();
-        switch (casActual.getCartaElegida().getAccion()) {
-            case "ir_a_transportes1":
-                casActual.moverJugador(jugadores.get(turno), "Trans1", tablero);
-                break;
-
-            case "avanzar_a_solar15":
-                casActual.moverJugador(jugadores.get(turno), "Solar15", tablero);
-                break;
-
-            case "vender_billete":
-                jugadores.get(turno).sumarFortuna(500000f);
-                jugadores.get(turno).incrementarDineroParking(500000f);
-                System.out.println(jugadores.get(turno) + " ha ganado 500000€.");
-                break;
-
-            case "ir_a_solar3":
-                casActual.moverJugador(jugadores.get(turno), "Solar3", tablero);
-                break;
-
-            case "ir_a_carcel":
-                jugadores.get(turno).encarcelar(tablero.getPosiciones());
-               System.err.println(("Tendría que ir a la carcel."));
-                break;
-
-            case "ganar_loteria":
-                jugadores.get(turno).sumarFortuna(1000000f);
-                jugadores.get(turno).incrementarDineroParking(1000000f);
-                System.out.println(jugadores.get(turno) + " ha ganado la lotería: 1000000€.");
-                break;
-
-
-            // ACCIONES DE COMUNIDAD
-
-            case "pagar_balneario":
-                if (!casActual.pagarConFortuna(jugadores.get(turno), 500000f)) {
-                    //hipotecarPropiedad(jugadores.get(turno));
-                    jugadores.get(turno).incrementarDineroPropiedades(500000f);
+    public boolean hipotecar(String nombre){
+        Casilla casilla = this.tablero.encontrar_casilla(nombre);
+        Jugador jugactual = jugadores.get(turno);
+        if(casilla.getTipo().equals("Solar") || casilla.getTipo().equals("Servicio") || casilla.getTipo().equals("Transporte")){
+            if(!jugactual.equals(casilla.getDuenho())){
+                System.out.println("Tienes que ser el dueño de la casilla para poder hipotecarla.");
+                return false;
+            }
+            else{
+                if(casilla.getHipotecada()){
+                    System.out.println("No se puede hipotecar "+casilla.getNombre()+". Ya está hipotecada.");
+                    return false;
                 }
-                System.err.println(jugadores.get(turno)+ " ha pagado 500000€.");
-                break;
-
-            case "ir_a_salida":
-                casActual.moverJugador(jugadores.get(turno), "Salida", tablero);
-                casActual.jugadorPasaPorSalida(jugadores.get(turno));
-                break;
-
-            case "recibir_beneficio":
-                jugadores.get(turno).sumarFortuna(2000000f);
-                jugadores.get(turno).incrementarDineroParking(2000000f);
-                System.out.println(jugadores.get(turno).getNombre() + " ha recibido un beneficio: 2000000€");
-                break;
-
-            case "pagar_viaje":
-                if (!pagarConFortuna(jugadores.get(turno), 1000000f)) {
-                    //hipotecarPropiedad(jugadores.get(turno));
-
-                    jugadores.get(turno).incrementarDineroImpuestos(1000000f);
-                    casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado() + 1000000f);
+                else{
+                    if(!casilla.getEdificaciones().isEmpty()){
+                        System.out.println("Esta propiedad tiene edificios. Antes de hipotecarla debes venderlos todos.");
+                        return false;
+                    }
+                    else{
+                        casilla.setHipotecada(true); 
+                        jugactual.sumarFortuna(casilla.getHipoteca());
+                        System.out.println("La casilla "+casilla.getNombre()+" ha sido hipotecada. El jugador "+jugactual.getNombre()+" ha recibido "+ casilla.getHipoteca());
+                        return true;
+                    }
                 }
-                
-                System.err.println(jugadores.get(turno) + " ha pagado 1000000€.");
-                break;
-
-            case "pagar_alquiler":
-                pagarJugadores(jugadores.get(turno), 200000f);
-                jugadores.get(turno).incrementarDineroImpuestos(200000f);
-            
-                break;
-
-            default:
-                System.out.println("Acción no implementada.");
-                break;
+            }
+        }
+        else{
+            System.out.println("Solo puedes hipotecar las casillas de tipo Solar, Servicio o Transporte.");
+            return false;
         }
     }
-
-    */
 }
 
-
-    /*
-    private void actualizarJugadorMasTiradas(Jugador jugador){
-        if(jugadorMasVecesDados == null || jugador.getTiradasDados() > jugadorMasVecesDados.getTiradasDados()){
-            jugadorMasVecesDados = jugador;
-        }
-    }
-    
-
-    private void estadisticasGlobales() {
-        System.out.println("{");
-        System.out.println("  \"casillaMasRentable\": \"" + (casillaMasRentable != null ? casillaMasRentable.getNombre() : "N/A") + "\",");
-        System.out.println("  \"grupoMasRentable\": \"" + (grupoMasRentable != null ? grupoMasRentable.getNombre() : "N/A") + "\",");
-        System.out.println("  \"casillaMasFrecuentada\": \"" + (casillaMasFrecuentada != null ? casillaMasFrecuentada.getNombre() : "N/A") + "\",");
-        System.out.println("  \"jugadorMasVueltas\": \"" + (jugadorMasVueltas != null ? jugadorMasVueltas.getNombre() : "N/A") + "\",");
-        System.out.println("  \"jugadorMasVecesDados\": \"" + (jugadorMasVecesDados != null ? jugadorMasVecesDados.getNombre() : "N/A") + "\",");
-        System.out.println("  \"jugadorEnCabeza\": \"" + (jugadorEnCabeza != null ? jugadorEnCabeza.getNombre() : "N/A") + "\"");
-        System.out.println("}");
-    }
-    */
 
 
 

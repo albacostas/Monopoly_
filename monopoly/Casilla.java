@@ -31,7 +31,7 @@ public class Casilla {
     private Casilla casillaMasFrecuentada;
     private Jugador jugadorMasVueltas;
     private float totalAlquilerRecaudado;
-    private Carta cartaElegida;
+    //private Carta cartaElegida;
 
     private ArrayList<Edificacion> edificaciones; //Edificaciones que contiene la casilla
     private int numCasas=0;
@@ -156,9 +156,6 @@ public class Casilla {
     }
     public Jugador getBanca() {
         return banca;
-    }
-    public Carta getCartaElegida() {
-        return cartaElegida;
     }
 
     public HashMap<Jugador, Integer> getCaidasJugador() {
@@ -467,7 +464,7 @@ public class Casilla {
             this.mazo = new Mazo();
             System.out.println("Has caido en una casilla de tipo Suerte o Caja de Comunidad");
             Tablero tablero = Tablero.getInstancia(banca);
-            Boolean solvente = manejarCaidaEnCasilla(actual,mazo, tablero);
+            Boolean solvente = actual.manejarCaidaEnCasilla(mazo, tablero);
         }
         
         else if(tipoCasilla.equals("Impuestos")){
@@ -651,7 +648,7 @@ public class Casilla {
                 return (nombre_cas);
         }
     }
-
+    /*
     public boolean manejarCaidaEnCasilla(Jugador jugadorActual, Mazo mazo, Tablero tablero){
         Scanner scanner = new Scanner(System.in);
         if (tipo.equals("Suerte") || tipo.equals("Comunidad")) {
@@ -673,7 +670,7 @@ public class Casilla {
         }
         return true;
     }
-
+    
     // Método para verificar si el jugador puede pagar y realizar la hipoteca si no tiene suficiente
     public boolean pagarConFortuna(Jugador jugador, float cantidad) {
         if (jugador.getFortuna() >= cantidad) {
@@ -686,7 +683,7 @@ public class Casilla {
         }
         return false;
     }
-
+    
     // Método para pagar a otros jugadores
     public void pagarJugadores(Jugador jugadorPagador, float cantidad) {
         // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
@@ -716,7 +713,7 @@ public class Casilla {
         jugadorPagador.incrementarDineroImpuestos(total);
         casActual.setTotalAlquilerRecaudado(casActual.getTotalAlquilerRecaudado() + total);
         System.out.println(jugadorPagador.getNombre() + " ha pagado un total de " + total + "€ a los otros jugadores.");
-    }
+    }*/
 
 
     public void moverJugador(Jugador jugador, String nombreCasilla, Tablero tablero) {
