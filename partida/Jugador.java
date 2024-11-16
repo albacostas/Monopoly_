@@ -402,7 +402,8 @@ public class Jugador {
         }
     
         // Descontamos el total de la fortuna del jugador que está pagando
-        this.fortuna -= total; // Restamos directamente de la fortuna
+        this.sumarGastos(total); // Restamos directamente de la fortuna
+        this.incrementarDineroAlquiler(total);
         System.out.println(this.nombre + " ha pagado un total de " + total + "€ a los otros jugadores.");
     }
 
