@@ -351,7 +351,6 @@ public class Jugador {
                 break;
 
             case "ir_a_carcel":
-               //jugadorActual.encarcelar(tablero.getPosicion("Carcel"));
                encarcelar(tablero.getPosiciones());
                System.err.println(("Tendría que ir a la carcel."));
                 break;
@@ -368,7 +367,7 @@ public class Jugador {
             case "pagar_balneario":
                 if (!avatar.getLugar().pagarConFortuna(this, 500000f)) {
                     solvente = false;
-                    //jugadorActual.incrementarDineroPropiedades(500000f);
+                    incrementarDineroPropiedades(500000f);
                 }
                 System.err.println(nombre + " ha pagado 500000€.");
                 return solvente;
@@ -387,7 +386,7 @@ public class Jugador {
                 if (!avatar.getLugar().pagarConFortuna(this, 1000000f)) {
                     //hipotecarPropiedad(jugadorActual);
                     solvente = false;
-                    //jugadorActual.incrementarDineroImpuestos(1000000f);
+                    incrementarDineroImpuestos(1000000f);
                 }
                 System.err.println(nombre+ " ha pagado 1000000€.");
                 break;
