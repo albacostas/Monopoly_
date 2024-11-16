@@ -457,7 +457,7 @@ public class Casilla {
             float bote = this.getValor(); // Obtener el bote
             System.out.println("Has caído en 'Parking'. Recibes " + bote + ".");
             actual.sumarFortuna(bote);
-            this.grupo.agregarAlquiler(bote);
+            //this.grupo.agregarAlquiler(bote);
             this.agregarAlquiler(bote);
             actual.incrementarDineroParking(bote);
             totalAlquilerRecaudado += alquiler;
@@ -477,7 +477,8 @@ public class Casilla {
             }
             System.out.println("Has caido en la casilla " + this.getNombre() + ". Pagas " + this.impuesto + ".");
             actual.sumarGastos(this.impuesto);
-            actual.incrementarDineroImpuestos(alquiler);
+            //actual.incrementarDineroImpuestos(alquiler);
+            actual.incrementarDineroImpuestos(this.impuesto);
         }
         else if(this.nome.equals("Carcel")){        //REVISAR: Creo que el codigo nunca llega aqui
             if(actual.getFortuna() < 500000){
@@ -790,6 +791,7 @@ public class Casilla {
                                 edificaciones.add(casa);
                                 System.out.println("Casa construida en la casilla "+this.nome);
                                 System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                this.duenho.incrementarDineroPropiedades(precio);
                                 return true;
                             }
                             else{
@@ -808,6 +810,7 @@ public class Casilla {
                                 edificaciones.add(casa);
                                 System.out.println("Casa construida en la casilla "+this.nome);
                                 System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                this.duenho.incrementarDineroPropiedades(precio);
                                 return true;
     
                             }
@@ -876,6 +879,7 @@ public class Casilla {
                                 edificaciones.add(hotel);
                                 System.out.println("Hotel construido en la casilla "+this.nome);
                                 System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                this.duenho.incrementarDineroPropiedades(precio);
                                 return true;
                             }
                             else{
@@ -928,6 +932,7 @@ public class Casilla {
                                 edificaciones.add(piscina);
                                 System.out.println("Piscina construida en la casilla "+this.nome);
                                 System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                this.duenho.incrementarDineroPropiedades(precio);
                                 return true;
                             }
                             else{
@@ -979,6 +984,7 @@ public class Casilla {
                                 edificaciones.add(pista);
                                 System.out.println("Pista construida en la casilla "+this.nome);
                                 System.out.println("La fortuna de "+this.duenho.getNombre()+" se reduce en "+precio);
+                                this.duenho.incrementarDineroPropiedades(precio);
                                 return true;
                             }
                             else{
