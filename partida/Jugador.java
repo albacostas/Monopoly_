@@ -457,8 +457,9 @@ public class Jugador {
                     }
                     
                 }
-                pagarConFortuna( 00000f);
-                incrementarDineroPropiedades(500000f);
+                pagarConFortuna(500000f);
+                incrementarDineroImpuestos(500000f);
+                
                 System.err.println(nombre + " ha pagado 500000€.");
                 return solvente;
 
