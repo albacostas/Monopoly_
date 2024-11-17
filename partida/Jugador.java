@@ -396,6 +396,7 @@ public class Jugador {
             Jugador jugadorRecibe = jugador.getJugador();
             if (!jugadorRecibe.equals(this)) { // Asegurarse de no pagar al mismo jugador
                 jugadorRecibe.setFortuna(jugadorRecibe.getFortuna() + cantidad);
+                jugadorRecibe.in
                 jugadorRecibe.incrementarRecibidoAlquiler(cantidad);
                 System.out.println(jugadorRecibe.getNombre() + " ha recibido " + cantidad + "€ de " + this.nombre);
             }
@@ -457,8 +458,9 @@ public class Jugador {
                     }
                     
                 }
-                pagarConFortuna( 00000f);
-                incrementarDineroPropiedades(500000f);
+                pagarConFortuna(500000f);
+                incrementarDineroImpuestos(500000f);
+                
                 System.err.println(nombre + " ha pagado 500000€.");
                 return solvente;
 
