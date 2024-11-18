@@ -86,8 +86,10 @@ public class Menu implements Hipotecable{
             System.out.println(" 22. ✨ **Movimiento especial**             : especial");
             System.out.println(" 23. 👣 **Finalizar movimiento especial**   : fin_especial");
             System.out.println(" 24. ➡️  **Continuar movimiento especial**   : continuar");
-            System.out.println(" 25. ❓ **Ayuda**                           : ayuda");
-            System.out.println(" 26. 🚪 **Finalizar partida**               : finalizar");
+            System.out.println(" 25. 📊 **Estadísticas de un juegador**     : estadisticas (jugador)");
+            System.out.println(" 26. 📊 **Estadísticas de la partida**      : estadisticas");
+            System.out.println(" 27. ❓ **Ayuda**                           : ayuda");
+            System.out.println(" 28. 🚪 **Finalizar partida**               : finalizar");
             System.out.println("**********************************************************************************");
             System.out.println("**************************************");
             System.out.print("  🎮 **Introduce un comando:** ");
@@ -456,8 +458,10 @@ public class Menu implements Hipotecable{
                 System.out.println(" 22. ✨ **Movimiento especial**             : especial");
                 System.out.println(" 23. 👣 **Finalizar movimiento especial**   : fin_especial");
                 System.out.println(" 24. ➡️  **Continuar movimiento especial**   : continuar");
-                System.out.println(" 25. ❓ **Ayuda**                           : ayuda");
-                System.out.println(" 26. 🚪 **Finalizar partida**               : finalizar");
+                System.out.println(" 25. 📊 **Estadísticas de un juegador**     : estadisticas (jugador)");
+                System.out.println(" 26. 📊 **Estadísticas de la partida**      : estadisticas");
+                System.out.println(" 27. ❓ **Ayuda**                           : ayuda");
+                System.out.println(" 28. 🚪 **Finalizar partida**               : finalizar");
                 System.out.println("**********************************************************************************");
                 break;
 

@@ -416,6 +416,7 @@ public class Jugador {
 
             case "avanzar_a_solar15":
                 avatar.getLugar().moverJugador(this, "Solar15", tablero);
+                sumarGastos(Valor.SUMA_VUELTA);
                 break;
 
             case "vender_billete":
