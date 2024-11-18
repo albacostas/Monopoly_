@@ -396,7 +396,8 @@ public class Jugador {
             Jugador jugadorRecibe = jugador.getJugador();
             if (!jugadorRecibe.equals(this)) { // Asegurarse de no pagar al mismo jugador
                 jugadorRecibe.setFortuna(jugadorRecibe.getFortuna() + cantidad);
-                jugadorRecibe.incrementarRecibidoAlquiler(cantidad);
+                //jugadorRecibe.incrementarRecibidoAlquiler(cantidad);
+                jugadorRecibe.incrementarDineroParking(cantidad);
                 System.out.println(jugadorRecibe.getNombre() + " ha recibido " + cantidad + "€ de " + this.nombre);
             }
         }
@@ -458,7 +459,7 @@ public class Jugador {
                     }
                     
                 }
-                pagarConFortuna(500000f);
+                //pagarConFortuna(500000f);
                 incrementarDineroImpuestos(500000f);
                 
                 System.err.println(nombre + " ha pagado 500000€.");
@@ -488,7 +489,7 @@ public class Jugador {
                         System.out.println("No tienes hipoteca para pagar");
                     }
                 }
-                pagarConFortuna(1000000f);
+                //pagarConFortuna(1000000f);
                 incrementarDineroImpuestos(1000000f);
                 System.err.println(nombre+ " ha pagado 1000000€.");
                 break;
