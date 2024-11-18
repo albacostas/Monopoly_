@@ -1,7 +1,7 @@
 package partida;
 
 import java.util.ArrayList;
-//import java.util.Scanner;
+import java.util.Scanner;
 
 import monopoly.*;
 
@@ -27,6 +27,10 @@ public class Jugador {
     private float totalRecibidoSalida;
     private float totalRecibidoParking;
     private int vecesCarcel;
+
+    private Carta cartaElegida;
+    private Hipotecable hipotecable;
+    private Scanner scanner;
     // Setters y Getters de los atributos
 
     public String getNombre(){
@@ -144,6 +148,9 @@ public class Jugador {
         return this.tiradasDados;
     }
 
+    public Carta getCartaElegida() {
+        return cartaElegida;
+    }
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
         this.nombre = "Banca";
@@ -163,7 +170,7 @@ public class Jugador {
     * avatares creados (usado para dos propósitos: evitar que dos jugadores tengan el mismo nombre y
     * que dos avatares tengan mismo ID). Desde este constructor también se crea el avatar.
      */
-    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados) {
+    public Jugador(String nombre, String tipoAvatar, Casilla inicio, ArrayList<Avatar> avCreados, Hipotecable hipotecable) {
         for (Avatar i: avCreados){
             if (i.getJugador()!=null && i.getJugador().getNombre()!= null && i.getJugador().getNombre().equals(nombre)){
                 System.out.println("No se puede crear un jugador con nombre repetido");
@@ -179,7 +186,7 @@ public class Jugador {
         this.vueltas=0;
         this.propiedades= new ArrayList<>();
         this.tiradasDados = 0; // Inicializamos el contador de tiradas de dados
-
+        this.hipotecable = hipotecable;
     }
 
     //Otros métodos:
@@ -329,23 +336,175 @@ public class Jugador {
         vecesCarcel++;
     }    
     
-//     public void vueltas(Jugador jugador){
-//         jugador.setVueltas(jugador.getVueltas()+1);
-//         if(jugador.getVueltas() % 4 == 0){
-//             if(completarVueltas()){
-//                 tablero.manejarIncremento();
-//             }
-//         }
-//     }
-//     private boolean completarVueltas(){
-//         for(Jugador jugador : jugadores){
-//             if(jugador.getVueltas() < 4){
-//                 return false;
-//             }
-//         }
-//         return true;
-//     }
+    public boolean manejarCaidaEnCasilla(Mazo mazo, Tablero tablero) {
+        this.scanner = new Scanner(System.in);
+        int eleccion = 0;
+    
+        // Obtener el tipo de la casilla en la que ha caído el jugador
+        String tipoCasilla = avatar.getLugar().getTipo();
+    
+        // Ofrecer al jugador la opción de elegir una carta del 1 al 6
+        System.out.println("Elige una carta del 1 al 6: ");
+        eleccion = scanner.nextInt();
+        scanner.nextLine(); // Limpiamos el scanner
+    
+        if (eleccion < 1 || eleccion > 6) {
+            System.out.println("Elección inválida");
+            return false;
+        }
+    
+        Carta cartaElegida;
+        if (tipoCasilla.equals("Suerte")) {
+            // Elegir carta de Suerte
+            cartaElegida = mazo.elegirCarta(eleccion);
+            System.out.println("Has elegido una carta de Suerte: " + cartaElegida.getDescripcion());
+        } else if (tipoCasilla.equals("Comunidad")) {
+            // Elegir carta de Comunidad
+            cartaElegida = mazo.elegirCarta(eleccion + 6); // Ajustar el índice para las cartas de Comunidad
+            System.out.println("Has elegido una carta de Comunidad: " + cartaElegida.getDescripcion());
+        } else {
+            System.out.println("No has caído en una casilla de Suerte o Comunidad.");
+            return false; // Si no es una casilla válida, retorna false
+        }
+    
+        return realizarAccion(cartaElegida, tablero); // Llama a realizarAccion para procesar la carta
+    }
 
+    private boolean pagarConFortuna(float cantidad){
+        if(this.fortuna >= cantidad){
+            this.sumarGastos(cantidad);
+            System.out.println(this.nombre + " ha pagado " + cantidad + ".");
+            return true;
+        } else{
+            System.out.println(this.nombre + " no tiene suficiente fortuna para pagar " + cantidad + ".");
+            return false;
+        }
+    }
+
+    public void pagarJugadores(float cantidad) {
+        // Calculamos el total a pagar a cada jugador y la cantidad que se descontará
+        float total = cantidad * (this.avatar.getLugar().getAvatares().size() - 1); // Total a pagar a todos menos al jugador que paga
+    
+        // Verificamos si el jugador tiene suficiente fortuna para realizar el pago
+        if (this.fortuna < total) {
+            System.out.println(this.nombre + " no tiene suficiente dinero para pagar a todos los jugadores.");
+            return; // No tiene suficiente dinero
+        }
+        Casilla casActual = this.avatar.getLugar();
+        // Transferimos la cantidad a cada jugador excepto al jugador que está pagando
+        for (Avatar jugador: casActual.getAvatares()) {
+            Jugador jugadorRecibe = jugador.getJugador();
+            if (!jugadorRecibe.equals(this)) { // Asegurarse de no pagar al mismo jugador
+                jugadorRecibe.setFortuna(jugadorRecibe.getFortuna() + cantidad);
+                //jugadorRecibe.incrementarRecibidoAlquiler(cantidad);
+                jugadorRecibe.incrementarDineroParking(cantidad);
+                System.out.println(jugadorRecibe.getNombre() + " ha recibido " + cantidad + "€ de " + this.nombre);
+            }
+        }
+    
+        // Descontamos el total de la fortuna del jugador que está pagando
+        this.sumarGastos(total); // Restamos directamente de la fortuna
+        this.incrementarDineroAlquiler(total);
+        System.out.println(this.nombre + " ha pagado un total de " + total + "€ a los otros jugadores.");
+    }
+
+    public boolean realizarAccion(Carta carta, Tablero tablero) {
+        Boolean solvente = true;
+        switch (carta.getAccion()) {
+            case "ir_a_transportes1":
+                avatar.getLugar().moverJugador(this, "Trans1", tablero);
+                break;
+
+            case "avanzar_a_solar15":
+                avatar.getLugar().moverJugador(this, "Solar15", tablero);
+                sumarGastos(Valor.SUMA_VUELTA);
+                break;
+
+            case "vender_billete":
+                sumarFortuna(500000f);
+                incrementarDineroParking(500000f);
+                System.out.println(nombre + " ha ganado 500000€.");
+                break;
+
+            case "ir_a_solar3":
+                avatar.getLugar().moverJugador(this, "Solar3", tablero);
+                break;
+
+            case "ir_a_carcel":
+               encarcelar(tablero.getPosiciones());
+               System.err.println(("Tendría que ir a la carcel."));
+                break;
+
+            case "ganar_loteria":
+                sumarFortuna(1000000f);
+                incrementarDineroParking(1000000f);
+                System.out.println(nombre + " ha ganado la lotería: 1000000€.");
+                break;
+
+
+            // ACCIONES DE COMUNIDAD
+
+            case "pagar_balneario":
+                if (!pagarConFortuna(500000f)) {
+                    solvente = false;
+                    if(hipotecable != null){
+                        this.scanner = new Scanner(System.in);
+                        System.out.println("El jugador no tiene suficiente dinero para pagar con su fortuna.");
+                        System.out.println("Introduce el nombre de la propiedad para hipotecar: ");
+                        String respuesta = scanner.nextLine();
+                        scanner.nextLine(); // Limpiamos el scanner
+                        hipotecable.hipotecar(respuesta);
+                    }else{
+                        System.out.println("No tienes hipoteca para pagar");
+                    }
+                    
+                }
+                //pagarConFortuna(500000f);
+                incrementarDineroImpuestos(500000f);
+                
+                System.err.println(nombre + " ha pagado 500000€.");
+                return solvente;
+
+            case "ir_a_salida":
+                avatar.getLugar().moverJugador(this, "Salida", tablero);
+                avatar.getLugar().jugadorPasaPorSalida(this);
+                break;
+
+            case "recibir_beneficio":
+                sumarFortuna(2000000f);
+                incrementarDineroParking(2000000f);
+                break;
+
+            case "pagar_viaje":
+                if (!pagarConFortuna(1000000f)) {
+                    solvente = false;
+                    if(hipotecable != null){
+                        this.scanner = new Scanner(System.in);
+                        System.out.println("El jugador no tiene suficiente dinero para pagar con su fortuna.");
+                        System.out.println("Introduce el nombre de la propiedad para hipotecar: ");
+                        String respuesta = scanner.nextLine();
+                        scanner.nextLine(); // Limpiamos el scanner
+                        hipotecable.hipotecar(respuesta);
+                    }else{
+                        System.out.println("No tienes hipoteca para pagar");
+                    }
+                }
+                //pagarConFortuna(1000000f);
+                incrementarDineroImpuestos(1000000f);
+                System.err.println(nombre+ " ha pagado 1000000€.");
+                break;
+
+            case "pagar_alquiler":
+                this.pagarJugadores(200000f);
+                incrementarDineroImpuestos(200000f);
+                break;
+
+            default:
+                System.out.println("Acción no implementada.");
+                break;
+        }
+        return solvente;
+    }
 
     @Override
 
