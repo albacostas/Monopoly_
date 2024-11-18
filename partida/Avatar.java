@@ -90,7 +90,7 @@ public class Avatar {
         this.lugar = lugar;
         this.generarId(avCreados);
         this.movimientoEspecial = false;
-        this.contador_especial = 5;
+        this.contador_especial = 0;
         this.saltarTurno = false;
         //this.vueltas = 0;
     }
@@ -112,7 +112,7 @@ public class Avatar {
         }
         this.lugar.eliminarAvatar(this);
         // Si la nueva posición excede 40, hacemos un bucle al inicio
-        if (nuevaPosicion >= 40) { //if (nuevaPosicion > 40)
+        if (nuevaPosicion > 40) { //if (nuevaPosicion > 40)
             nuevaPosicion = nuevaPosicion % 40;
             this.jugador.sumarFortuna(Valor.SUMA_VUELTA); 
             this.jugador.incrementarDineroSalida(Valor.SUMA_VUELTA);
@@ -148,13 +148,13 @@ public class Avatar {
     /**Método para cambiar el modo de movimiento de los avatares
      * 
      */
-    public boolean cambiarModo(ArrayList<ArrayList<Casilla>> casillas, int valorTirada){
+    public boolean cambiarModo(ArrayList<ArrayList<Casilla>> casillas, int valorDado1, int valorDado2){
         String tipoAvatar = this.tipo;
         boolean solvente = true;
+        int valorTirada = valorDado1 + valorDado2;
         switch (tipoAvatar) {
             case "Pelota":
                 if (valorTirada>4) {
-
                     if (contador_especial <= valorTirada) {
                         if (contador_especial%2==1){
                             moverAvatar(casillas, contador_especial == 5 ? contador_especial : 2);             //Solo cambia al avatar de casilla
@@ -177,13 +177,26 @@ public class Avatar {
                 }
                 else{
                     valorTirada=valorTirada*(-1);
-                    moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
-                    solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
+
+                    if (contador_especial >= valorTirada) {
+                        if (contador_especial%2==-1){
+                            moverAvatar(casillas, contador_especial == -1 ? contador_especial : -2);             //Solo cambia al avatar de casilla
+                        }
+                        else{                                                                                   //ATENEA REVISAR XQ SEGURO Q HAY COSAS DE MAS AQUI Y EN CONTINUAR
+                            moverAvatar(casillas, contador_especial == -1 ? contador_especial : -1);             //Solo cambia al avatar de casilla
+                        }
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);        //Cambiar valor tirada en funcion de lo q se tenga q pagar REVISAR ATENEA
+                        if (contador_especial == valorTirada+1 && valorTirada%2==0) {                               //Si es par y está en el último movimiento solo sumar 1
+                            contador_especial--;
+                        }
+                        else{
+                            contador_especial -= 2;
+                        }
+                    }
                 }
                 break;
             case "Coche":
                 if (valorTirada>4) {
-                    
                     moverAvatar(casillas, valorTirada);
                     solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA  
                 }

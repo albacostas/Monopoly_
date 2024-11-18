@@ -241,6 +241,7 @@ public class Casilla {
 
     public float calcularAlquilerSolar(Jugador jActual){
         if(this.tipo.equals("Solar")){
+
             if (this.getGrupo().esDuenhoGrupo(jActual)){
                 this.impuesto = this.valorinicial * 0.2f;          //Si el jugador es dueño de todas las casillas del grupo, el alquiler se duplica.
                 return impuesto;
@@ -337,7 +338,7 @@ public class Casilla {
 
     public float calcularAlquilerEdificacionessinMensajes(){
         float alquiler=this.valorinicial*0.1f;
-        float alquilercongrupo = this.calcularAlquilerSolar(this.duenho);
+        float alquilercongrupo = this.calcularAlquilerSolar(this.duenho);                               //Revisar si cobra la banca ATENEA preguntar AINHOA
         float alquilerCasas=0.0f, alquilerHoteles=0.0f, alquilerPiscinas=0.0f, alquilerPistas=0.0f, alquilerTotal=0.0f;
             if(numCasas!=0){
                 if(numCasas==1){
