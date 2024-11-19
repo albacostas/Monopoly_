@@ -383,7 +383,7 @@ public class Casilla {
             // Comprobar si la propiedad pertenece a otro jugador
             if (duenho != null && !duenho.equals(actual)) {
 
-                if (!duenho.equals(banca)){
+                if ((!duenho.equals(banca) && !actual.getAvatar().getMovimientoEspecial()) || (!duenho.getNombre().equals("Banca")&& actual.getAvatar().getMovimientoEspecial())) {
                     if(tipoCasilla.equals("Solar")){
                         alquiler = this.calcularAlquilerSolar(duenho);
                         this.grupo.agregarAlquiler(alquiler);

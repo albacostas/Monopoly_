@@ -769,7 +769,7 @@ public class Menu implements Hipotecable{
                 Casilla parking = tablero.encontrar_casilla("Parking");
                 parking.setValor(parking.getValor() + casActual.getImpuesto());
             }
-            System.out.println("Tiradas coche del jugador " + jActual.getNombre() + ": " + jActual.getTiradasCoche());
+            //System.out.println("Tiradas coche del jugador " + jActual.getNombre() + ": " + jActual.getTiradasCoche());
         }
     }
 

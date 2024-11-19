@@ -226,12 +226,12 @@ public class Avatar {
                 }
                 break;
             case "Esfinge":
-                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                System.out.println("El avatar Esfinge no tiene un modo de movimiento especial.");
                 moverAvatar(casillas, valorTirada);
                 solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
                 break;
             case "Sombrero":
-                System.out.println("El avatar coche no tiene un modo de movimiento especial.");
+                System.out.println("El avatar Sombrero no tiene un modo de movimiento especial.");
                 moverAvatar(casillas, valorTirada);
                 solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA
                 break;
