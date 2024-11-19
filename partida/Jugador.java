@@ -19,6 +19,9 @@ public class Jugador {
     private ArrayList<Casilla> propiedades; //Propiedades que posee el jugador.
 
     private int tiradasDados; // Contador para las tiradas de dados, atributo para estadistica.
+    private int turnosSaltados = 0;
+    private int tiradasCoche;
+
 
     private float totalInvertidoPropiedades;
     private float totalPagadoImpuestos;
@@ -151,6 +154,23 @@ public class Jugador {
     public Carta getCartaElegida() {
         return cartaElegida;
     }
+
+    public int getTurnosSaltados() {
+        return turnosSaltados;
+    }
+
+    public void setTurnosSaltados(int turnosSaltados) {
+        this.turnosSaltados = turnosSaltados;
+    }
+
+    public int getTiradasCoche() {
+        return tiradasCoche;
+    }
+
+    public void setTiradasCoche(int tiradasCoche) {
+        this.tiradasCoche = tiradasCoche;
+    }
+
     //Constructor vacío. Se usará para crear la banca.
     public Jugador() {
         this.nombre = "Banca";
@@ -161,6 +181,8 @@ public class Jugador {
         this.tiradasCarcel = 0;
         this.vueltas = 0;
         this.tiradasDados = 0;
+        this.turnosSaltados = 0;
+        this.tiradasCoche = 0;
     }
 
 
@@ -187,6 +209,7 @@ public class Jugador {
         this.propiedades= new ArrayList<>();
         this.tiradasDados = 0; // Inicializamos el contador de tiradas de dados
         this.hipotecable = hipotecable;
+        this.tiradasCoche = 0;
     }
 
     //Otros métodos:

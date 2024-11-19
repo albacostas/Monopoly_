@@ -19,6 +19,7 @@ public class Avatar {
     private boolean movimientoEspecial;
     private int contador_especial;
     private boolean saltarTurno;
+    private boolean doblesCoche;
     //private int vueltas;
 
     public String getId() {
@@ -73,6 +74,14 @@ public class Avatar {
         this.saltarTurno = saltarTurno;
     }
 
+    public boolean getDoblesCoche(){
+        return doblesCoche;
+    }
+
+    public void setDoblesCoche(boolean doblesCoche) {
+        this.doblesCoche = doblesCoche;
+    }
+
     //Constructor vacío
     public Avatar() {
         this.jugador = new Jugador();
@@ -92,6 +101,7 @@ public class Avatar {
         this.movimientoEspecial = false;
         this.contador_especial = 0;
         this.saltarTurno = false;
+        this.doblesCoche = false;
         //this.vueltas = 0;
     }
 
@@ -201,10 +211,18 @@ public class Avatar {
                     solvente = lugar.evaluarCasilla(jugador, lugar.getBanca(), valorTirada);        //CÓDIGO TEMPORAL: SIRVE PARA QUE SE MUEVAN LOS AVATARES DE FORMA NORMAL SI NO TIENEN MOVIMIENTO ESPECIAL TODAVIA  
                 }
                 else{
-                    valorTirada=valorTirada*(-1);
-                    moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
-                    solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
-                    this.setSaltarTurno(true);
+                    if (this.doblesCoche) {
+                        valorTirada=valorTirada*(-1);
+                        moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
+                        this.setSaltarTurno(false);
+                    }
+                    else{
+                        valorTirada=valorTirada*(-1);
+                        moverAvatar(casillas, valorTirada);             //Solo cambia al avatar de casilla
+                        solvente = this.lugar.evaluarCasilla(jugador, this.lugar.getBanca(), valorTirada);
+                        this.setSaltarTurno(true);
+                    }
                 }
                 break;
             case "Esfinge":

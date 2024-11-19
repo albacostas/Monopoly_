@@ -28,8 +28,7 @@ public class Menu implements Hipotecable{
     private Estadisticas estadisticas;
     private int valorDado1;
     private int valorDado2;
-    private int turnosSaltados;
-    private int tiradasCoche;
+    //private int tiradasCoche;
     private Carta cartaElegida;
     // Constructor del menú: Desarrollo de la partida (Necesario porque los métodos
     // son privados, por lo que todas las instrucciones deben seguirse aquí)
@@ -50,8 +49,7 @@ public class Menu implements Hipotecable{
         this.iniciarPartida(scanner);
         System.out.println(this.tablero.toString());
         this.estadisticas = new Estadisticas(jugadores, tablero.getCasillas(), this.tablero);
-        this.turnosSaltados = 0;
-        this.tiradasCoche = 0;
+        // this.tiradasCoche = 0;
 
         String comando;
         do {
@@ -197,20 +195,8 @@ public class Menu implements Hipotecable{
         // tablero = new Tablero(banca); //hay que definir este constructor!!!
     }
 
-    public int getTurnosSaltados() {
-        return turnosSaltados;
-    }
-
-    public void setTurnosSaltados(int turnosSaltados) {
-        this.turnosSaltados = turnosSaltados;
-    }
-
     public Estadisticas getEstadisticas() {
         return estadisticas;
-    }
-
-    public void setTiradasCoche(int tiradasCoche) {
-        this.tiradasCoche = tiradasCoche;
     }
 
     // Método para inciar una partida: crea los jugadores y avatares.
@@ -622,16 +608,17 @@ public class Menu implements Hipotecable{
     // Método para verificar y manejar si el jugador debe saltar el turno
     private boolean debeSaltarTurno() {
         if (jugadores.get(turno).getAvatar().getSaltarTurno()) {
-            if (this.getTurnosSaltados() < 2) {
-                this.setTurnosSaltados(this.getTurnosSaltados() + 1);
-                System.out.println("Turno saltado por penalización. Turnos saltados hasta ahora: " + this.getTurnosSaltados());
+            if (jugadores.get(turno).getTurnosSaltados() < 2) {
+                jugadores.get(turno).setTurnosSaltados(jugadores.get(turno).getTurnosSaltados() + 1);
+                System.out.println("Turno saltado por penalización. Turnos saltados hasta ahora: " + jugadores.get(turno).getTurnosSaltados());
                 tirado = true;
                 return true;
             } else {
-                this.setTurnosSaltados(0);
+                jugadores.get(turno).setTurnosSaltados(0);
                 jugadores.get(turno).getAvatar().setSaltarTurno(false);
             }
         }
+        //jugadores.get(turno).setTiradasCoche(0);
         return false;
     }
 
@@ -641,8 +628,7 @@ public class Menu implements Hipotecable{
      * Parámetros: nombre de la casilla a describir.
      */
     private void lanzarDados(int d1, int d2) {
-        if (tirado) { // Comprobamos que el jugador no haya tirado antes o si haya tirado, pero haya
-                      // sacado dobles
+        if (tirado) { // Comprobamos que el jugador no haya tirado antes o si haya tirado, pero haya sacado dobles
             System.out.println("El jugador ya ha lanzado los dados en este turno.\n");
             return;
         }
@@ -678,7 +664,7 @@ public class Menu implements Hipotecable{
             System.out.println("El jugador: " + jActual.getNombre());
             System.out.println("Dado 1: " + valorDado1 + ", dado 2: " + valorDado2 + ". Valor total: " + sumaDados);
             
-            if (lanzamientos == 3 && valorDado1 == valorDado2 && tiradasCoche==0) {
+            if (lanzamientos == 3 && valorDado1 == valorDado2 && jActual.getTiradasCoche()==0) {
                 System.out.println("¡Tres dobles consecutivos! El jugador " + jActual.getNombre() + " irá a la cárcel :(");
                 lanzamientos = 0;
                 jActual.encarcelar(tablero.getPosiciones());
@@ -699,42 +685,69 @@ public class Menu implements Hipotecable{
 
             Casilla casActual;
             //Casilla casActual = jActual.getAvatar().getLugar();
-            if (jActual.getAvatar().getMovimientoEspecial() /*&& jActual.getAvatar().getTipo().equals("Pelota")*/) {
-                if (sumaDados>4){
-                    jActual.getAvatar().setContador_especial(5);
+            if (jActual.getAvatar().getMovimientoEspecial()) {
+                if (jActual.getAvatar().getTipo().equals("Pelota")) {           //ATENEA: AQUI NOS QUEDAMOS
+                    if (sumaDados>4){
+                        jActual.getAvatar().setContador_especial(5);
+                    }
+                    else{
+                        jActual.getAvatar().setContador_especial(-1);
+                    }
                 }
-                else{
-                    jActual.getAvatar().setContador_especial(-1);
+                if (valorDado1 == valorDado2 && jActual.getTiradasCoche()<3 && jActual.getTiradasCoche()>0) {
+                    jActual.getAvatar().setDoblesCoche(true);
                 }
                 this.solvente = jActual.getAvatar().cambiarModo(tablero.getPosiciones(), valorDado1, valorDado2);
+                if (sumaDados<=4 && jActual.getAvatar().getDoblesCoche()) {
+                    jActual.setTiradasCoche(4);
+                }
                 casActual = jActual.getAvatar().getLugar();
                 casActual.registrarCaida(jActual);
                 if (!solvente) {
                     noSolvente(casActual.getDuenho());                                      //ATENEA: TENER EN CUENTA / REVISAR
                 }
-                if (sumaDados!=5 && sumaDados!=1 && jugadores.get(turno).getAvatar().getTipo().equals("Pelota")) {          //ATENEA: REVSAR EL !=5
+                if (sumaDados!=5 && sumaDados!=1 && jugadores.get(turno).getAvatar().getTipo().equals("Pelota")) {
                     System.out.println("Introduce el comando 'continuar' cuando quieras seguir moviendo el avatar.");
                     tirado = false;
                     return;
                 }
-                if (sumaDados>4 && jugadores.get(turno).getAvatar().getTipo().equals("Coche") && tiradasCoche<3) {
-                   tirado = false;
-                   tiradasCoche++;
-                   System.out.println("El jugador ha sacado más de un 4, puede volver a tirar");
-                }
-                else if (sumaDados<=4 && jugadores.get(turno).getAvatar().getTipo().equals("Coche")) {
-                    tirado = true;
-                    tiradasCoche = 0;
-                    System.out.println("El jugador ha sacado menos de 4, tras este turno ya no vuelve a tirar");
-                }
-                else if (tiradasCoche == 4 && jugadores.get(turno).getAvatar().getTipo().equals("Coche")) {
-                    tirado = true;
-                    tiradasCoche = 0;
-                    System.out.println("El jugador ya ha vuelto a lanzar los dados 3 veces seguidas, ahora termian el turno.");
-                }
-
-                if (jugadores.get(turno).getAvatar().getTipo().equals("Coche") && sumaDados<=4) {   //ATENEA: MUY IMPORTANTE REVISAR SI VA
-                    tirado = true;      //acabarTurno();              //ATENEA: SI AL FINAL SE PIDE REALIZAR ACCIONES CAMBIAR ESTO POR TIRADO = TRUE
+                if (jugadores.get(turno).getAvatar().getTipo().equals("Coche")) {
+                    if ((sumaDados>4 && jActual.getTiradasCoche()<3)) {
+                        tirado = false;
+                        jActual.setTiradasCoche(jActual.getTiradasCoche()+1);
+                        if (valorDado1 == valorDado2) {
+                            jActual.getAvatar().setDoblesCoche(true);
+                        }
+                        System.out.println("El jugador ha sacado más de un 4, puede volver a tirar");
+                    }
+                    else if (jActual.getTiradasCoche() == 3) {
+                        if (jActual.getAvatar().getDoblesCoche()) {
+                            System.out.println("El jugador ha sacado dobles en alguna de las tiradas. Puede volver a lanzar los dados una última vez extra.");
+                            tirado = false;
+                            jActual.getAvatar().setDoblesCoche(false);
+                        }
+                        else{
+                            tirado = true;
+                            jActual.setTiradasCoche(0);
+                            System.out.println("El jugador no ha tirado ningún doble o ya ha lanzado su dado doble. Se termina su turno.");
+                        }
+                    }
+                    else if (sumaDados<=4) {
+                        if (valorDado1 == valorDado2 && jActual.getAvatar().getSaltarTurno()==false) {
+                            jActual.getAvatar().setDoblesCoche(true);
+                        }
+                        if (jActual.getAvatar().getDoblesCoche()) {
+                            System.out.println("El jugador ha sacado dobles en alguna de las tiradas del coche. Puede volver a lanzar los dados");
+                            tirado = false;
+                            jActual.getAvatar().setDoblesCoche(false);
+                            jActual.setTiradasCoche(3);
+                        }
+                        else{
+                            tirado = true;
+                            jActual.setTiradasCoche(0);
+                            System.out.println("El jugador ha sacado menos de 4, tras este turno ya no vuelve a tirar");
+                        }  
+                    }
                 }
             }
             else{
@@ -756,6 +769,7 @@ public class Menu implements Hipotecable{
                 Casilla parking = tablero.encontrar_casilla("Parking");
                 parking.setValor(parking.getValor() + casActual.getImpuesto());
             }
+            System.out.println("Tiradas coche del jugador " + jActual.getNombre() + ": " + jActual.getTiradasCoche());
         }
     }
 
@@ -1156,6 +1170,7 @@ public class Menu implements Hipotecable{
             System.out.println("El jugador " + jSiguiente.getNombre() + " no puede tirar. Ha terminado.");
         }
         lanzamientos = 0;
+        ///jActual.setTiradasCoche(0);
     }
     /*
     public boolean hipotecar(String nombre){
